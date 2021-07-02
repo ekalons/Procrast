@@ -1,0 +1,447 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EF9FF2603FF1100A7232D /* AppDelegate.swift */; };
+		425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA012603FF1100A7232D /* SceneDelegate.swift */; };
+		425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */; };
+		425EFA0C2603FF1200A7232D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 425EFA0B2603FF1200A7232D /* Assets.xcassets */; };
+		425EFA0F2603FF1200A7232D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 425EFA0D2603FF1200A7232D /* LaunchScreen.storyboard */; };
+		425EFA21260400D300A7232D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA20260400D300A7232D /* MainViewController.swift */; };
+		425EFA2A260405B300A7232D /* PCIconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA29260405B300A7232D /* PCIconButton.swift */; };
+		425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA2D2604300800A7232D /* CreateHabitViewController.swift */; };
+		425EFA312604318900A7232D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA302604318900A7232D /* SettingsViewController.swift */; };
+		425EFA34260514C400A7232D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA33260514C400A7232D /* Constants.swift */; };
+		425EFA3F260521C600A7232D /* UIViewPins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA3E260521C600A7232D /* UIViewPins.swift */; };
+		425EFA432605230500A7232D /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA422605230500A7232D /* HabitCell.swift */; };
+		425EFA472605267B00A7232D /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA462605267B00A7232D /* Habit.swift */; };
+		425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */; };
+		42A653942617DFBC001C6FB7 /* PCCompletedHabitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */; };
+		42A653972617E913001C6FB7 /* CircularCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A653962617E913001C6FB7 /* CircularCheckBox.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Procrast [Programmatic].app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		425EF9FF2603FF1100A7232D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		425EFA012603FF1100A7232D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		425EFA092603FF1100A7232D /* Procrast__Programmatic_.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Procrast__Programmatic_.xcdatamodel; sourceTree = "<group>"; };
+		425EFA0B2603FF1200A7232D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		425EFA0E2603FF1200A7232D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		425EFA102603FF1200A7232D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		425EFA20260400D300A7232D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		425EFA29260405B300A7232D /* PCIconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCIconButton.swift; sourceTree = "<group>"; };
+		425EFA2D2604300800A7232D /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
+		425EFA302604318900A7232D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		425EFA33260514C400A7232D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		425EFA3E260521C600A7232D /* UIViewPins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPins.swift; sourceTree = "<group>"; };
+		425EFA422605230500A7232D /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
+		425EFA462605267B00A7232D /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCRoundColorButton.swift; sourceTree = "<group>"; };
+		42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCCompletedHabitButton.swift; sourceTree = "<group>"; };
+		42A653962617E913001C6FB7 /* CircularCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCheckBox.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		425EF9F92603FF1100A7232D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		425EF9F32603FF1100A7232D = {
+			isa = PBXGroup;
+			children = (
+				425EF9FE2603FF1100A7232D /* Procrast [Programmatic] */,
+				425EF9FD2603FF1100A7232D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		425EF9FD2603FF1100A7232D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		425EF9FE2603FF1100A7232D /* Procrast [Programmatic] */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA3926051FFA00A7232D /* Extensions */,
+				425EFA1B2603FF3200A7232D /* Controllers */,
+				425EFA1A2603FF2D00A7232D /* Model */,
+				425EFA192603FF2900A7232D /* Views */,
+				425EFA172603FF1C00A7232D /* Supporting Files */,
+				425EFA102603FF1200A7232D /* Info.plist */,
+				425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */,
+			);
+			path = "Procrast [Programmatic]";
+			sourceTree = "<group>";
+		};
+		425EFA172603FF1C00A7232D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA41260522E100A7232D /* Table View Cell */,
+				425EFA262604021800A7232D /* Custom Buttons */,
+				425EF9FF2603FF1100A7232D /* AppDelegate.swift */,
+				425EFA012603FF1100A7232D /* SceneDelegate.swift */,
+				425EFA33260514C400A7232D /* Constants.swift */,
+				425EFA0B2603FF1200A7232D /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		425EFA192603FF2900A7232D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA0D2603FF1200A7232D /* LaunchScreen.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		425EFA1A2603FF2D00A7232D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA462605267B00A7232D /* Habit.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		425EFA1B2603FF3200A7232D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA20260400D300A7232D /* MainViewController.swift */,
+				425EFA2D2604300800A7232D /* CreateHabitViewController.swift */,
+				425EFA302604318900A7232D /* SettingsViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		425EFA262604021800A7232D /* Custom Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA29260405B300A7232D /* PCIconButton.swift */,
+				425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */,
+				42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */,
+				42A653962617E913001C6FB7 /* CircularCheckBox.swift */,
+			);
+			path = "Custom Buttons";
+			sourceTree = "<group>";
+		};
+		425EFA3926051FFA00A7232D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA3E260521C600A7232D /* UIViewPins.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		425EFA41260522E100A7232D /* Table View Cell */ = {
+			isa = PBXGroup;
+			children = (
+				425EFA422605230500A7232D /* HabitCell.swift */,
+			);
+			path = "Table View Cell";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		425EF9FB2603FF1100A7232D /* Procrast [Programmatic] */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 425EFA132603FF1200A7232D /* Build configuration list for PBXNativeTarget "Procrast [Programmatic]" */;
+			buildPhases = (
+				425EF9F82603FF1100A7232D /* Sources */,
+				425EF9F92603FF1100A7232D /* Frameworks */,
+				425EF9FA2603FF1100A7232D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Procrast [Programmatic]";
+			productName = "Procrast [Programmatic]";
+			productReference = 425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		425EF9F42603FF1100A7232D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1240;
+				LastUpgradeCheck = 1240;
+				TargetAttributes = {
+					425EF9FB2603FF1100A7232D = {
+						CreatedOnToolsVersion = 12.4;
+					};
+				};
+			};
+			buildConfigurationList = 425EF9F72603FF1100A7232D /* Build configuration list for PBXProject "Procrast [Programmatic]" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 425EF9F32603FF1100A7232D;
+			productRefGroup = 425EF9FD2603FF1100A7232D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				425EF9FB2603FF1100A7232D /* Procrast [Programmatic] */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		425EF9FA2603FF1100A7232D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425EFA0F2603FF1200A7232D /* LaunchScreen.storyboard in Resources */,
+				425EFA0C2603FF1200A7232D /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		425EF9F82603FF1100A7232D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */,
+				42A653942617DFBC001C6FB7 /* PCCompletedHabitButton.swift in Sources */,
+				425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */,
+				425EFA2A260405B300A7232D /* PCIconButton.swift in Sources */,
+				425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */,
+				42A653972617E913001C6FB7 /* CircularCheckBox.swift in Sources */,
+				425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */,
+				425EFA432605230500A7232D /* HabitCell.swift in Sources */,
+				425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */,
+				425EFA472605267B00A7232D /* Habit.swift in Sources */,
+				425EFA21260400D300A7232D /* MainViewController.swift in Sources */,
+				425EFA3F260521C600A7232D /* UIViewPins.swift in Sources */,
+				425EFA312604318900A7232D /* SettingsViewController.swift in Sources */,
+				425EFA34260514C400A7232D /* Constants.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		425EFA0D2603FF1200A7232D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				425EFA0E2603FF1200A7232D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		425EFA112603FF1200A7232D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		425EFA122603FF1200A7232D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		425EFA142603FF1200A7232D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VSTB2SY9JR;
+				INFOPLIST_FILE = "Procrast [Programmatic]/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ekaitz.Procrast--Programmatic-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		425EFA152603FF1200A7232D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = VSTB2SY9JR;
+				INFOPLIST_FILE = "Procrast [Programmatic]/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ekaitz.Procrast--Programmatic-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		425EF9F72603FF1100A7232D /* Build configuration list for PBXProject "Procrast [Programmatic]" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425EFA112603FF1200A7232D /* Debug */,
+				425EFA122603FF1200A7232D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		425EFA132603FF1200A7232D /* Build configuration list for PBXNativeTarget "Procrast [Programmatic]" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				425EFA142603FF1200A7232D /* Debug */,
+				425EFA152603FF1200A7232D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				425EFA092603FF1100A7232D /* Procrast__Programmatic_.xcdatamodel */,
+			);
+			currentVersion = 425EFA092603FF1100A7232D /* Procrast__Programmatic_.xcdatamodel */;
+			path = Procrast__Programmatic_.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 425EF9F42603FF1100A7232D /* Project object */;
+}
