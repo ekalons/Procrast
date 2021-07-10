@@ -37,6 +37,5 @@ class CircularCheckBox: UIView {
         } else {
             backgroundColor = .systemBackground
         }
-        
     }
 }
