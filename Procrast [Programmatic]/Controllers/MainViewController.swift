@@ -100,24 +100,30 @@ class MainViewController: UIViewController {
 
 //MARK: Extensions
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return habits.count
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         let cell = tableView.dequeueReusableCell(withIdentifier: Cells.habitCell) as! HabitCell
         let habit = habits[indexPath.row]
         cell.set(habit: habit)
         
+        cell.radioImageViewAction = { [unowned self] in
+            let habit = self.habits[indexPath.row].title
+            let alert = UIAlertController(title: "Congratulations!", message: "You completed the \(habit) habit", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            self.present(alert, animated: true, completion: nil)
+        }
+        
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return habits.count
+    }
 
 }
-
 
 
 
@@ -148,7 +154,6 @@ extension MainViewController {
         let habit4 = Habit(color: .systemGreen, title: "Do something creative")
         let habit5 = Habit(color: .systemYellow, title: "Run for 45 minutes")
         let habit6 = Habit(color: .systemBlue, title: "Prepare a healthy meal")
-        
         
         
         return [habit1, habit2, habit3, habit4, habit5, habit6]
