@@ -9,11 +9,12 @@ import UIKit
 
 class HabitCell: UITableViewCell {
     
-    var habitTitleLabel      = UILabel()
-    let habitCardView        = UIView()
-    let radioView            = UIView()
-    let radioImageView       = UIImageView()
-    var radioImageViewAction : (() -> ())?
+    var habitTitleLabel             = UILabel()
+    let habitCardView               = UIView()
+    let radioView                   = UIView()
+    let radioImageViewOuterRing     = UIImageView()
+    let radioImageViewInnerCircle   = UIImageView()
+    var radioImageViewAction        : (() -> ())?
 
     
     
@@ -22,20 +23,23 @@ class HabitCell: UITableViewCell {
         
         contentView.addSubview(habitCardView)
         habitCardView.addSubview(radioView)
-        radioView.addSubview(radioImageView)
+        radioView.addSubview(radioImageViewOuterRing)
+        radioImageViewOuterRing.addSubview(radioImageViewInnerCircle)
         habitCardView.addSubview(habitTitleLabel)
         backgroundColor = .systemGray6
         
         // Configuring all UI
         configureHabitCardView()
         configureRadioView()
-        configureRadioImageView()
+        configureRadioImageViewOuterRing()
+        configureRadioImageViewInnerCircle()
         configureTitleLabel()
         
         // Setting all constraints
         setCardViewConstraints()
         setRadioViewConstraints()
-        setRadioImageViewConstraints()
+        setRadioImageViewOuterRingConstraints()
+        setRadioImageViewInnerCircleConstraints()
         setTitleLabelConstraints()
 
     }
@@ -55,6 +59,8 @@ class HabitCell: UITableViewCell {
     }
     
     func configureRadioView() {
+//        radioView.backgroundColor = .systemRed
+        
         //Remove function if empty
     }
     
@@ -62,7 +68,7 @@ class HabitCell: UITableViewCell {
 //    override func awakeFromNib() {
 //        super.awakeFromNib()
 //
-//        self.radioImageView.addTarget(self, action: #selector(onRadioButtonTap(_:)), for: .touchUpInside)
+//        self.radioImageViewOuterRing.addTarget(self, action: #selector(onRadioButtonTap(_:)), for: .touchUpInside)
 //
 //    }
     
@@ -70,26 +76,24 @@ class HabitCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configureRadioImageView() {
-//        radioView.addSubview(radioImage)
-        radioImageView.isUserInteractionEnabled = true
+    func configureRadioImageViewOuterRing() {
+        radioImageViewOuterRing.isUserInteractionEnabled = true
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onRadioImageViewTap(_:)))
-        radioImageView.addGestureRecognizer(tapRecognizer)
+        radioImageViewOuterRing.addGestureRecognizer(tapRecognizer)
         
-        radioImageView.layer.cornerRadius = 11
-        radioImageView.layer.borderWidth = 3.5
+        radioImageViewOuterRing.layer.cornerRadius = 11
+        radioImageViewOuterRing.layer.borderWidth = 3.5
         
-        if isSelected {
-            print("Button checked")
-            radioImageView.layer.borderColor = UIColor.systemBlue.cgColor
-            radioImageView.backgroundColor = .systemBlue
-            radioImageView.tintColor = .white
-        } else {
-            radioImageView.layer.borderColor = UIColor.systemBlue.cgColor
-            radioImageView.backgroundColor = .clear
-            radioImageView.image = nil
-        }
+        radioImageViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
+        radioImageViewOuterRing.backgroundColor = .clear
+//        radioImageViewOuterRing.image = nil
+    }
+    
+    func configureRadioImageViewInnerCircle() {
+        radioImageViewInnerCircle.layer.cornerRadius = 5
+        radioImageViewInnerCircle.backgroundColor = .clear
+        radioImageViewInnerCircle.image = nil
     }
     
     
@@ -119,25 +123,33 @@ class HabitCell: UITableViewCell {
         radioView.translatesAutoresizingMaskIntoConstraints                                             = false
         radioView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                             = true
         radioView.heightAnchor.constraint(equalToConstant: 30).isActive                                 = true
-        radioView.leadingAnchor.constraint(equalTo: habitCardView.leadingAnchor, constant: 18).isActive = true
+        radioView.leadingAnchor.constraint(equalTo: habitCardView.leadingAnchor, constant: 13).isActive = true
         radioView.widthAnchor.constraint(equalToConstant: 30).isActive                                  = true
     }
     
 
     
-    func setRadioImageViewConstraints() {
-        radioImageView.translatesAutoresizingMaskIntoConstraints                            = false
-        radioImageView.centerYAnchor.constraint(equalTo: radioView.centerYAnchor).isActive  = true
-        radioImageView.leftAnchor.constraint(equalTo: radioView.leftAnchor).isActive       = true
-        radioImageView.heightAnchor.constraint(equalToConstant: 22).isActive                = true
-        radioImageView.widthAnchor.constraint(equalToConstant: 22).isActive                 = true
+    func setRadioImageViewOuterRingConstraints() {
+        radioImageViewOuterRing.translatesAutoresizingMaskIntoConstraints                            = false
+        radioImageViewOuterRing.centerXAnchor.constraint(equalTo: radioView.centerXAnchor).isActive  = true
+        radioImageViewOuterRing.centerYAnchor.constraint(equalTo: radioView.centerYAnchor).isActive  = true
+        radioImageViewOuterRing.heightAnchor.constraint(equalToConstant: 22).isActive                = true
+        radioImageViewOuterRing.widthAnchor.constraint(equalToConstant: 22).isActive                 = true
+    }
+    
+    func setRadioImageViewInnerCircleConstraints() {
+        radioImageViewInnerCircle.translatesAutoresizingMaskIntoConstraints                                         = false
+        radioImageViewInnerCircle.centerXAnchor.constraint(equalTo: radioImageViewOuterRing.centerXAnchor).isActive = true
+        radioImageViewInnerCircle.centerYAnchor.constraint(equalTo: radioImageViewOuterRing.centerYAnchor).isActive = true
+        radioImageViewInnerCircle.heightAnchor.constraint(equalToConstant: 10).isActive                             = true
+        radioImageViewInnerCircle.widthAnchor.constraint(equalToConstant: 10).isActive                              = true
     }
     
     
     func setTitleLabelConstraints() {
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints                                          = false
         habitTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                          = true
-        habitTitleLabel.leadingAnchor.constraint(equalTo: radioView.trailingAnchor, constant: 10).isActive = true
+        habitTitleLabel.leadingAnchor.constraint(equalTo: radioView.trailingAnchor, constant: 8).isActive  = true
         habitTitleLabel.heightAnchor.constraint(equalToConstant: 40).isActive                              = true
         habitTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive         = true
     }
@@ -145,8 +157,25 @@ class HabitCell: UITableViewCell {
     
     @objc func onRadioImageViewTap(_ sender: UIImageView) {
         
+        self.isSelected = !isSelected
+        
+        if isSelected {
+            print("Radio button checked")
+            radioImageViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
+//            radioImageViewOuterRing.backgroundColor = .systemBlue
+//            radioImageViewOuterRing.image = UIImage(systemName: "circlebadge")
+            radioImageViewInnerCircle.backgroundColor = .systemBlue
+            radioImageViewOuterRing.tintColor = .white
+        }
+        else {
+            print("Radio button unchecked")
+            radioImageViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
+            radioImageViewOuterRing.backgroundColor = .clear
+            radioImageViewOuterRing.image = nil
+            radioImageViewInnerCircle.backgroundColor = .clear
+        }
+        
         radioImageViewAction?()
-//        radioView.toggle()
         
     }
 

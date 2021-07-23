@@ -157,6 +157,5 @@ extension MainViewController {
         
         
         return [habit1, habit2, habit3, habit4, habit5, habit6]
-//        return [habit1, habit2, habit3, habit4, habit5, habit6, habit7, habit8, habit9, habit10]
     }
 }
