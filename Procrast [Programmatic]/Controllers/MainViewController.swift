@@ -107,7 +107,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let habit = habits[indexPath.row]
         cell.set(habit: habit)
         
-        cell.radioImageViewAction = { [unowned self] in
+        cell.radioViewAction = { [unowned self] in
             let habit = self.habits[indexPath.row].title
             let alert = UIAlertController(title: "Congratulations!", message: "You completed the \(habit) habit", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
