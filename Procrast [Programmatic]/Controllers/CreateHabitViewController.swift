@@ -14,20 +14,18 @@ class CreateHabitViewController: UIViewController {
     
     let habitNameCard       = UIView()
     let habitNameLabel      = UITextField()
-    
     let habitDetailsCard    = UIView()
     let pickColorLabel      = UILabel()
     
     let stackView           = UIStackView()
-    
-    let Color1Button        = PCRoundColorButton()
-    let Color2Button        = PCRoundColorButton()
-    let Color3Button        = PCRoundColorButton()
-    let Color4Button        = PCRoundColorButton()
-    let Color5Button        = PCRoundColorButton()
-    let Color6Button        = PCRoundColorButton()
-    let Color7Button        = PCRoundColorButton()
 
+    let color1Button = PCRoundColorButton(),
+        color2Button = PCRoundColorButton(),
+        color3Button = PCRoundColorButton(),
+        color4Button = PCRoundColorButton(),
+        color5Button = PCRoundColorButton(),
+        color6Button = PCRoundColorButton(),
+        color7Button = PCRoundColorButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,51 +38,83 @@ class CreateHabitViewController: UIViewController {
         view.backgroundColor = .systemGray6
         
         configureHabitNameCardView()
+        configureHabitDetailsCardView()
         configureAddHabitButton()
         configureLeavePageButton()
-        configureHabitNameLabel()
-        configureHabitDetailsCardView()
         configurePickColorLabel()
-        
-        //7 Color buttons and the StackView holding them
         configureColorButtons()
         configureStackView()
-        
-        //Calls every constraint
-        setAllConstraints()
+        configureHabitNameLabel()
         
     }
     
     
-// MARK: Configuring views & buttons
+// MARK: Configuring views, buttons & constraints
+    
     func configureHabitNameCardView() {
+        habitNameCard.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(habitNameCard)
         habitNameCard.backgroundColor = UIColor.systemBlue
+        
+        NSLayoutConstraint.activate([
+            habitNameCard.heightAnchor.constraint(equalToConstant: 100),
+            habitNameCard.widthAnchor.constraint(equalTo: view.widthAnchor),
+            habitNameCard.topAnchor.constraint(equalTo: view.topAnchor)
+        ])
     }
     
     func configureHabitNameLabel() {
+        habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(habitNameLabel)
         habitNameLabel.placeholder = "Add a habit name here!"
         habitNameLabel.textColor = UIColor.white
         
+        NSLayoutConstraint.activate([
+            habitNameLabel.heightAnchor.constraint(equalToConstant: 30),
+            habitNameLabel.bottomAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: -5),
+            habitNameLabel.leftAnchor.constraint(equalTo: pickColorLabel.leftAnchor),
+            habitNameLabel.rightAnchor.constraint(equalTo: pickColorLabel.rightAnchor),
+        ])
+        
     }
     
     func configureHabitDetailsCardView() {
+        habitDetailsCard.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(habitDetailsCard)
         habitDetailsCard.layer.cornerRadius = 10
         habitDetailsCard.backgroundColor = .systemGray5
+        
+        NSLayoutConstraint.activate([
+            habitDetailsCard.heightAnchor.constraint(equalToConstant: 250),
+            habitDetailsCard.topAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: 15),
+            habitDetailsCard.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            habitDetailsCard.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+        ])
     }
     
     func configurePickColorLabel() {
+        pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(pickColorLabel)
         pickColorLabel.text = "Pick a color"
         pickColorLabel.textColor = UIColor.lightGray
         pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .heavy)
         
+        NSLayoutConstraint.activate([
+            pickColorLabel.heightAnchor.constraint(equalToConstant: 30),
+            pickColorLabel.topAnchor.constraint(equalTo: habitDetailsCard.topAnchor, constant: 15),
+            pickColorLabel.leftAnchor.constraint(equalTo: habitDetailsCard.leftAnchor, constant: 20),
+            pickColorLabel.rightAnchor.constraint(equalTo: habitDetailsCard.rightAnchor, constant: -20)
+        ])
+        
     }
     
     func configureStackView() {
-        let colorButtonsArray = [Color1Button, Color2Button, Color3Button, Color4Button, Color5Button, Color6Button, Color7Button]
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let colorButtonsArray = [color1Button, color2Button, color3Button, color4Button, color5Button, color6Button, color7Button]
         
         view.addSubview(stackView)
         stackView.axis              = .horizontal
@@ -93,51 +123,51 @@ class CreateHabitViewController: UIViewController {
         for button in colorButtonsArray {
             
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
-            
             stackView.addArrangedSubview(button)
         }
         
-        setStackViewConstraints()
+        NSLayoutConstraint.activate([
+            stackView.heightAnchor.constraint(equalToConstant: 38),
+            stackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 18),
+            stackView.leadingAnchor.constraint(equalTo: habitDetailsCard.leadingAnchor, constant: 13),
+            stackView.trailingAnchor.constraint(equalTo: habitDetailsCard.trailingAnchor, constant: -13)
+        ])
 
     }
 
     
     func configureColorButtons() {
 
-        //Red
         func configureColor1Button() {
-            view.addSubview(Color1Button)
-            Color1Button.backgroundColor = .systemRed
+            view.addSubview(color1Button)
+            color1Button.backgroundColor = .systemRed
         }
-        //Blue
+        
         func configureColor2Button() {
-            view.addSubview(Color2Button)
-            Color2Button.backgroundColor = .systemOrange
+            view.addSubview(color2Button)
+            color2Button.backgroundColor = .systemOrange
         }
         func configureColor3Button() {
-            view.addSubview(Color3Button)
-            Color3Button.backgroundColor = .systemYellow
+            view.addSubview(color3Button)
+            color3Button.backgroundColor = .systemYellow
         }
         func configureColor4Button() {
-            view.addSubview(Color4Button)
-            Color4Button.backgroundColor = .green
+            view.addSubview(color4Button)
+            color4Button.backgroundColor = .green
         }
         func configureColor5Button() {
-            view.addSubview(Color5Button)
-            Color5Button.backgroundColor = .systemGreen
+            view.addSubview(color5Button)
+            color5Button.backgroundColor = .systemGreen
         }
         func configureColor6Button() {
-            view.addSubview(Color6Button)
-            Color6Button.backgroundColor = .systemBlue
+            view.addSubview(color6Button)
+            color6Button.backgroundColor = .systemBlue
         }
         
         func configureColor7Button() {
-            view.addSubview(Color7Button)
-            Color7Button.backgroundColor = .blue
+            view.addSubview(color7Button)
+            color7Button.backgroundColor = .blue
         }
-        
-        
-        
         
         
         //Calling all color buttons
@@ -156,94 +186,36 @@ class CreateHabitViewController: UIViewController {
     
 //  Configuring navigation buttons on top of screen
     func configureAddHabitButton() {
+        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(addHabitButton)
         addHabitButton.setImage(Icons.smallPlusIcon, for: .normal)
         addHabitButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
         //Add target & obj function --> Look up how to pass data between screens
+        
+        NSLayoutConstraint.activate([
+            addHabitButton.heightAnchor.constraint(equalToConstant: 30),
+            addHabitButton.widthAnchor.constraint(equalToConstant: 31),
+            addHabitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
+            addHabitButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
+        ])
 
     }
     
     func configureLeavePageButton() {
+        leavePageButton.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(leavePageButton)
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
         leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
   
+        NSLayoutConstraint.activate([
+            leavePageButton.heightAnchor.constraint(equalToConstant: 30),
+            leavePageButton.widthAnchor.constraint(equalToConstant: 31),
+            leavePageButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 19),
+            leavePageButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
+        ])
     }
-    
-    
-// MARK: Setting up constraints
-    
-    func setAllConstraints() {
-        
-        setHabitNameCardViewConstraints()
-        setHabitDetailsCardViewConstraints()
-        setAddHabitButtonConstraints()
-        setLeavePageButtonConstraints()
-        setPickColorLabelConstraints()
-        setStackViewConstraints()
-        setHabitNameLabelConstraints()
-
-    }
-    
-    
-    //All the individual constraints
-    func setHabitNameCardViewConstraints() {
-        habitNameCard.translatesAutoresizingMaskIntoConstraints                     = false
-        habitNameCard.heightAnchor.constraint(equalToConstant: 100).isActive        = true
-        habitNameCard.widthAnchor.constraint(equalTo: view.widthAnchor).isActive    = true
-        habitNameCard.topAnchor.constraint(equalTo: view.topAnchor).isActive        = true
-        
-    }
-    
-    func setHabitDetailsCardViewConstraints() {
-        habitDetailsCard.translatesAutoresizingMaskIntoConstraints                                          = false
-        habitDetailsCard.heightAnchor.constraint(equalToConstant: 250).isActive                             = true
-        habitDetailsCard.topAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: 15).isActive   = true
-        habitDetailsCard.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive             = true
-        habitDetailsCard.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive          = true
-    }
-    
-    func setAddHabitButtonConstraints() {
-        addHabitButton.translatesAutoresizingMaskIntoConstraints                                    = false
-        addHabitButton.heightAnchor.constraint(equalToConstant: 30).isActive                        = true
-        addHabitButton.widthAnchor.constraint(equalToConstant: 31).isActive                         = true
-        addHabitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive    = true
-        addHabitButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive         = true
-    }
-    
-    func setLeavePageButtonConstraints() {
-        leavePageButton.translatesAutoresizingMaskIntoConstraints                               = false
-        leavePageButton.heightAnchor.constraint(equalToConstant: 30).isActive                   = true
-        leavePageButton.widthAnchor.constraint(equalToConstant: 31).isActive                    = true
-        leavePageButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 19).isActive  = true
-        leavePageButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15).isActive    = true
-    }
-    
-    func setHabitNameLabelConstraints() {
-        habitNameLabel.translatesAutoresizingMaskIntoConstraints                                            = false
-        habitNameLabel.heightAnchor.constraint(equalToConstant: 30).isActive                                = true
-        habitNameLabel.bottomAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: -5).isActive  = true
-        habitNameLabel.leftAnchor.constraint(equalTo: pickColorLabel.leftAnchor).isActive                   = true
-        habitNameLabel.rightAnchor.constraint(equalTo: pickColorLabel.rightAnchor).isActive                 = true
-    }
-    
-    func setPickColorLabelConstraints() {
-        pickColorLabel.translatesAutoresizingMaskIntoConstraints                                                = false
-        pickColorLabel.heightAnchor.constraint(equalToConstant: 30).isActive                                    = true
-        pickColorLabel.topAnchor.constraint(equalTo: habitDetailsCard.topAnchor, constant: 15).isActive         = true
-        pickColorLabel.leftAnchor.constraint(equalTo: habitDetailsCard.leftAnchor, constant: 20).isActive       = true
-        pickColorLabel.rightAnchor.constraint(equalTo: habitDetailsCard.rightAnchor, constant: -20).isActive    = true
-        
-    }
-    
-    func setStackViewConstraints() {
-        stackView.translatesAutoresizingMaskIntoConstraints                                                     = false
-        stackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 18).isActive             = true
-        stackView.leadingAnchor.constraint(equalTo: habitDetailsCard.leadingAnchor, constant: 13).isActive      = true
-        stackView.trailingAnchor.constraint(equalTo: habitDetailsCard.trailingAnchor, constant: -13).isActive   = true
-        stackView.heightAnchor.constraint(equalToConstant: 38).isActive                                         = true
-    }
-    
     
     
     //Might have to make 2 versions of backToMainVC, 1 that passes data and 1 that doesn't
@@ -251,7 +223,6 @@ class CreateHabitViewController: UIViewController {
         dismiss(animated: true)
         
     }
-    
     
     
     

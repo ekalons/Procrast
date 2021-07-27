@@ -23,15 +23,11 @@ class HabitCell: UITableViewCell {
         habitCardView.addSubview(habitTitleLabel)
         backgroundColor = .systemGray6
         
-        // Configuring all UI
+        // Configuring UI & setting constraints
         configureHabitCardView()
         configureRadioButton()
         configureTitleLabel()
         
-        // Setting all constraints
-        setCardViewConstraints()
-        setRadioButtonConstraints()
-        setTitleLabelConstraints()
 
     }
     
@@ -45,13 +41,32 @@ class HabitCell: UITableViewCell {
     }
     
     func configureHabitCardView() {
+        habitCardView.translatesAutoresizingMaskIntoConstraints = false
         habitCardView.layer.cornerRadius = 17
         habitCardView.backgroundColor    = UIColor.systemGray5
+        
+        NSLayoutConstraint.activate([
+            habitCardView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            habitCardView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            habitCardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            habitCardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            habitCardView.heightAnchor.constraint(equalToConstant: 60)
+        
+        ])
     }
     
     func configureRadioButton() {
+        radioButton.translatesAutoresizingMaskIntoConstraints = false
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onRadioViewTap(_:)))
         radioButton.addGestureRecognizer(tapRecognizer)
+        
+        NSLayoutConstraint.activate([
+            radioButton.centerYAnchor.constraint(equalTo: centerYAnchor),
+            radioButton.heightAnchor.constraint(equalToConstant: 30),
+            radioButton.leadingAnchor.constraint(equalTo: habitCardView.leadingAnchor, constant: 13),
+            radioButton.widthAnchor.constraint(equalToConstant: 30)
+        
+        ])
     }
     
 //    override func awakeFromNib() {
@@ -66,41 +81,20 @@ class HabitCell: UITableViewCell {
     }
     
     func configureTitleLabel() {
+        habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         habitTitleLabel.numberOfLines               = 0
         habitTitleLabel.adjustsFontSizeToFitWidth   = true
         habitTitleLabel.font                        = UIFont.systemFont(ofSize: 18, weight: .semibold)
         habitTitleLabel.textColor                   = .white
         
-    }
-    
-    // MARK: Setting the constraints
-    
-    func setCardViewConstraints() {
-        habitCardView.translatesAutoresizingMaskIntoConstraints                                     = false
-        habitCardView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                     = true
-        habitCardView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive                     = true
-        habitCardView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive       = true
-        habitCardView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive    = true
-        habitCardView.heightAnchor.constraint(equalToConstant: 60).isActive                         = true
+        NSLayoutConstraint.activate([
+            habitTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            habitTitleLabel.leadingAnchor.constraint(equalTo: radioButton.trailingAnchor, constant: 8),
+            habitTitleLabel.heightAnchor.constraint(equalToConstant: 40),
+            habitTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
         
+        ])
     }
-    
-    func setRadioButtonConstraints() {
-        radioButton.translatesAutoresizingMaskIntoConstraints                                             = false
-        radioButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                             = true
-        radioButton.heightAnchor.constraint(equalToConstant: 30).isActive                                 = true
-        radioButton.leadingAnchor.constraint(equalTo: habitCardView.leadingAnchor, constant: 13).isActive = true
-        radioButton.widthAnchor.constraint(equalToConstant: 30).isActive                                  = true
-    }
-    
-    func setTitleLabelConstraints() {
-        habitTitleLabel.translatesAutoresizingMaskIntoConstraints                                           = false
-        habitTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive                           = true
-        habitTitleLabel.leadingAnchor.constraint(equalTo: radioButton.trailingAnchor, constant: 8).isActive = true
-        habitTitleLabel.heightAnchor.constraint(equalToConstant: 40).isActive                               = true
-        habitTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive          = true
-    }
-    
     
     @objc func onRadioViewTap(_ sender: PCHabitCellRadioButton) {
         

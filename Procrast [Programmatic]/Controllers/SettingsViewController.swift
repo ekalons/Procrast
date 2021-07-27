@@ -28,6 +28,7 @@ class SettingsViewController: UIViewController {
     }
     
     func configureLeavePageButton() {
+        leavePageButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(leavePageButton)
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
         leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)

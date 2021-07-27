@@ -57,6 +57,7 @@ class MainViewController: UIViewController {
     
 // MARK: Button configurations
     func configurePlusButton() {
+        createHabitButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(createHabitButton)
         createHabitButton.setImage(Icons.plusIcon, for: .normal)
@@ -71,6 +72,7 @@ class MainViewController: UIViewController {
     }
     
     func configureGearButton() {
+        settingsButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(settingsButton)
         settingsButton.setImage(Icons.gearIcon, for: .normal)
@@ -85,7 +87,7 @@ class MainViewController: UIViewController {
         
     }
     
-    // MARK: Present obj functions
+    // MARK: Present objc functions
     @objc func presentHabitCreatingVC() {
         present(CreateHabitViewController(), animated: true)
     }

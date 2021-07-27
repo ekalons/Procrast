@@ -15,6 +15,7 @@ class PCHabitCellRadioButton: UIView {
         view.widthAnchor.constraint(equalToConstant: 30).isActive  = true
         return view
     }()
+    
     let radioViewOuterRing   = UIView()
     let radioViewInnerCircle = UIView()
  
@@ -35,36 +36,54 @@ class PCHabitCellRadioButton: UIView {
         radioContentView.addSubview(radioViewOuterRing)
         radioContentView.addSubview(radioViewInnerCircle)
         
-        // Configuring UI
-//        configureRadioContentView()
+        // Configuring UI & setting constraints
+        configureRadioContentView()
         configureRadioViewOuterRing()
         configureRadioViewInnerCircle()
-        
-        // Setting all constraints
-        setRadioContentViewConstraints()
-        setRadioViewOuterRingConstraints()
-        setRadioViewInnerCircleConstraints()
+
     }
     
     
     //MARK: Configuring button
     private func configureRadioContentView() {
-        // Delete if empty
+        radioContentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            radioContentView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            radioContentView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            radioContentView.heightAnchor.constraint(equalToConstant: 30),
+            radioContentView.widthAnchor.constraint(equalToConstant: 30)
+        ])
         
     }
     
     func configureRadioViewOuterRing() {
+        radioViewOuterRing.translatesAutoresizingMaskIntoConstraints = false
         radioViewOuterRing.layer.cornerRadius = 11
         radioViewOuterRing.layer.borderWidth = 3.5
-        
         radioViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
         radioViewOuterRing.backgroundColor = .clear
+        
+        NSLayoutConstraint.activate([
+            radioViewOuterRing.centerXAnchor.constraint(equalTo: radioContentView.centerXAnchor),
+            radioViewOuterRing.centerYAnchor.constraint(equalTo: radioContentView.centerYAnchor),
+            radioViewOuterRing.heightAnchor.constraint(equalToConstant: 22),
+            radioViewOuterRing.widthAnchor.constraint(equalToConstant: 22)
+        ])
         
     }
     
     func configureRadioViewInnerCircle() {
+        radioViewInnerCircle.translatesAutoresizingMaskIntoConstraints = false
         radioViewInnerCircle.layer.cornerRadius = 5
         radioViewInnerCircle.backgroundColor = .clear
+        
+        NSLayoutConstraint.activate([
+            radioViewInnerCircle.centerXAnchor.constraint(equalTo: radioViewOuterRing.centerXAnchor),
+            radioViewInnerCircle.centerYAnchor.constraint(equalTo: radioViewOuterRing.centerYAnchor),
+            radioViewInnerCircle.heightAnchor.constraint(equalToConstant: 10),
+            radioViewInnerCircle.widthAnchor.constraint(equalToConstant: 10)
+        ])
     }
     
     func radioSelected() {
@@ -79,31 +98,6 @@ class PCHabitCellRadioButton: UIView {
         radioViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
         radioViewOuterRing.backgroundColor = .clear
         radioViewInnerCircle.backgroundColor = .clear
-    }
-    
-    // MARK: Setting button constraints
-    func setRadioContentViewConstraints() {
-        radioContentView.translatesAutoresizingMaskIntoConstraints                      = false
-        radioContentView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        radioContentView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        radioContentView.heightAnchor.constraint(equalToConstant: 30).isActive          = true
-        radioContentView.widthAnchor.constraint(equalToConstant: 30).isActive           = true
-    }
-    
-    func setRadioViewOuterRingConstraints() {
-        radioViewOuterRing.translatesAutoresizingMaskIntoConstraints                                  = false
-        radioViewOuterRing.centerXAnchor.constraint(equalTo: radioContentView.centerXAnchor).isActive = true
-        radioViewOuterRing.centerYAnchor.constraint(equalTo: radioContentView.centerYAnchor).isActive = true
-        radioViewOuterRing.heightAnchor.constraint(equalToConstant: 22).isActive                      = true
-        radioViewOuterRing.widthAnchor.constraint(equalToConstant: 22).isActive                       = true
-    }
-    
-    func setRadioViewInnerCircleConstraints() {
-        radioViewInnerCircle.translatesAutoresizingMaskIntoConstraints                                    = false
-        radioViewInnerCircle.centerXAnchor.constraint(equalTo: radioViewOuterRing.centerXAnchor).isActive = true
-        radioViewInnerCircle.centerYAnchor.constraint(equalTo: radioViewOuterRing.centerYAnchor).isActive = true
-        radioViewInnerCircle.heightAnchor.constraint(equalToConstant: 10).isActive                        = true
-        radioViewInnerCircle.widthAnchor.constraint(equalToConstant: 10).isActive                         = true
     }
 
     

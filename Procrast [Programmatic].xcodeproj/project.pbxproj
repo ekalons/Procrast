@@ -22,8 +22,6 @@
 		425EFA472605267B00A7232D /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA462605267B00A7232D /* Habit.swift */; };
 		425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */; };
 		426BEF2C26AB2B9400D273F7 /* PCHabitCellRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BEF2B26AB2B9400D273F7 /* PCHabitCellRadioButton.swift */; };
-		42A653942617DFBC001C6FB7 /* PCCompletedHabitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */; };
-		42A653972617E913001C6FB7 /* CircularCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A653962617E913001C6FB7 /* CircularCheckBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,8 +42,6 @@
 		425EFA462605267B00A7232D /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCRoundColorButton.swift; sourceTree = "<group>"; };
 		426BEF2B26AB2B9400D273F7 /* PCHabitCellRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCHabitCellRadioButton.swift; sourceTree = "<group>"; };
-		42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCCompletedHabitButton.swift; sourceTree = "<group>"; };
-		42A653962617E913001C6FB7 /* CircularCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularCheckBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,8 +129,6 @@
 			children = (
 				425EFA29260405B300A7232D /* PCIconButton.swift */,
 				425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */,
-				42A653932617DFBC001C6FB7 /* PCCompletedHabitButton.swift */,
-				42A653962617E913001C6FB7 /* CircularCheckBox.swift */,
 				426BEF2B26AB2B9400D273F7 /* PCHabitCellRadioButton.swift */,
 			);
 			path = "Custom Buttons";
@@ -226,11 +220,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */,
-				42A653942617DFBC001C6FB7 /* PCCompletedHabitButton.swift in Sources */,
 				425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */,
 				425EFA2A260405B300A7232D /* PCIconButton.swift in Sources */,
 				425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */,
-				42A653972617E913001C6FB7 /* CircularCheckBox.swift in Sources */,
 				425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */,
 				425EFA432605230500A7232D /* HabitCell.swift in Sources */,
 				425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */,
