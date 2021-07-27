@@ -17,6 +17,9 @@ class CreateHabitViewController: UIViewController {
     let habitDetailsCard    = UIView()
     let pickColorLabel      = UILabel()
     
+    let colorPicker = PCRoundColorButton()
+    var colorPickerAction : (() -> ())?
+    
     let stackView           = UIStackView()
 
     let color1Button = PCRoundColorButton(),
@@ -37,12 +40,15 @@ class CreateHabitViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .systemGray6
         
+        
+        
+        configureColorButtons()
         configureHabitNameCardView()
         configureHabitDetailsCardView()
         configureAddHabitButton()
         configureLeavePageButton()
         configurePickColorLabel()
-        configureColorButtons()
+        
         configureStackView()
         configureHabitNameLabel()
         
@@ -50,7 +56,6 @@ class CreateHabitViewController: UIViewController {
     
     
 // MARK: Configuring views, buttons & constraints
-    
     func configureHabitNameCardView() {
         habitNameCard.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(habitNameCard)
@@ -148,13 +153,13 @@ class CreateHabitViewController: UIViewController {
         
         
         //Setting all colors
-        color1Button.backgroundColor = .systemRed
-        color2Button.backgroundColor = .systemOrange
-        color3Button.backgroundColor = .systemYellow
-        color4Button.backgroundColor = .green
-        color5Button.backgroundColor = .systemGreen
-        color6Button.backgroundColor = .systemBlue
-        color7Button.backgroundColor = .blue
+        color1Button.buttonColor = UIColor.systemRed
+        color2Button.buttonColor = UIColor.systemOrange
+        color3Button.buttonColor = UIColor.systemYellow
+        color4Button.buttonColor = UIColor.green
+        color5Button.buttonColor = UIColor.systemGreen
+        color6Button.buttonColor = UIColor.systemBlue
+        color7Button.buttonColor = UIColor.blue
         
     }
     

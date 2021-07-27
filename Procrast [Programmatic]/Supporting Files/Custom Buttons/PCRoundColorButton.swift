@@ -7,25 +7,71 @@
 
 import UIKit
 
-class PCRoundColorButton: UIButton {
+class PCRoundColorButton: UIView {
+    
+    let colorButtonContentView: UIView = {
+        let view = UIView()
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: 37),
+            view.widthAnchor.constraint(equalToConstant: 37)
+        ])
+        
+        return view
+    }()
+    
+    var buttonColor: UIColor = UIColor()
+    
+    let selectionRing = UIView()
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupButton()
+        configure()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupButton()
+        configure()
     }
     
-    func setupButton() {
-        setTitle(nil, for: .normal)
-        backgroundColor = .systemBlue
+    private func configure() {
+        self.addSubview(colorButtonContentView)
+        colorButtonContentView.addSubview(selectionRing)
         
+        configureColorButtonContentView()
         
-        layer.cornerRadius = 19
     }
-
+    
+    func configureColorButtonContentView() {
+        colorButtonContentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        colorButtonContentView.backgroundColor = .systemBlue
+        colorButtonContentView.layer.cornerRadius = 18
+        colorButtonContentView.layer.borderWidth = 4
+        colorButtonContentView.layer.borderColor = UIColor.clear.cgColor
+        
+        
+        NSLayoutConstraint.activate([
+            colorButtonContentView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            colorButtonContentView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            colorButtonContentView.heightAnchor.constraint(equalToConstant: 37),
+            colorButtonContentView.widthAnchor.constraint(equalToConstant: 37)
+        ])
+        
+    }
+    
+    func colorSelected() {
+        print("Color button currently selected")
+        colorButtonContentView.backgroundColor = UIColor.systemRed
+        selectionRing.layer.borderColor = UIColor.systemGray3.cgColor
+    }
+    
+    func colorDeselected() {
+        print("Color button currently deselected")
+        colorButtonContentView.backgroundColor = UIColor.systemRed
+        selectionRing.layer.borderColor = UIColor.clear.cgColor
+    }
+    
+    
     
 }
