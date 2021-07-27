@@ -122,6 +122,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return habits.count
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Habit \(habits[indexPath.row].title) cell was tapped")
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 
 }
 
