@@ -11,7 +11,6 @@ class MainViewController: UIViewController {
     
     let createHabitButton   = PCIconButton()
     let settingsButton      = PCIconButton()
-    
     var tableView = UITableView()
     var habits: [Habit] = []
     
@@ -35,7 +34,6 @@ class MainViewController: UIViewController {
         configurePlusButton()
         configureGearButton()
         
-        
     }
     
     
@@ -44,7 +42,7 @@ class MainViewController: UIViewController {
         view.addSubview(tableView)
         tableView.backgroundColor = .systemGray6
         tableView.separatorColor = .clear
-        
+    
         setTableViewDelegates()
         tableView.rowHeight = 70
         tableView.register(HabitCell.self, forCellReuseIdentifier: Cells.habitCell)
@@ -107,7 +105,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let habit = habits[indexPath.row]
         cell.set(habit: habit)
         
-        cell.radioViewAction = { [unowned self] in
+        cell.radioButtonAction = { [unowned self] in
             let habit = self.habits[indexPath.row].title
             let alert = UIAlertController(title: "Congratulations!", message: "You completed the \(habit) habit", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
@@ -131,22 +129,9 @@ extension MainViewController {
     
     func fetchData() -> [Habit] {
         
-        //This is dummy data that will be replaced with a meaningful CoreData function that retrieves Data
+        //This is dummy data that will be replaced with a meaningful Realm function to retrieve data
+        
 //        let habit1 = Habit(icon: Icons.lightBulbIcon.withTintColor(.systemYellow, renderingMode: .alwaysOriginal),
-//                           title: "Read the news")
-//        let habit2 = Habit(icon: Icons.pieChartIcon.withTintColor(.systemGreen, renderingMode: .alwaysOriginal),
-//                           title: "Add expenses to Excel")
-//        let habit3 = Habit(icon: Icons.textbookIcon.withTintColor(.white, renderingMode: .alwaysOriginal),
-//                           title: "Read 1 hour")
-//        let habit4 = Habit(icon: Icons.paintbrushIcon.withTintColor(.systemOrange, renderingMode: .alwaysOriginal),
-//                           title: "Do something creative")
-//        let habit5 = Habit(icon: Icons.stopwatchIcon.withTintColor(.systemBlue, renderingMode: .alwaysOriginal),
-//                           title: "Run for 45 minutes")
-//        let habit6 = Habit(icon: Icons.heartbIcon.withTintColor(.systemRed, renderingMode: .alwaysOriginal),
-//                           title: "Prepare a healthy meal")
-
-        
-        
         
         let habit1 = Habit(color: .systemBlue, title: "Read news")
         let habit2 = Habit(color: .systemRed, title: "Add expenses to Excel")
