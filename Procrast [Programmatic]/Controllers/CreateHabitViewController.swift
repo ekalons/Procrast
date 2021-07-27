@@ -137,48 +137,25 @@ class CreateHabitViewController: UIViewController {
 
     
     func configureColorButtons() {
-
-        func configureColor1Button() {
-            view.addSubview(color1Button)
-            color1Button.backgroundColor = .systemRed
-        }
         
-        func configureColor2Button() {
-            view.addSubview(color2Button)
-            color2Button.backgroundColor = .systemOrange
-        }
-        func configureColor3Button() {
-            view.addSubview(color3Button)
-            color3Button.backgroundColor = .systemYellow
-        }
-        func configureColor4Button() {
-            view.addSubview(color4Button)
-            color4Button.backgroundColor = .green
-        }
-        func configureColor5Button() {
-            view.addSubview(color5Button)
-            color5Button.backgroundColor = .systemGreen
-        }
-        func configureColor6Button() {
-            view.addSubview(color6Button)
-            color6Button.backgroundColor = .systemBlue
-        }
-        
-        func configureColor7Button() {
-            view.addSubview(color7Button)
-            color7Button.backgroundColor = .blue
-        }
+        view.addSubview(color1Button)
+        view.addSubview(color2Button)
+        view.addSubview(color3Button)
+        view.addSubview(color4Button)
+        view.addSubview(color5Button)
+        view.addSubview(color6Button)
+        view.addSubview(color7Button)
         
         
-        //Calling all color buttons
-        configureColor1Button()
-        configureColor2Button()
-        configureColor3Button()
-        configureColor4Button()
-        configureColor5Button()
-        configureColor6Button()
-        configureColor7Button()
-
+        //Setting all colors
+        color1Button.backgroundColor = .systemRed
+        color2Button.backgroundColor = .systemOrange
+        color3Button.backgroundColor = .systemYellow
+        color4Button.backgroundColor = .green
+        color5Button.backgroundColor = .systemGreen
+        color6Button.backgroundColor = .systemBlue
+        color7Button.backgroundColor = .blue
+        
     }
     
     
