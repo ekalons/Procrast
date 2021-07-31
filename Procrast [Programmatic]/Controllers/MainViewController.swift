@@ -108,10 +108,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.set(habit: habit)
         
         cell.radioButtonAction = { [unowned self] in
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            
             let habit = self.habits[indexPath.row].title
             let alert = UIAlertController(title: "Congratulations!", message: "You completed the \(habit) habit", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             alert.addAction(okAction)
+            
+            cell.selectionStyle = UITableViewCell.SelectionStyle.default
             
             self.present(alert, animated: true, completion: nil)
         }
