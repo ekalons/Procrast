@@ -30,6 +30,9 @@ class CreateHabitViewController: UIViewController {
         color6Button = PCRoundColorButton(),
         color7Button = PCRoundColorButton()
     
+    var selectionState: Bool = false
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -127,6 +130,9 @@ class CreateHabitViewController: UIViewController {
         
         for button in colorButtonsArray {
             
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onColorButtonTap(_:)))
+            button.addGestureRecognizer(tapRecognizer)
+            
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
             stackView.addArrangedSubview(button)
         }
@@ -153,13 +159,13 @@ class CreateHabitViewController: UIViewController {
         
         
         //Setting all colors
-        color1Button.buttonColor = UIColor.systemRed
-        color2Button.buttonColor = UIColor.systemOrange
-        color3Button.buttonColor = UIColor.systemYellow
-        color4Button.buttonColor = UIColor.green
-        color5Button.buttonColor = UIColor.systemGreen
-        color6Button.buttonColor = UIColor.systemBlue
-        color7Button.buttonColor = UIColor.blue
+        color1Button.colorButtonContentView.backgroundColor = UIColor.systemRed
+        color2Button.colorButtonContentView.backgroundColor = UIColor.systemOrange
+        color3Button.colorButtonContentView.backgroundColor = UIColor.systemYellow
+        color4Button.colorButtonContentView.backgroundColor = UIColor.green
+        color5Button.colorButtonContentView.backgroundColor = UIColor.systemGreen
+        color6Button.colorButtonContentView.backgroundColor = UIColor.systemBlue
+        color7Button.colorButtonContentView.backgroundColor = UIColor.blue
         
     }
     
@@ -200,10 +206,25 @@ class CreateHabitViewController: UIViewController {
     }
     
     
-    //Might have to make 2 versions of backToMainVC, 1 that passes data and 1 that doesn't
+    // Might have to make 2 versions of backToMainVC, 1 that passes data and 1 that doesn't
     @objc func backToMainVC() {
         dismiss(animated: true)
         
+    }
+    
+    @objc func onColorButtonTap(_ sender: PCRoundColorButton) {
+        
+        self.selectionState = !selectionState
+        
+        if self.selectionState == true {
+            print(sender)
+            
+            color1Button.colorSelected()
+            colorPickerAction?()
+        } else {
+            color1Button.colorDeselected()
+        }
+
     }
     
     

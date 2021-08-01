@@ -102,12 +102,11 @@ class HabitCell: UITableViewCell {
         
         if isSelected {
             radioButton.radioSelected()
+            radioButtonAction?()
         }
         else {
             radioButton.radioDeselected()
         }
-        
-        radioButtonAction?()
         
     }
 

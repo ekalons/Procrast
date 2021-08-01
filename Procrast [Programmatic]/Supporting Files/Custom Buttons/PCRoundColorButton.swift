@@ -18,10 +18,6 @@ class PCRoundColorButton: UIView {
         
         return view
     }()
-    
-    var buttonColor: UIColor = UIColor()
-    
-    let selectionRing = UIView()
 
     
     override init(frame: CGRect) {
@@ -36,7 +32,6 @@ class PCRoundColorButton: UIView {
     
     private func configure() {
         self.addSubview(colorButtonContentView)
-        colorButtonContentView.addSubview(selectionRing)
         
         configureColorButtonContentView()
         
@@ -45,7 +40,6 @@ class PCRoundColorButton: UIView {
     func configureColorButtonContentView() {
         colorButtonContentView.translatesAutoresizingMaskIntoConstraints = false
         
-        colorButtonContentView.backgroundColor = .systemBlue
         colorButtonContentView.layer.cornerRadius = 18
         colorButtonContentView.layer.borderWidth = 4
         colorButtonContentView.layer.borderColor = UIColor.clear.cgColor
@@ -60,16 +54,17 @@ class PCRoundColorButton: UIView {
         
     }
     
+    // Selection states
     func colorSelected() {
         print("Color button currently selected")
-        colorButtonContentView.backgroundColor = UIColor.systemRed
-        selectionRing.layer.borderColor = UIColor.systemGray3.cgColor
+        colorButtonContentView.layer.borderWidth = 4
+        colorButtonContentView.layer.borderColor = UIColor.systemGray3.cgColor
     }
     
     func colorDeselected() {
         print("Color button currently deselected")
-        colorButtonContentView.backgroundColor = UIColor.systemRed
-        selectionRing.layer.borderColor = UIColor.clear.cgColor
+        colorButtonContentView.layer.borderWidth = 4
+        colorButtonContentView.layer.borderColor = UIColor.clear.cgColor
     }
     
     
