@@ -18,7 +18,7 @@ class CreateHabitViewController: UIViewController {
     let pickColorLabel      = UILabel()
     
     let colorPicker = PCRoundColorButton()
-    var colorPickerAction : (() -> ())?
+//    var colorPickerAction : (() -> ())?
     
     let stackView           = UIStackView()
 
@@ -129,10 +129,6 @@ class CreateHabitViewController: UIViewController {
         stackView.distribution      = .equalSpacing
         
         for button in colorButtonsArray {
-            
-            let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onColorButtonTap(_:)))
-            button.addGestureRecognizer(tapRecognizer)
-            
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
             stackView.addArrangedSubview(button)
         }
@@ -211,23 +207,6 @@ class CreateHabitViewController: UIViewController {
         dismiss(animated: true)
         
     }
-    
-    @objc func onColorButtonTap(_ sender: PCRoundColorButton) {
-        
-        self.selectionState = !selectionState
-        
-        if self.selectionState == true {
-            print(sender)
-            
-            color1Button.colorSelected()
-            colorPickerAction?()
-        } else {
-            color1Button.colorDeselected()
-        }
-
-    }
-    
-    
     
 
 }

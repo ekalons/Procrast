@@ -9,6 +9,10 @@ import UIKit
 
 class PCRoundColorButton: UIView {
     
+    var selectionState: Bool = false
+    
+    var colorPickerAction : (() -> ())?
+    
     let colorButtonContentView: UIView = {
         let view = UIView()
         NSLayoutConstraint.activate([
@@ -40,6 +44,9 @@ class PCRoundColorButton: UIView {
     func configureColorButtonContentView() {
         colorButtonContentView.translatesAutoresizingMaskIntoConstraints = false
         
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onColorButtonTap(_:)))
+        colorButtonContentView.addGestureRecognizer(tapRecognizer)
+        
         colorButtonContentView.layer.cornerRadius = 18
         colorButtonContentView.layer.borderWidth = 4
         colorButtonContentView.layer.borderColor = UIColor.clear.cgColor
@@ -68,5 +75,15 @@ class PCRoundColorButton: UIView {
     }
     
     
+    @objc func onColorButtonTap(_ sender: PCRoundColorButton) {
+        self.selectionState = !selectionState
+        
+        if self.selectionState == true {
+            colorSelected()
+            colorPickerAction?()
+        } else {
+            colorDeselected()
+        }
+    }
     
 }
