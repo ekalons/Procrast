@@ -14,6 +14,8 @@ class MainViewController: UIViewController {
     var tableView = UITableView()
     var habits: [Habit] = []
     
+    var yourFirstHabit: Bool = false
+    
     struct Cells {
         static let habitCell = "HabitCell"
     }
@@ -110,14 +112,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.radioButtonAction = { [unowned self] in
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
-            let habit = self.habits[indexPath.row].title
-            let alert = UIAlertController(title: "Congratulations!", message: "You completed the \(habit) habit", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+//            let habit = self.habits[indexPath.row].title
+            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
             alert.addAction(okAction)
             
             cell.selectionStyle = UITableViewCell.SelectionStyle.default
             
-            self.present(alert, animated: true, completion: nil)
+            if yourFirstHabit == false {
+                self.present(alert, animated: true, completion: nil)
+                yourFirstHabit = true
+            }
+            
         }
         
         return cell
