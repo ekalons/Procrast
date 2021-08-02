@@ -30,8 +30,6 @@ class CreateHabitViewController: UIViewController {
         color6Button = PCRoundColorButton(),
         color7Button = PCRoundColorButton()
     
-    var selectionState: Bool = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,12 +126,21 @@ class CreateHabitViewController: UIViewController {
         stackView.axis              = .horizontal
         stackView.distribution      = .equalSpacing
         
+        func randomColorAtLoad() {
+            let random = colorButtonsArray.randomElement()
+            random?.isSelected = true
+            random?.colorSelected()
+            habitNameCard.backgroundColor = random?.colorButtonContentView.backgroundColor
+        }
         
         for button in colorButtonsArray {
             button.colorPickerAction = {
                 self.deselectAll()
                 button.isSelected = true
                 button.colorSelected()
+                
+                self.habitNameCard.backgroundColor = button.colorButtonContentView.backgroundColor
+                
             }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
             stackView.addArrangedSubview(button)
@@ -145,6 +152,7 @@ class CreateHabitViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: habitDetailsCard.leadingAnchor, constant: 13),
             stackView.trailingAnchor.constraint(equalTo: habitDetailsCard.trailingAnchor, constant: -13)
         ])
+        randomColorAtLoad()
 
     }
 
