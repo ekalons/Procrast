@@ -9,12 +9,13 @@ import UIKit
 
 class MainViewController: UIViewController {
     
-    let createHabitButton   = PCIconButton()
-    let settingsButton      = PCIconButton()
+    let addHabitButton = PCIconButton()
+    let settingsButton = PCIconButton()
+    
     var tableView = UITableView()
     var habits: [Habit] = []
     
-    var yourFirstHabit: Bool = false
+    lazy var yourFirstHabit: Bool = false
     
     struct Cells {
         static let habitCell = "HabitCell"
@@ -59,17 +60,17 @@ class MainViewController: UIViewController {
     
 // MARK: Button configurations
     func configurePlusButton() {
-        createHabitButton.translatesAutoresizingMaskIntoConstraints = false
+        addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(createHabitButton)
-        createHabitButton.setImage(Icons.plusIcon, for: .normal)
-        createHabitButton.addTarget(self, action: #selector(presentHabitCreatingVC), for: .touchUpInside)
+        view.addSubview(addHabitButton)
+        addHabitButton.setImage(Icons.plusIcon, for: .normal)
+        addHabitButton.addTarget(self, action: #selector(presentHabitCreatingVC), for: .touchUpInside)
         
         NSLayoutConstraint.activate([
-            createHabitButton.heightAnchor.constraint(equalToConstant: 35),
-            createHabitButton.widthAnchor.constraint(equalToConstant: 36),
-            createHabitButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30),
-            createHabitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+            addHabitButton.heightAnchor.constraint(equalToConstant: 35),
+            addHabitButton.widthAnchor.constraint(equalToConstant: 36),
+            addHabitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
+            addHabitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
     }
     
@@ -83,7 +84,7 @@ class MainViewController: UIViewController {
         NSLayoutConstraint.activate([
             settingsButton.heightAnchor.constraint(equalToConstant: 35),
             settingsButton.widthAnchor.constraint(equalToConstant: 36.5),
-            settingsButton.leftAnchor.constraint(equalTo: view.leftAnchor,constant: 30),
+            settingsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 26),
             settingsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
         ])
         
