@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PCRoundColorButton: UIView {
+class PCRoundColorButton: UIButton {
     
     var selectionState: Bool = false
     
@@ -76,9 +76,10 @@ class PCRoundColorButton: UIView {
     
     
     @objc func onColorButtonTap(_ sender: PCRoundColorButton) {
-        self.selectionState = !selectionState
         
-        if self.selectionState == true {
+        self.isSelected = !isSelected
+        
+        if self.isSelected == true{
             colorSelected()
             colorPickerAction?()
         } else {

@@ -128,7 +128,13 @@ class CreateHabitViewController: UIViewController {
         stackView.axis              = .horizontal
         stackView.distribution      = .equalSpacing
         
+        
         for button in colorButtonsArray {
+            button.colorPickerAction = {
+                self.deselectAll()
+                button.isSelected = true
+                button.colorSelected()
+            }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
             stackView.addArrangedSubview(button)
         }
@@ -209,4 +215,27 @@ class CreateHabitViewController: UIViewController {
     }
     
 
+}
+
+extension CreateHabitViewController {
+    
+    private func deselectAll() {
+        
+        color1Button.isSelected = false
+        color2Button.isSelected = false
+        color3Button.isSelected = false
+        color4Button.isSelected = false
+        color5Button.isSelected = false
+        color6Button.isSelected = false
+        color7Button.isSelected = false
+        
+        color1Button.colorDeselected()
+        color2Button.colorDeselected()
+        color3Button.colorDeselected()
+        color4Button.colorDeselected()
+        color5Button.colorDeselected()
+        color6Button.colorDeselected()
+        color7Button.colorDeselected()
+        
+    }
 }
