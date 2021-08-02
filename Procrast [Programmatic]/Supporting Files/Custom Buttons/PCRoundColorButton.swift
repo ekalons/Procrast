@@ -9,12 +9,10 @@ import UIKit
 
 class PCRoundColorButton: UIButton {
     
-    var selectionState: Bool = false
-    
     var colorPickerAction : (() -> ())?
     
-    let colorButtonContentView: UIView = {
-        let view = UIView()
+    let colorButtonContentView: UIButton = {
+        let view = UIButton()
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(equalToConstant: 37),
             view.widthAnchor.constraint(equalToConstant: 37)
@@ -44,8 +42,7 @@ class PCRoundColorButton: UIButton {
     func configureColorButtonContentView() {
         colorButtonContentView.translatesAutoresizingMaskIntoConstraints = false
         
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(onColorButtonTap(_:)))
-        colorButtonContentView.addGestureRecognizer(tapRecognizer)
+        colorButtonContentView.addTarget(self, action: #selector(onColorButtonTap(_:)), for: .touchUpInside)
         
         colorButtonContentView.layer.cornerRadius = 18
         colorButtonContentView.layer.borderWidth = 4
@@ -79,12 +76,12 @@ class PCRoundColorButton: UIButton {
         
         self.isSelected = !isSelected
         
-        if self.isSelected == true{
+        if self.isSelected == true {
             colorSelected()
             colorPickerAction?()
-        } else {
-            colorDeselected()
         }
+        // No else statement, since one color will always be pressed
+        
     }
     
 }
