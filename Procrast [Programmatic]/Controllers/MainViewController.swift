@@ -151,14 +151,23 @@ extension MainViewController {
         
 //        let habit1 = Habit(icon: Icons.lightBulbIcon.withTintColor(.systemYellow, renderingMode: .alwaysOriginal),
         
-        let habit1 = Habit(color: .systemBlue, title: "Read news")
-        let habit2 = Habit(color: .systemRed, title: "Add expenses to Excel")
-        let habit3 = Habit(color: .systemPink, title: "Read 1 hour")
-        let habit4 = Habit(color: .systemGreen, title: "Do something creative")
-        let habit5 = Habit(color: .systemYellow, title: "Run for 45 minutes")
-        let habit6 = Habit(color: .systemBlue, title: "Prepare a healthy meal")
+        let habit1 = Habit(color: .systemBlue, title: "Read news", completeness: false)
+        let habit2 = Habit(color: .systemRed, title: "Add expenses to Excel", completeness: false)
+        let habit3 = Habit(color: .systemPink, title: "Read 1 hour", completeness: false)
+        let habit4 = Habit(color: .systemGreen, title: "Do something creative", completeness: false)
+        let habit5 = Habit(color: .systemYellow, title: "Run for 45 minutes", completeness: false)
+        let habit6 = Habit(color: .systemBlue, title: "Prepare a healthy meal", completeness: false)
         
+        let habitArray: [Habit] = [habit1, habit2, habit3, habit4, habit5, habit6]
         
-        return [habit1, habit2, habit3, habit4, habit5, habit6]
+        let sortedHabits = habitArray.sorted {
+            
+            if $0.completeness == $1.completeness {
+                return $0.title < $1.title
+            }
+            return $0.completeness == false && $1.completeness == true
+        }
+        
+        return sortedHabits
     }
 }

@@ -11,4 +11,5 @@ struct Habit {
 //    var button: PCCompletedHabitButton
     var color: UIColor
     var title: String
+    var completeness: Bool
 }
