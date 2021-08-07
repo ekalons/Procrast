@@ -6,8 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
+
+protocol CreateHabitDelegate: AnyObject {
+    func modalVCWillDismiss(_ modalVC: CreateHabitViewController)
+}
 
 class CreateHabitViewController: UIViewController {
+    
+    weak var delegate: CreateHabitDelegate?
+    
+    let realm = try! Realm()
+    var habits: Results<Habit>!
     
     let addHabitButton      = PCIconButton()
     let leavePageButton     = PCIconButton()
@@ -18,7 +28,6 @@ class CreateHabitViewController: UIViewController {
     let pickColorLabel      = UILabel()
     
     let colorPicker = PCRoundColorButton()
-//    var colorPickerAction : (() -> ())?
     
     let stackView           = UIStackView()
 
@@ -37,10 +46,19 @@ class CreateHabitViewController: UIViewController {
         configureUI()
     }
     
+// MARK: Realm DB function
+    func save(habit: Habit) {
+        do {
+            try realm.write {
+                realm.add(habit)
+            }
+        } catch {
+            print("Error saving habit \(error)")
+        }
+    }
     
     func configureUI() {
         view.backgroundColor = .systemGray6
-        
         
         
         configureColorButtons()
@@ -75,6 +93,7 @@ class CreateHabitViewController: UIViewController {
         view.addSubview(habitNameLabel)
         habitNameLabel.placeholder = "Add a habit name here!"
         habitNameLabel.textColor = UIColor.white
+        habitNameLabel.becomeFirstResponder()
         
         NSLayoutConstraint.activate([
             habitNameLabel.heightAnchor.constraint(equalToConstant: 30),
@@ -188,7 +207,8 @@ class CreateHabitViewController: UIViewController {
         
         view.addSubview(addHabitButton)
         addHabitButton.setImage(Icons.smallPlusIcon, for: .normal)
-        addHabitButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        addHabitButton.addTarget(self, action: #selector(self.backToMainVC), for: .touchUpInside)
+        
         //Add target & obj function --> Look up how to pass data between screens
         
         NSLayoutConstraint.activate([
@@ -205,7 +225,7 @@ class CreateHabitViewController: UIViewController {
         
         view.addSubview(leavePageButton)
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
-        leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        leavePageButton.addTarget(self, action: #selector(self.backToMainVC), for: .touchUpInside)
   
         NSLayoutConstraint.activate([
             leavePageButton.heightAnchor.constraint(equalToConstant: 30),
@@ -218,10 +238,18 @@ class CreateHabitViewController: UIViewController {
     
     // Might have to make 2 versions of backToMainVC, 1 that passes data and 1 that doesn't
     @objc func backToMainVC() {
-        dismiss(animated: true)
+        
+        let newHabit = Habit()
+        newHabit.title = habitNameLabel.text!
+//        newHabit.color = UIColor.systemBlue
+        
+        self.save(habit: newHabit)
+        
+        delegate?.modalVCWillDismiss(self)
+        
+        self.dismiss(animated: true)
         
     }
-    
 
 }
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		425EFA472605267B00A7232D /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA462605267B00A7232D /* Habit.swift */; };
 		425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */; };
 		426BEF2C26AB2B9400D273F7 /* PCHabitCellRadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426BEF2B26AB2B9400D273F7 /* PCHabitCellRadioButton.swift */; };
+		B1D90C4D79D0CA9BA9FB91BE /* Pods_Procrast__Programmatic_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E26B42A5FED1F3C4B14DF2A /* Pods_Procrast__Programmatic_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,9 @@
 		425EFA462605267B00A7232D /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCRoundColorButton.swift; sourceTree = "<group>"; };
 		426BEF2B26AB2B9400D273F7 /* PCHabitCellRadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCHabitCellRadioButton.swift; sourceTree = "<group>"; };
+		9E26B42A5FED1F3C4B14DF2A /* Pods_Procrast__Programmatic_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Procrast__Programmatic_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B19A13BC7F69F1253E2F15F3 /* Pods-Procrast [Programmatic].release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].release.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].release.xcconfig"; sourceTree = "<group>"; };
+		EA165A427D419E3183013135 /* Pods-Procrast [Programmatic].debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].debug.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1D90C4D79D0CA9BA9FB91BE /* Pods_Procrast__Programmatic_.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +65,8 @@
 			children = (
 				425EF9FE2603FF1100A7232D /* Procrast [Programmatic] */,
 				425EF9FD2603FF1100A7232D /* Products */,
+				A321E89456F1EA82CA1142B4 /* Pods */,
+				4512EAEA4E4C528798BB896A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -150,6 +157,23 @@
 			path = "Table View Cell";
 			sourceTree = "<group>";
 		};
+		4512EAEA4E4C528798BB896A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				9E26B42A5FED1F3C4B14DF2A /* Pods_Procrast__Programmatic_.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A321E89456F1EA82CA1142B4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				EA165A427D419E3183013135 /* Pods-Procrast [Programmatic].debug.xcconfig */,
+				B19A13BC7F69F1253E2F15F3 /* Pods-Procrast [Programmatic].release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -157,9 +181,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 425EFA132603FF1200A7232D /* Build configuration list for PBXNativeTarget "Procrast [Programmatic]" */;
 			buildPhases = (
+				1841FB94827B6F217F1265EE /* [CP] Check Pods Manifest.lock */,
 				425EF9F82603FF1100A7232D /* Sources */,
 				425EF9F92603FF1100A7232D /* Frameworks */,
 				425EF9FA2603FF1100A7232D /* Resources */,
+				01577F5A4627FBD338C09DFE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -213,6 +239,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		01577F5A4627FBD338C09DFE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic]-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic]-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic]-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		1841FB94827B6F217F1265EE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Procrast [Programmatic]-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		425EF9F82603FF1100A7232D /* Sources */ = {
@@ -367,6 +435,7 @@
 		};
 		425EFA142603FF1200A7232D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA165A427D419E3183013135 /* Pods-Procrast [Programmatic].debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -386,6 +455,7 @@
 		};
 		425EFA152603FF1200A7232D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B19A13BC7F69F1253E2F15F3 /* Pods-Procrast [Programmatic].release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
