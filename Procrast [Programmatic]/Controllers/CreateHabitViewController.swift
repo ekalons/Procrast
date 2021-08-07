@@ -207,7 +207,7 @@ class CreateHabitViewController: UIViewController {
         
         view.addSubview(addHabitButton)
         addHabitButton.setImage(Icons.smallPlusIcon, for: .normal)
-        addHabitButton.addTarget(self, action: #selector(self.backToMainVC), for: .touchUpInside)
+        addHabitButton.addTarget(self, action: #selector(self.saveHabitAndDismiss), for: .touchUpInside)
         
         //Add target & obj function --> Look up how to pass data between screens
         
@@ -235,20 +235,32 @@ class CreateHabitViewController: UIViewController {
         ])
     }
     
+    //
+    @objc func saveHabitAndDismiss() {
+        
+        if ((habitNameLabel.text?.isEmpty) != true) {
+            let newHabit = Habit()
+            newHabit.title = habitNameLabel.text!
+    //        newHabit.color = UIColor.systemBlue
+            
+            self.save(habit: newHabit)
+            
+            delegate?.modalVCWillDismiss(self)
+            
+            self.dismiss(animated: true)
+            
+        } else {
+            let alert = UIAlertController(title: "Don't forget to add a title!", message: "", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+        
+    }
     
-    // Might have to make 2 versions of backToMainVC, 1 that passes data and 1 that doesn't
     @objc func backToMainVC() {
-        
-        let newHabit = Habit()
-        newHabit.title = habitNameLabel.text!
-//        newHabit.color = UIColor.systemBlue
-        
-        self.save(habit: newHabit)
-        
-        delegate?.modalVCWillDismiss(self)
-        
         self.dismiss(animated: true)
-        
     }
 
 }
