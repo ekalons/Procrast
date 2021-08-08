@@ -19,19 +19,19 @@ class CreateHabitViewController: UIViewController {
     let realm = try! Realm()
     var habits: Results<Habit>!
     
-    let addHabitButton      = PCIconButton()
-    let leavePageButton     = PCIconButton()
+    let addHabitButton  = PCIconButton()
+    let leavePageButton = PCIconButton()
     
     let habitNameCard        = UIView()
     let habitColorPickerCard = UIView()
     let avoidWeekendCard     = UIView()
     let avoidWeekendLabel    = UILabel()
     
-    let remindersCard                = UIView()
-    let remindersLabel               = UILabel()
-    let remindersSwitch              = UISwitch()
-    var reminderCardHeightConstraint = NSLayoutConstraint()
-    var timePicker                   = UIDatePicker()
+    let remindersCard             = UIView()
+    let remindersLabel            = UILabel()
+    let remindersSwitch           = UISwitch()
+    var updatableLayoutConstraint = NSLayoutConstraint()
+    var timePicker                = UIDatePicker()
     
     let habitNameLabel      = UITextField()
     let pickColorLabel      = UILabel()
@@ -70,8 +70,6 @@ class CreateHabitViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .systemGray6
         
-        
-        
         // Navigation buttons
         configureHabitNameCardView()
         configureAddHabitButton()
@@ -93,6 +91,7 @@ class CreateHabitViewController: UIViewController {
         configureRemindersCard()
         configureRemindersSwitch()
         configureRemindersLabel()
+        configureRemindersTimePicker()
     }
     
     
@@ -113,7 +112,6 @@ class CreateHabitViewController: UIViewController {
         habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(habitNameLabel)
-//        habitNameLabel.placeholder = "Add a habit name here!"
         habitNameLabel.attributedPlaceholder = NSAttributedString(string: "Add a habit name here!", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         habitNameLabel.textColor = UIColor.white
         habitNameLabel.becomeFirstResponder()
@@ -179,6 +177,7 @@ class CreateHabitViewController: UIViewController {
         avoidWeekendsSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         avoidWeekendCard.addSubview(avoidWeekendsSwitch)
+        
         avoidWeekendsSwitch.onTintColor = .systemBlue
 
         NSLayoutConstraint.activate([
@@ -189,17 +188,16 @@ class CreateHabitViewController: UIViewController {
     
     func configureRemindersCard() {
         remindersCard.translatesAutoresizingMaskIntoConstraints = false
+        
         view.addSubview(remindersCard)
         
         remindersCard.layer.cornerRadius = 15
         remindersCard.backgroundColor = .systemGray5
         
-        reminderCardHeightConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
-        reminderCardHeightConstraint.isActive = true
+        updatableLayoutConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
+        updatableLayoutConstraint.isActive = true
         
         NSLayoutConstraint.activate([
-            
-//            remindersCard.heightAnchor.constraint(equalToConstant: 60),
             remindersCard.topAnchor.constraint(equalTo: avoidWeekendCard.bottomAnchor, constant: 12),
             remindersCard.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor),
             remindersCard.trailingAnchor.constraint(equalTo: avoidWeekendCard.trailingAnchor),
@@ -212,6 +210,7 @@ class CreateHabitViewController: UIViewController {
         remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
         
         remindersCard.addSubview(remindersSwitch)
+        
         remindersSwitch.onTintColor = .systemBlue
         
         remindersSwitch.addTarget(self, action: #selector(onRemindersSwitchTap), for: .valueChanged)
@@ -245,9 +244,13 @@ class CreateHabitViewController: UIViewController {
         timePicker.translatesAutoresizingMaskIntoConstraints = false
         
         remindersCard.addSubview(timePicker)
-        timePicker.datePickerMode = .time
         
+        timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .wheels
+        
+        // Will hide the time picker until the reminder switch is on
+        timePicker.endEditing(true)
+        timePicker.isHidden = true
         
         NSLayoutConstraint.activate([
             timePicker.centerXAnchor.constraint(equalTo: remindersCard.centerXAnchor),
@@ -262,6 +265,7 @@ class CreateHabitViewController: UIViewController {
         pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
         
         habitColorPickerCard.addSubview(pickColorLabel)
+        
         pickColorLabel.text = "Pick a color"
         pickColorLabel.textColor = UIColor.white
         pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .regular)
@@ -281,6 +285,7 @@ class CreateHabitViewController: UIViewController {
         let colorButtonsArray = [color1Button, color2Button, color3Button, color4Button, color5Button, color6Button, color7Button]
         
         habitColorPickerCard.addSubview(stackView)
+        
         stackView.axis              = .horizontal
         stackView.distribution      = .equalSpacing
         
@@ -382,7 +387,10 @@ class CreateHabitViewController: UIViewController {
         if ((habitNameLabel.text?.isEmpty) != true) {
             let newHabit = Habit()
             newHabit.title = habitNameLabel.text!
-            newHabit.reminderDate = timePicker.date
+            if remindersSwitch.isOn {
+                newHabit.reminderDate = timePicker.date
+            }
+            
     //        newHabit.color = UIColor.systemBlue
             if avoidWeekendsSwitch.isOn {
                 newHabit.avoidWeekends = true
@@ -425,31 +433,24 @@ class CreateHabitViewController: UIViewController {
     
     @objc func onRemindersSwitchTap() {
         
-//        updateReminderCardLayout = remindersCard.heightAnchor.constraint(equalToConstant: 200)
-//        updateReminderCardLayout.isActive = true
-        
-        
         if remindersSwitch.isOn {
-            UIView.animate(withDuration: 0.2) {
-                self.reminderCardHeightConstraint.constant = 300
-                self.configureRemindersTimePicker()
+            UIView.animate(withDuration: 0.15) {
+                self.updatableLayoutConstraint.constant = 300
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
                 self.timePicker.isHidden = false
             }
             
         } else {
-            UIView.animate(withDuration: 0.2) {
+            UIView.animate(withDuration: 0.15) {
                 self.timePicker.endEditing(true)
                 self.timePicker.isHidden = true
-                self.reminderCardHeightConstraint.constant = 60
+                self.updatableLayoutConstraint.constant = 60
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
             }
         }
-        
     }
-
 }
 
 extension CreateHabitViewController {
