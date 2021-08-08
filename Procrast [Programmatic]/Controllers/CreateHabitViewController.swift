@@ -260,7 +260,22 @@ class CreateHabitViewController: UIViewController {
     }
     
     @objc func backToMainVC() {
-        self.dismiss(animated: true)
+        
+        if ((habitNameLabel.text?.isEmpty) != true) {
+            let alert = UIAlertController(title: "If you go back this habit won't be saved", message: "Do you still want to go back?", preferredStyle: .actionSheet)
+            
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+                self.dismiss(animated: true)
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+            
+            self.present(alert, animated: true, completion: nil)
+            
+        } else {
+            
+            self.dismiss(animated: true)
+        }
+        
     }
 
 }
