@@ -88,10 +88,10 @@ class HabitCell: UITableViewCell {
         habitTitleLabel.textColor                   = .white
         
         NSLayoutConstraint.activate([
-            habitTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            habitTitleLabel.centerYAnchor.constraint(equalTo: radioButton.centerYAnchor),
             habitTitleLabel.leadingAnchor.constraint(equalTo: radioButton.trailingAnchor, constant: 8),
             habitTitleLabel.heightAnchor.constraint(equalToConstant: 40),
-            habitTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            habitTitleLabel.trailingAnchor.constraint(equalTo: habitCardView.trailingAnchor, constant: -12)
         
         ])
     }
