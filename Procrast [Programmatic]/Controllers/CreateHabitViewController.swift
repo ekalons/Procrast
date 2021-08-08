@@ -30,6 +30,7 @@ class CreateHabitViewController: UIViewController {
     let remindersCard        = UIView()
     let remindersLabel       = UILabel()
     let remindersSwitch      = UISwitch()
+    var reminderCardHeightConstraint = NSLayoutConstraint()
     
     let habitNameLabel       = UITextField()
     let pickColorLabel       = UILabel()
@@ -192,8 +193,12 @@ class CreateHabitViewController: UIViewController {
         remindersCard.layer.cornerRadius = 15
         remindersCard.backgroundColor = .systemGray5
         
+        reminderCardHeightConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
+        reminderCardHeightConstraint.isActive = true
+        
         NSLayoutConstraint.activate([
-            remindersCard.heightAnchor.constraint(equalToConstant: 60),
+            
+//            remindersCard.heightAnchor.constraint(equalToConstant: 60),
             remindersCard.topAnchor.constraint(equalTo: avoidWeekendCard.bottomAnchor, constant: 12),
             remindersCard.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor),
             remindersCard.trailingAnchor.constraint(equalTo: avoidWeekendCard.trailingAnchor),
@@ -208,9 +213,11 @@ class CreateHabitViewController: UIViewController {
         remindersCard.addSubview(remindersSwitch)
         remindersSwitch.onTintColor = .systemBlue
         
+        remindersSwitch.addTarget(self, action: #selector(onRemindersSwitchTap), for: .valueChanged)
+        
         NSLayoutConstraint.activate([
             remindersSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
-            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.centerYAnchor)
+            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30)
         ])
         
     }
@@ -228,7 +235,7 @@ class CreateHabitViewController: UIViewController {
             remindersLabel.heightAnchor.constraint(equalToConstant: 30),
             remindersLabel.leadingAnchor.constraint(equalTo: remindersCard.leadingAnchor, constant: 20),
             remindersLabel.trailingAnchor.constraint(equalTo: remindersSwitch.leadingAnchor, constant: -20),
-            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.centerYAnchor),
+            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
         ])
         
     }
@@ -394,6 +401,29 @@ class CreateHabitViewController: UIViewController {
         } else {
             
             self.dismiss(animated: true)
+        }
+        
+    }
+    
+    @objc func onRemindersSwitchTap() {
+        
+//        updateReminderCardLayout = remindersCard.heightAnchor.constraint(equalToConstant: 200)
+//        updateReminderCardLayout.isActive = true
+        
+        
+        if remindersSwitch.isOn {
+            UIView.animate(withDuration: 0.2) {
+                self.reminderCardHeightConstraint.constant = 200
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+            
+        } else {
+            UIView.animate(withDuration: 0.2) {
+                self.reminderCardHeightConstraint.constant = 60
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
         }
         
     }
