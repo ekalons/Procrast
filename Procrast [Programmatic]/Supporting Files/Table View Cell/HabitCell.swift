@@ -82,8 +82,8 @@ class HabitCell: UITableViewCell {
     
     func configureTitleLabel() {
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        habitTitleLabel.numberOfLines               = 0
-        habitTitleLabel.adjustsFontSizeToFitWidth   = true
+        habitTitleLabel.numberOfLines               = 1
+        habitTitleLabel.adjustsFontSizeToFitWidth   = false
         habitTitleLabel.font                        = UIFont.systemFont(ofSize: 18, weight: .semibold)
         habitTitleLabel.textColor                   = .white
         

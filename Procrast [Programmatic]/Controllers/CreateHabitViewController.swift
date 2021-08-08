@@ -387,6 +387,7 @@ class CreateHabitViewController: UIViewController {
         if ((habitNameLabel.text?.isEmpty) != true) {
             let newHabit = Habit()
             newHabit.title = habitNameLabel.text!
+            newHabit.creationDate = Date()
             if remindersSwitch.isOn {
                 newHabit.reminderDate = timePicker.date
             }
