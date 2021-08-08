@@ -22,14 +22,22 @@ class CreateHabitViewController: UIViewController {
     let addHabitButton      = PCIconButton()
     let leavePageButton     = PCIconButton()
     
-    let habitNameCard       = UIView()
-    let habitNameLabel      = UITextField()
-    let habitDetailsCard    = UIView()
-    let pickColorLabel      = UILabel()
+    let habitNameCard        = UIView()
+    let habitColorPickerCard = UIView()
+    let avoidWeekendCard     = UIView()
+    let avoidWeekendLabel    = UILabel()
+    
+    let remindersCard        = UIView()
+    let remindersLabel       = UILabel()
+    let remindersSwitch      = UISwitch()
+    
+    let habitNameLabel       = UITextField()
+    let pickColorLabel       = UILabel()
+    let avoidWeekendsSwitch  = UISwitch()
     
     let colorPicker = PCRoundColorButton()
     
-    let stackView           = UIStackView()
+    let stackView = UIStackView()
 
     let color1Button = PCRoundColorButton(),
         color2Button = PCRoundColorButton(),
@@ -61,16 +69,28 @@ class CreateHabitViewController: UIViewController {
         view.backgroundColor = .systemGray6
         
         
-        configureColorButtons()
+        
+        // Navigation buttons
         configureHabitNameCardView()
-        configureHabitDetailsCardView()
         configureAddHabitButton()
         configureLeavePageButton()
-        configurePickColorLabel()
         
+        // Color picker buttons
+        configureColorButtons()
+        configureHabitColorPickerCardView()
+        configurePickColorLabel()
         configureStackView()
         configureHabitNameLabel()
         
+        // Avoid weekend switch
+        configureAvoidWeekendsCard()
+        configureAvoidWeekendSwitch()
+        configureAvoidWeekendsLabel()
+        
+        // Reminder switch
+        configureRemindersCard()
+        configureRemindersSwitch()
+        configureRemindersLabel()
     }
     
     
@@ -91,7 +111,8 @@ class CreateHabitViewController: UIViewController {
         habitNameLabel.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(habitNameLabel)
-        habitNameLabel.placeholder = "Add a habit name here!"
+//        habitNameLabel.placeholder = "Add a habit name here!"
+        habitNameLabel.attributedPlaceholder = NSAttributedString(string: "Add a habit name here!", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         habitNameLabel.textColor = UIColor.white
         habitNameLabel.becomeFirstResponder()
         
@@ -104,34 +125,128 @@ class CreateHabitViewController: UIViewController {
         
     }
     
-    func configureHabitDetailsCardView() {
-        habitDetailsCard.translatesAutoresizingMaskIntoConstraints = false
+    func configureHabitColorPickerCardView() {
+        habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(habitDetailsCard)
-        habitDetailsCard.layer.cornerRadius = 10
-        habitDetailsCard.backgroundColor = .systemGray5
+        view.addSubview(habitColorPickerCard)
+        habitColorPickerCard.layer.cornerRadius = 15
+        habitColorPickerCard.backgroundColor = .systemGray5
         
         NSLayoutConstraint.activate([
-            habitDetailsCard.heightAnchor.constraint(equalToConstant: 250),
-            habitDetailsCard.topAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: 15),
-            habitDetailsCard.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-            habitDetailsCard.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
+            habitColorPickerCard.heightAnchor.constraint(equalToConstant: 120),
+            habitColorPickerCard.topAnchor.constraint(equalTo: habitNameCard.bottomAnchor, constant: 12),
+            habitColorPickerCard.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            habitColorPickerCard.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10)
         ])
     }
+    
+    func configureAvoidWeekendsCard() {
+        avoidWeekendCard.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(avoidWeekendCard)
+        
+        avoidWeekendCard.layer.cornerRadius = 15
+        avoidWeekendCard.backgroundColor = .systemGray5
+        
+        NSLayoutConstraint.activate([
+            avoidWeekendCard.heightAnchor.constraint(equalToConstant: 60),
+            avoidWeekendCard.topAnchor.constraint(equalTo: habitColorPickerCard.bottomAnchor, constant: 12),
+            avoidWeekendCard.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor),
+            avoidWeekendCard.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor)
+        ])
+    }
+    
+    func configureAvoidWeekendsLabel() {
+        avoidWeekendLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        avoidWeekendCard.addSubview(avoidWeekendLabel)
+
+        avoidWeekendLabel.text = "Avoid weekends"
+        avoidWeekendLabel.textColor = pickColorLabel.textColor
+        avoidWeekendLabel.font = UIFont.systemFont(ofSize: 19)
+
+        NSLayoutConstraint.activate([
+            avoidWeekendLabel.heightAnchor.constraint(equalToConstant: 30),
+            avoidWeekendLabel.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor, constant: 20),
+            avoidWeekendLabel.trailingAnchor.constraint(equalTo: avoidWeekendsSwitch.leadingAnchor, constant: -20),
+            avoidWeekendLabel.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+        ])
+    }
+    
+    func configureAvoidWeekendSwitch() {
+        avoidWeekendsSwitch.translatesAutoresizingMaskIntoConstraints = false
+        
+        avoidWeekendCard.addSubview(avoidWeekendsSwitch)
+        avoidWeekendsSwitch.onTintColor = .systemBlue
+
+        NSLayoutConstraint.activate([
+            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            avoidWeekendsSwitch.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+        ])
+    }
+    
+    func configureRemindersCard() {
+        remindersCard.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(remindersCard)
+        
+        remindersCard.layer.cornerRadius = 15
+        remindersCard.backgroundColor = .systemGray5
+        
+        NSLayoutConstraint.activate([
+            remindersCard.heightAnchor.constraint(equalToConstant: 60),
+            remindersCard.topAnchor.constraint(equalTo: avoidWeekendCard.bottomAnchor, constant: 12),
+            remindersCard.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor),
+            remindersCard.trailingAnchor.constraint(equalTo: avoidWeekendCard.trailingAnchor),
+            
+        ])
+        
+    }
+    
+    func configureRemindersSwitch() {
+        remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
+        
+        remindersCard.addSubview(remindersSwitch)
+        remindersSwitch.onTintColor = .systemBlue
+        
+        NSLayoutConstraint.activate([
+            remindersSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.centerYAnchor)
+        ])
+        
+    }
+    
+    func configureRemindersLabel() {
+        remindersLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        remindersCard.addSubview(remindersLabel)
+        
+        remindersLabel.text = "Reminders"
+        remindersLabel.textColor = pickColorLabel.textColor
+        remindersLabel.font = avoidWeekendLabel.font
+        
+        NSLayoutConstraint.activate([
+            remindersLabel.heightAnchor.constraint(equalToConstant: 30),
+            remindersLabel.leadingAnchor.constraint(equalTo: remindersCard.leadingAnchor, constant: 20),
+            remindersLabel.trailingAnchor.constraint(equalTo: remindersSwitch.leadingAnchor, constant: -20),
+            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.centerYAnchor),
+        ])
+        
+    }
+    
     
     func configurePickColorLabel() {
         pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(pickColorLabel)
+        habitColorPickerCard.addSubview(pickColorLabel)
         pickColorLabel.text = "Pick a color"
-        pickColorLabel.textColor = UIColor.lightGray
-        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .heavy)
+        pickColorLabel.textColor = UIColor.white
+        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .regular)
         
         NSLayoutConstraint.activate([
             pickColorLabel.heightAnchor.constraint(equalToConstant: 30),
-            pickColorLabel.topAnchor.constraint(equalTo: habitDetailsCard.topAnchor, constant: 15),
-            pickColorLabel.leftAnchor.constraint(equalTo: habitDetailsCard.leftAnchor, constant: 20),
-            pickColorLabel.rightAnchor.constraint(equalTo: habitDetailsCard.rightAnchor, constant: -20)
+            pickColorLabel.topAnchor.constraint(equalTo: habitColorPickerCard.topAnchor, constant: 15),
+            pickColorLabel.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 20),
+            pickColorLabel.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -20)
         ])
         
     }
@@ -141,7 +256,7 @@ class CreateHabitViewController: UIViewController {
         
         let colorButtonsArray = [color1Button, color2Button, color3Button, color4Button, color5Button, color6Button, color7Button]
         
-        view.addSubview(stackView)
+        habitColorPickerCard.addSubview(stackView)
         stackView.axis              = .horizontal
         stackView.distribution      = .equalSpacing
         
@@ -167,9 +282,9 @@ class CreateHabitViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             stackView.heightAnchor.constraint(equalToConstant: 38),
-            stackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 18),
-            stackView.leadingAnchor.constraint(equalTo: habitDetailsCard.leadingAnchor, constant: 13),
-            stackView.trailingAnchor.constraint(equalTo: habitDetailsCard.trailingAnchor, constant: -13)
+            stackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
+            stackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
+            stackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13)
         ])
         randomColorAtLoad()
 
@@ -199,13 +314,15 @@ class CreateHabitViewController: UIViewController {
     }
     
     
+    
+    
         
     
 //  Configuring navigation buttons on top of screen
     func configureAddHabitButton() {
         addHabitButton.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(addHabitButton)
+        habitNameCard.addSubview(addHabitButton)
         addHabitButton.setImage(Icons.smallPlusIcon, for: .normal)
         addHabitButton.addTarget(self, action: #selector(self.saveHabitAndDismiss), for: .touchUpInside)
         
@@ -223,7 +340,7 @@ class CreateHabitViewController: UIViewController {
     func configureLeavePageButton() {
         leavePageButton.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(leavePageButton)
+        habitNameCard.addSubview(leavePageButton)
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
         leavePageButton.addTarget(self, action: #selector(self.backToMainVC), for: .touchUpInside)
   
@@ -235,13 +352,16 @@ class CreateHabitViewController: UIViewController {
         ])
     }
     
-    //
+    
     @objc func saveHabitAndDismiss() {
         
         if ((habitNameLabel.text?.isEmpty) != true) {
             let newHabit = Habit()
             newHabit.title = habitNameLabel.text!
     //        newHabit.color = UIColor.systemBlue
+            if avoidWeekendsSwitch.isOn {
+                newHabit.avoidWeekends = true
+            }
             
             self.save(habit: newHabit)
             

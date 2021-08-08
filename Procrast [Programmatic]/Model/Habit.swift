@@ -9,21 +9,23 @@ import UIKit
 import RealmSwift
 
 class Habit: Object {
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
+    
     @objc dynamic var title: String = ""
 //    @objc dynamic var color: UIColor
     @objc dynamic var isCompleted: Bool = false
 //    @objc dynamic var completedForDay: Bool = false
-//    @objc dynamic var avoidWeekends: Bool = false
+    @objc dynamic var avoidWeekends: Bool = false
 //    @objc dynamic var creationDate: Date?
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
     
-    convenience init(title: String, isCompleted: Bool, _id: String) {
+    
+    convenience init( _id: String, title: String, isCompleted: Bool, avoidWeekends: Bool) {
         self.init()
         self.title = title
 //        self.color =  color
         self.isCompleted = isCompleted
 //        self.completedForDay = completedForDay
-//        self.avoidWeekends = avoidWeekends
+        self.avoidWeekends = avoidWeekends
 //        self.creationDate = creationDate
     }
     override static func primaryKey() -> String? {
