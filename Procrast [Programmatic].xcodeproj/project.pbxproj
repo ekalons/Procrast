@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4229ACA326C2F341007E4642 /* UIColorToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA226C2F341007E4642 /* UIColorToHex.swift */; };
 		425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EF9FF2603FF1100A7232D /* AppDelegate.swift */; };
 		425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA012603FF1100A7232D /* SceneDelegate.swift */; };
 		425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		3BD9E2510141CCFEBD74ED8B /* Pods-Procrast [Programmatic].debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].debug.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].debug.xcconfig"; sourceTree = "<group>"; };
+		4229ACA226C2F341007E4642 /* UIColorToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorToHex.swift; sourceTree = "<group>"; };
 		425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Procrast [Programmatic].app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425EF9FF2603FF1100A7232D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		425EFA012603FF1100A7232D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				425EFA3E260521C600A7232D /* UIViewPins.swift */,
+				4229ACA226C2F341007E4642 /* UIColorToHex.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				425EFA432605230500A7232D /* HabitCell.swift in Sources */,
 				425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */,
 				426BEF2C26AB2B9400D273F7 /* PCHabitCellRadioButton.swift in Sources */,
+				4229ACA326C2F341007E4642 /* UIColorToHex.swift in Sources */,
 				425EFA472605267B00A7232D /* Habit.swift in Sources */,
 				425EFA21260400D300A7232D /* MainViewController.swift in Sources */,
 				425EFA3F260521C600A7232D /* UIViewPins.swift in Sources */,

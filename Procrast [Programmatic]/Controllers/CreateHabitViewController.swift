@@ -38,6 +38,7 @@ class CreateHabitViewController: UIViewController {
     let avoidWeekendsSwitch = UISwitch()
     
     let colorPicker = PCRoundColorButton()
+    var pickedColor: UIColor? = nil
     
     let stackView = UIStackView()
 
@@ -307,6 +308,8 @@ class CreateHabitViewController: UIViewController {
                 
                 self.habitNameCard.backgroundColor = button.colorButtonContentView.backgroundColor
                 
+                self.pickedColor = button.colorButtonContentView.backgroundColor
+                
             }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
             stackView.addArrangedSubview(button)
@@ -395,7 +398,8 @@ class CreateHabitViewController: UIViewController {
                 newHabit.reminderDate = timePicker.date
             }
             
-    //        newHabit.color = UIColor.systemBlue
+            newHabit.color = self.pickedColor?.toHexString() ?? "No color found"
+            
             if avoidWeekendsSwitch.isOn {
                 newHabit.avoidWeekends = true
             }

@@ -12,17 +12,17 @@ class Habit: Object {
     
     @objc dynamic var _id: ObjectId = ObjectId.generate()
     @objc dynamic var title: String = ""
-//    @objc dynamic var color: UIColor
+    @objc dynamic var color: String = ""
     @objc dynamic var isCompleted: Bool = false
     @objc dynamic var avoidWeekends: Bool = false
     @objc dynamic var creationDate: Date?
     @objc dynamic var reminderDate: Date?
     
     
-    convenience init( _id: String, title: String, isCompleted: Bool, avoidWeekends: Bool, creationDate: Date?, reminderDate: Date?) {
+    convenience init( _id: String, title: String, color: String, isCompleted: Bool, avoidWeekends: Bool, creationDate: Date?, reminderDate: Date?) {
         self.init()
         self.title = title
-//        self.color =  color
+        self.color = color
         self.isCompleted = isCompleted
 //        self.completedForDay = completedForDay
         self.avoidWeekends = avoidWeekends
