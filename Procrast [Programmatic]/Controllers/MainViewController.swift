@@ -34,7 +34,12 @@ class MainViewController: UIViewController {
     }
     
     func loadData() {
-        habits = realm.objects(Habit.self)
+//        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true).filter("isCompleted == false")
+        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true)
+    }
+    
+    func toggleItem(_ habit: Habit) {
+        habit.toggleCompleted()
     }
     
     func configureUI() {
@@ -45,7 +50,7 @@ class MainViewController: UIViewController {
     }
     
     
-//MARK: Table configurations
+// MARK: Table configurations
     func configureTableView() {
         view.addSubview(tableView)
         tableView.backgroundColor = .systemGray6
@@ -109,7 +114,7 @@ class MainViewController: UIViewController {
 
 }
 
-//MARK: Extensions
+// MARK: Extensions
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -118,22 +123,32 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let habit = habits[indexPath.row]
         cell.set(habit: habit)
         
-        cell.radioButtonAction = { [unowned self] in
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            
-//            let habit = self.habits[indexPath.row].title
-            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
-            alert.addAction(okAction)
-            
-            cell.selectionStyle = UITableViewCell.SelectionStyle.default
-            
-            if yourFirstHabit == false {
-                self.present(alert, animated: true, completion: nil)
-                yourFirstHabit = true
-            }
-            
+        // Read from Realm, then populate RadioButtonStatus-es accordingly
+        cell.configureWith(habit) { [weak self] habit in
+            self?.toggleItem(habit)
         }
+        
+        
+        
+//        cell.radioButtonAction = { [unowned self] in
+//            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+//
+//
+////            let habit = self.habits[indexPath.row].title
+//            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
+//            alert.addAction(okAction)
+//
+//
+
+////            tableView.reloadData()
+//
+//            if yourFirstHabit == false {
+//                self.present(alert, animated: true, completion: nil)
+//                yourFirstHabit = true
+//            }
+//
+//        }
         
         return cell
     }
@@ -161,17 +176,6 @@ extension MainViewController: CreateHabitDelegate {
 //extension MainViewController {
 //
 //    func fetchData() -> [Habit] {
-//
-//        //This is dummy data that will be replaced with a meaningful Realm function to retrieve data
-//
-////        let habit1 = Habit(icon: Icons.lightBulbIcon.withTintColor(.systemYellow, renderingMode: .alwaysOriginal),
-//
-//        let habit1 = Habit(color: .systemBlue, title: "Read news", completeness: false)
-//        let habit2 = Habit(color: .systemRed, title: "Add expenses to Excel", completeness: false)
-//        let habit3 = Habit(color: .systemPink, title: "Read 1 hour", completeness: false)
-//        let habit4 = Habit(color: .systemGreen, title: "Do something creative", completeness: false)
-//        let habit5 = Habit(color: .systemYellow, title: "Run for 45 minutes", completeness: false)
-//        let habit6 = Habit(color: .systemBlue, title: "Prepare a healthy meal", completeness: false)
 //
 //        let habitArray: [Habit] = [habit1, habit2, habit3, habit4, habit5, habit6]
 //

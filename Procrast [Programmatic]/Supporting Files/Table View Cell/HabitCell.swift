@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class HabitCell: UITableViewCell {
+    
+    private var habit: Habit?
+    var habits: Results<Habit>!
+    var radioSelectionStatus: Bool = false
     
     var habitTitleLabel      = UILabel()
     let habitCardView        = UIView()
     var radioButton          = PCHabitCellRadioButton()
-    var radioButtonAction      : (() -> ())?
+    var radioButtonAction    : (() -> ())?
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,6 +43,21 @@ class HabitCell: UITableViewCell {
     func set(habit: Habit) {
         //Check minute 24
         habitTitleLabel.text = habit.title
+//        onToggleCompleted?(habit)
+    }
+    
+    func configureWith(_ habit: Habit, onToggleCompleted: ((Habit) -> Void)? = nil) {
+        self.habit = habit
+        
+        if habit.isCompleted == true {
+            
+            radioButton.radioSelected()
+        
+        } else {
+
+            radioButton.radioDeselected()
+        }
+        
     }
     
     func configureHabitCardView() {
@@ -96,17 +116,26 @@ class HabitCell: UITableViewCell {
         ])
     }
     
+    func manageRadioSelection() {
+        radioSelectionStatus = !radioSelectionStatus
+        if radioSelectionStatus == true {
+            radioButton.radioSelected()
+
+        } else {
+            radioButton.radioDeselected()
+
+        }
+
+    }
+
+    
     @objc func onRadioViewTap(_ sender: PCHabitCellRadioButton) {
         
-        self.isSelected = !isSelected
+        self.radioSelectionStatus = habit!.isCompleted
         
-        if isSelected {
-            radioButton.radioSelected()
-            radioButtonAction?()
-        }
-        else {
-            radioButton.radioDeselected()
-        }
+        manageRadioSelection()
+        // Toggle has to be managed here so fix .toggle()
+        self.habit?.toggleCompleted()
         
     }
 

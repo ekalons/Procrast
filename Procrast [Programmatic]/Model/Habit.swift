@@ -9,12 +9,11 @@ import UIKit
 import RealmSwift
 
 class Habit: Object {
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
     
+    @objc dynamic var _id: ObjectId = ObjectId.generate()
     @objc dynamic var title: String = ""
 //    @objc dynamic var color: UIColor
     @objc dynamic var isCompleted: Bool = false
-//    @objc dynamic var completedForDay: Bool = false
     @objc dynamic var avoidWeekends: Bool = false
     @objc dynamic var creationDate: Date?
     @objc dynamic var reminderDate: Date?
@@ -36,12 +35,16 @@ class Habit: Object {
 
 
 //    @objc dynamic var firstHabitCompleted: Bool = false
-//    @objc dynamic var creationDate: Date?
 }
 
-//struct Habit {
-//    var color: UIColor
-//    var title: String = ""
-//    var completeness: Bool = false
-//
-//}
+extension Habit {
+    
+    func toggleCompleted() {
+        
+      guard let realm = realm else { return }
+      try! realm.write {
+        isCompleted = !isCompleted
+        
+      }
+    }
+}
