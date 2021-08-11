@@ -24,7 +24,6 @@ class MainViewController: UIViewController {
         static let habitCell = "HabitCell"
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemGray6
@@ -32,6 +31,10 @@ class MainViewController: UIViewController {
         loadData()
         configureUI()
     }
+    
+    override open var shouldAutorotate: Bool {
+            return false
+        }
     
     func loadData() {
 //        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true).filter("isCompleted == false")
