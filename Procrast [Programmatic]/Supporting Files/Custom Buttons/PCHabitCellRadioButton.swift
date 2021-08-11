@@ -10,8 +10,6 @@ import RealmSwift
 
 class PCHabitCellRadioButton: UIView {
     
-    let realm = try! Realm()
-    var userPickedColorToConvert: String = ""
     var userPickedUIColor: UIColor? = nil
     
     let radioContentView: UIView = {
@@ -65,7 +63,7 @@ class PCHabitCellRadioButton: UIView {
     func configureRadioViewOuterRingColor(userColorInHex: String) {
         userPickedUIColor = UIColor(hexaString: userColorInHex)
         radioViewOuterRing.layer.borderColor = userPickedUIColor?.cgColor
-        print(String(describing: userPickedColorToConvert))
+        print(String(describing: userColorInHex))
     }
     
     func configureRadioViewOuterRing() {
