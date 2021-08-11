@@ -14,6 +14,9 @@ protocol CreateHabitDelegate: AnyObject {
 
 class CreateHabitViewController: UIViewController {
     
+    var randomColor: UIColor? = nil
+    var randomColorInHex: String = ""
+    
     weak var delegate: CreateHabitDelegate?
     
     let realm = try! Realm()
@@ -297,7 +300,10 @@ class CreateHabitViewController: UIViewController {
             let random = colorButtonsArray.randomElement()
             random?.isSelected = true
             random?.colorSelected()
-            habitNameCard.backgroundColor = random?.colorButtonContentView.backgroundColor
+            randomColor = random?.colorButtonContentView.backgroundColor
+            habitNameCard.backgroundColor = randomColor
+            // The line below is to save this color to Realm in case the user doesn't assign a color of their own
+            randomColorInHex = randomColor?.toHexString() ?? "No random color defined"
         }
         
         for button in colorButtonsArray {
@@ -398,7 +404,7 @@ class CreateHabitViewController: UIViewController {
                 newHabit.reminderDate = timePicker.date
             }
             
-            newHabit.color = self.pickedColor?.toHexString() ?? "No color found"
+            newHabit.color = self.pickedColor?.toHexString() ?? randomColorInHex
             
             if avoidWeekendsSwitch.isOn {
                 newHabit.avoidWeekends = true

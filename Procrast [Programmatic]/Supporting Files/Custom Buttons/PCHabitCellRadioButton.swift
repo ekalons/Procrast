@@ -63,7 +63,6 @@ class PCHabitCellRadioButton: UIView {
     func configureRadioViewOuterRingColor(userColorInHex: String) {
         userPickedUIColor = UIColor(hexaString: userColorInHex)
         radioViewOuterRing.layer.borderColor = userPickedUIColor?.cgColor
-        print(String(describing: userColorInHex))
     }
     
     func configureRadioViewOuterRing() {

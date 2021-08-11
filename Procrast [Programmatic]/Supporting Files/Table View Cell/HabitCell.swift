@@ -43,7 +43,6 @@ class HabitCell: UITableViewCell {
     func set(habit: Habit) {
         //Check minute 24
         habitTitleLabel.text = habit.title
-        radioButton.userPickedColorToConvert = habit.color
         radioButton.configureRadioViewOuterRingColor(userColorInHex: habit.color)
     }
     
