@@ -43,7 +43,8 @@ class HabitCell: UITableViewCell {
     func set(habit: Habit) {
         //Check minute 24
         habitTitleLabel.text = habit.title
-//        onToggleCompleted?(habit)
+        radioButton.userPickedColorToConvert = habit.color
+        radioButton.configureRadioViewOuterRingColor(userColorInHex: habit.color)
     }
     
     func configureWith(_ habit: Habit, onToggleCompleted: ((Habit) -> Void)? = nil) {
@@ -51,11 +52,11 @@ class HabitCell: UITableViewCell {
         
         if habit.isCompleted == true {
             
-            radioButton.radioSelected()
+            radioButton.radioSelected(userColorInHex: habit.color)
         
         } else {
 
-            radioButton.radioDeselected()
+            radioButton.radioDeselected(userColorInHex: habit.color)
         }
         
     }
@@ -119,10 +120,10 @@ class HabitCell: UITableViewCell {
     func manageRadioSelection() {
         radioSelectionStatus = !radioSelectionStatus
         if radioSelectionStatus == true {
-            radioButton.radioSelected()
+            radioButton.radioSelected(userColorInHex: habit!.color)
 
         } else {
-            radioButton.radioDeselected()
+            radioButton.radioDeselected(userColorInHex: habit!.color)
 
         }
 
@@ -134,7 +135,7 @@ class HabitCell: UITableViewCell {
         self.radioSelectionStatus = habit!.isCompleted
         
         manageRadioSelection()
-        // Toggle has to be managed here so fix .toggle()
+        
         self.habit?.toggleCompleted()
         
     }
