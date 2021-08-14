@@ -17,9 +17,10 @@ class Habit: Object {
     @objc dynamic var avoidWeekends: Bool = false
     @objc dynamic var creationDate: Date?
     @objc dynamic var reminderDate: Date?
+    @objc dynamic var streakCounter: Int = 0
     
     
-    convenience init( _id: String, title: String, color: String, isCompleted: Bool, avoidWeekends: Bool, creationDate: Date?, reminderDate: Date?) {
+    convenience init( _id: String, title: String, color: String, isCompleted: Bool, avoidWeekends: Bool, creationDate: Date?, reminderDate: Date?, streakCounter: Int) {
         self.init()
         self.title = title
         self.color = color
@@ -28,6 +29,7 @@ class Habit: Object {
         self.avoidWeekends = avoidWeekends
         self.creationDate = creationDate
         self.reminderDate = reminderDate
+        self.streakCounter = streakCounter
     }
     override static func primaryKey() -> String? {
         return "_id"
