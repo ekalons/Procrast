@@ -133,6 +133,9 @@ class HabitCell: UITableViewCell {
         
         self.radioSelectionStatus = habit!.isCompleted
         
+        // radioButtonAction will reload tableView data on every tap
+        radioButtonAction?()
+        
         manageRadioSelection()
         
         self.habit?.toggleCompleted()

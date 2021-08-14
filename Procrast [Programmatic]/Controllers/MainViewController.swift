@@ -38,7 +38,7 @@ class MainViewController: UIViewController {
     
     func loadData() {
 //        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true).filter("isCompleted == false")
-        habits = realm.objects(Habit.self).sorted(byKeyPath: "creationDate", ascending: true)
+        habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
     }
     
     func toggleItem(_ habit: Habit) {
@@ -133,7 +133,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         
-//        cell.radioButtonAction = { [unowned self] in
+        cell.radioButtonAction = { [unowned self] in
+            tableView.reloadData()
 //            cell.selectionStyle = UITableViewCell.SelectionStyle.none
 //
 //
@@ -143,15 +144,15 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 //            alert.addAction(okAction)
 //
 //
-
+//
 ////            tableView.reloadData()
 //
 //            if yourFirstHabit == false {
 //                self.present(alert, animated: true, completion: nil)
 //                yourFirstHabit = true
 //            }
-//
-//        }
+
+        }
         
         return cell
     }
