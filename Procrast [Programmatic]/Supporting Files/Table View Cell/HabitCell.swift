@@ -6,13 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class HabitCell: UITableViewCell {
+    
+    private var habit: Habit?
+    var habits: Results<Habit>!
+    var radioSelectionStatus: Bool = false
     
     var habitTitleLabel      = UILabel()
     let habitCardView        = UIView()
     var radioButton          = PCHabitCellRadioButton()
-    var radioButtonAction      : (() -> ())?
+    var radioButtonAction    : (() -> ())?
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -38,6 +43,21 @@ class HabitCell: UITableViewCell {
     func set(habit: Habit) {
         //Check minute 24
         habitTitleLabel.text = habit.title
+        radioButton.configureRadioViewOuterRingColor(userColorInHex: habit.color)
+    }
+    
+    func configureWith(_ habit: Habit, onToggleCompleted: ((Habit) -> Void)? = nil) {
+        self.habit = habit
+        
+        if habit.isCompleted == true {
+            
+            radioButton.radioSelected(userColorInHex: habit.color)
+        
+        } else {
+
+            radioButton.radioDeselected(userColorInHex: habit.color)
+        }
+        
     }
     
     func configureHabitCardView() {
@@ -82,31 +102,43 @@ class HabitCell: UITableViewCell {
     
     func configureTitleLabel() {
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        habitTitleLabel.numberOfLines               = 0
-        habitTitleLabel.adjustsFontSizeToFitWidth   = true
+        habitTitleLabel.numberOfLines               = 1
+        habitTitleLabel.adjustsFontSizeToFitWidth   = false
         habitTitleLabel.font                        = UIFont.systemFont(ofSize: 18, weight: .semibold)
         habitTitleLabel.textColor                   = .white
         
         NSLayoutConstraint.activate([
-            habitTitleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            habitTitleLabel.centerYAnchor.constraint(equalTo: radioButton.centerYAnchor),
             habitTitleLabel.leadingAnchor.constraint(equalTo: radioButton.trailingAnchor, constant: 8),
             habitTitleLabel.heightAnchor.constraint(equalToConstant: 40),
-            habitTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12)
+            habitTitleLabel.trailingAnchor.constraint(equalTo: habitCardView.trailingAnchor, constant: -12)
         
         ])
     }
     
+    func manageRadioSelection() {
+        radioSelectionStatus = !radioSelectionStatus
+        if radioSelectionStatus == true {
+            radioButton.radioSelected(userColorInHex: habit!.color)
+
+        } else {
+            radioButton.radioDeselected(userColorInHex: habit!.color)
+
+        }
+
+    }
+
+    
     @objc func onRadioViewTap(_ sender: PCHabitCellRadioButton) {
         
-        self.isSelected = !isSelected
+        self.radioSelectionStatus = habit!.isCompleted
         
-        if isSelected {
-            radioButton.radioSelected()
-            radioButtonAction?()
-        }
-        else {
-            radioButton.radioDeselected()
-        }
+        // radioButtonAction will reload tableView data on every tap
+        radioButtonAction?()
+        
+        manageRadioSelection()
+        
+        self.habit?.toggleCompleted()
         
     }
 

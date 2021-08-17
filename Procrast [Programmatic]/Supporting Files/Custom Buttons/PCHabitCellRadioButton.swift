@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class PCHabitCellRadioButton: UIView {
+    
+    var userPickedUIColor: UIColor? = nil
     
     let radioContentView: UIView = {
         let view = UIView()
@@ -56,12 +59,16 @@ class PCHabitCellRadioButton: UIView {
         ])
         
     }
+    // This is color is called from the HabitCell
+    func configureRadioViewOuterRingColor(userColorInHex: String) {
+        userPickedUIColor = UIColor(hexaString: userColorInHex)
+        radioViewOuterRing.layer.borderColor = userPickedUIColor?.cgColor
+    }
     
     func configureRadioViewOuterRing() {
         radioViewOuterRing.translatesAutoresizingMaskIntoConstraints = false
         radioViewOuterRing.layer.cornerRadius = 11
         radioViewOuterRing.layer.borderWidth = 3.5
-        radioViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
         radioViewOuterRing.backgroundColor = .clear
         
         NSLayoutConstraint.activate([
@@ -86,16 +93,19 @@ class PCHabitCellRadioButton: UIView {
         ])
     }
     
-    func radioSelected() {
+    // MARK: Radio button selection states
+    func radioSelected(userColorInHex: String) {
+        userPickedUIColor = UIColor(hexaString: userColorInHex)
         print("Radio button checked")
-        radioViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
-        radioViewInnerCircle.backgroundColor = .systemBlue
-        radioViewOuterRing.tintColor = .white
+        radioViewOuterRing.layer.borderColor = userPickedUIColor?.cgColor
+        radioViewInnerCircle.backgroundColor = userPickedUIColor
+//        radioViewOuterRing.tintColor = .white
     }
     
-    func radioDeselected() {
+    func radioDeselected(userColorInHex: String) {
+        userPickedUIColor = UIColor(hexaString: userColorInHex)
         print("Radio button unchecked")
-        radioViewOuterRing.layer.borderColor = UIColor.systemBlue.cgColor
+        radioViewOuterRing.layer.borderColor = userPickedUIColor?.cgColor
         radioViewOuterRing.backgroundColor = .clear
         radioViewInnerCircle.backgroundColor = .clear
     }

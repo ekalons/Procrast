@@ -6,14 +6,17 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MainViewController: UIViewController {
+    
+    let realm = try! Realm()
     
     let addHabitButton = PCIconButton()
     let settingsButton = PCIconButton()
     
     var tableView = UITableView()
-    var habits: [Habit] = []
+    var habits: Results<Habit>!
     
     lazy var yourFirstHabit: Bool = false
     
@@ -21,15 +24,25 @@ class MainViewController: UIViewController {
         static let habitCell = "HabitCell"
     }
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        //title = "This is the title of the navigation bar, if I were to have one"
-        habits = fetchData()
-
         view.backgroundColor = .systemGray6
         
+        loadData()
         configureUI()
+    }
+    
+    override open var shouldAutorotate: Bool {
+            return false
+        }
+    
+    func loadData() {
+//        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true).filter("isCompleted == false")
+        habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
+    }
+    
+    func toggleItem(_ habit: Habit) {
+        habit.toggleCompleted()
     }
     
     func configureUI() {
@@ -40,7 +53,7 @@ class MainViewController: UIViewController {
     }
     
     
-//MARK: Table configurations
+// MARK: Table configurations
     func configureTableView() {
         view.addSubview(tableView)
         tableView.backgroundColor = .systemGray6
@@ -92,16 +105,19 @@ class MainViewController: UIViewController {
     
     // MARK: Present objc functions
     @objc func presentHabitCreatingVC() {
-        present(CreateHabitViewController(), animated: true)
+        
+        let createHabitVC = CreateHabitViewController()
+        createHabitVC.delegate = self
+        self.present(createHabitVC, animated: true)
     }
 
     @objc func presentSettingsVC() {
-        present(SettingsViewController(), animated: true)
+        self.present(SettingsViewController(), animated: true)
     }
 
 }
 
-//MARK: Extensions
+// MARK: Extensions
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -110,21 +126,32 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         let habit = habits[indexPath.row]
         cell.set(habit: habit)
         
+        // Read from Realm, then populate RadioButtonStatus-es accordingly
+        cell.configureWith(habit) { [weak self] habit in
+            self?.toggleItem(habit)
+        }
+        
+        
+        
         cell.radioButtonAction = { [unowned self] in
-            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-            
-//            let habit = self.habits[indexPath.row].title
-            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
-            alert.addAction(okAction)
-            
-            cell.selectionStyle = UITableViewCell.SelectionStyle.default
-            
-            if yourFirstHabit == false {
-                self.present(alert, animated: true, completion: nil)
-                yourFirstHabit = true
-            }
-            
+            tableView.reloadData()
+//            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+//
+//
+////            let habit = self.habits[indexPath.row].title
+//            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
+//            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
+//            alert.addAction(okAction)
+//
+//
+//
+////            tableView.reloadData()
+//
+//            if yourFirstHabit == false {
+//                self.present(alert, animated: true, completion: nil)
+//                yourFirstHabit = true
+//            }
+
         }
         
         return cell
@@ -141,33 +168,29 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
-
-
-extension MainViewController {
-    
-    func fetchData() -> [Habit] {
-        
-        //This is dummy data that will be replaced with a meaningful Realm function to retrieve data
-        
-//        let habit1 = Habit(icon: Icons.lightBulbIcon.withTintColor(.systemYellow, renderingMode: .alwaysOriginal),
-        
-        let habit1 = Habit(color: .systemBlue, title: "Read news", completeness: false)
-        let habit2 = Habit(color: .systemRed, title: "Add expenses to Excel", completeness: false)
-        let habit3 = Habit(color: .systemPink, title: "Read 1 hour", completeness: false)
-        let habit4 = Habit(color: .systemGreen, title: "Do something creative", completeness: false)
-        let habit5 = Habit(color: .systemYellow, title: "Run for 45 minutes", completeness: false)
-        let habit6 = Habit(color: .systemBlue, title: "Prepare a healthy meal", completeness: false)
-        
-        let habitArray: [Habit] = [habit1, habit2, habit3, habit4, habit5, habit6]
-        
-        let sortedHabits = habitArray.sorted {
-            
-            if $0.completeness == $1.completeness {
-                return $0.title < $1.title
-            }
-            return $0.completeness == false && $1.completeness == true
-        }
-        
-        return sortedHabits
+extension MainViewController: CreateHabitDelegate {
+    func modalVCWillDismiss(_ modalVC: CreateHabitViewController) {
+        loadData()
+        tableView.reloadData()
+        print("Table view now reloaded")
     }
 }
+
+//
+//extension MainViewController {
+//
+//    func fetchData() -> [Habit] {
+//
+//        let habitArray: [Habit] = [habit1, habit2, habit3, habit4, habit5, habit6]
+//
+//        let sortedHabits = habitArray.sorted {
+//
+//            if $0.completeness == $1.completeness {
+//                return $0.title < $1.title
+//            }
+//            return $0.completeness == false && $1.completeness == true
+//        }
+//
+//        return sortedHabits
+//    }
+//}
