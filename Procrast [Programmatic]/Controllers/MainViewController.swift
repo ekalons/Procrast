@@ -162,7 +162,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Habit \(habits[indexPath.row].title) cell was tapped")
+        print("Habit \(String(describing: habits[indexPath.row].title)) cell was tapped")
         tableView.deselectRow(at: indexPath, animated: true)
     }
 

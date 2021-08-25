@@ -10,33 +10,33 @@ import RealmSwift
 
 class Habit: Object {
     
-    @objc dynamic var _id: ObjectId = ObjectId.generate()
-    @objc dynamic var title: String = ""
-    @objc dynamic var color: String = ""
-    @objc dynamic var isCompleted: Bool = false
-    @objc dynamic var avoidWeekends: Bool = false
-    @objc dynamic var creationDate: Date?
-    @objc dynamic var reminderDate: Date?
-    @objc dynamic var streakCounter: Int = 0
+    @Persisted var _id: ObjectId = ObjectId.generate()
+    @Persisted var _partition: String? = "4446667777"
+    @Persisted var title: String = ""
+    @Persisted var color: String = ""
+    @Persisted var isCompleted: Bool = false
+//    var isCompleted = RealmProperty<Bool?>()
+    @Persisted var avoidWeekends: Bool = false
+    @Persisted var creationDate: Date = Date()
+    @Persisted var reminderDate: Date? = nil
+    @Persisted var streakCounter: Int = 0
+
     
     
-    convenience init( _id: String, title: String, color: String, isCompleted: Bool, avoidWeekends: Bool, creationDate: Date?, reminderDate: Date?, streakCounter: Int) {
+    convenience init(title: String, color: String, avoidWeekends: Bool, reminderDate: Date?) {
         self.init()
         self.title = title
         self.color = color
-        self.isCompleted = isCompleted
-//        self.completedForDay = completedForDay
         self.avoidWeekends = avoidWeekends
-        self.creationDate = creationDate
+//        self.creationDate = creationDate
         self.reminderDate = reminderDate
-        self.streakCounter = streakCounter
     }
     override static func primaryKey() -> String? {
         return "_id"
     }
 
 
-//    @objc dynamic var firstHabitCompleted: Bool = false
+//    @Persisted var firstHabitCompleted: Bool = false
 }
 
 extension Habit {

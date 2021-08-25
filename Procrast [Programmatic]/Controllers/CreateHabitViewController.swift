@@ -397,21 +397,20 @@ class CreateHabitViewController: UIViewController {
     @objc func saveHabitAndDismiss() {
         
         if ((habitNameLabel.text?.isEmpty) != true) {
-            let newHabit = Habit()
-            newHabit.title = habitNameLabel.text!
-            newHabit.creationDate = Date()
+            
+            var reminderDate: Date? = nil
+            
             if remindersSwitch.isOn {
-                newHabit.reminderDate = timePicker.date
+                reminderDate = timePicker.date
+            } else {
+                reminderDate = nil
             }
             
-            newHabit.color = self.pickedColor?.toHexString() ?? randomColorInHex
-            
-            if avoidWeekendsSwitch.isOn {
-                newHabit.avoidWeekends = true
+            try! self.realm.write {
+                self.realm.add(Habit(title: self.habitNameLabel.text!, color: self.pickedColor?.toHexString() ?? randomColorInHex, avoidWeekends: avoidWeekendsSwitch.isOn, reminderDate: reminderDate))
             }
             
-            self.save(habit: newHabit)
-            
+
             delegate?.modalVCWillDismiss(self)
             
             self.dismiss(animated: true)

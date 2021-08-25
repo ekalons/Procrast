@@ -54,6 +54,7 @@ DerivedData/
 
 ## Obj-C/Swift specific
 *.hmap
+Supporting Files/SceneDelegate.swift
 
 ## App packaging
 *.ipa
