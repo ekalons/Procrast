@@ -15,12 +15,11 @@ class Habit: Object {
     @Persisted var title: String = ""
     @Persisted var color: String = ""
     @Persisted var isCompleted: Bool = false
-//    var isCompleted = RealmProperty<Bool?>()
     @Persisted var avoidWeekends: Bool = false
     @Persisted var creationDate: Date = Date()
     @Persisted var reminderDate: Date? = nil
     @Persisted var streakCounter: Int = 0
-    @Persisted var streakArray: List<Date?>
+    @Persisted var streakList: List<Date?>
 
     
     
@@ -29,7 +28,6 @@ class Habit: Object {
         self.title = title
         self.color = color
         self.avoidWeekends = avoidWeekends
-//        self.creationDate = creationDate
         self.reminderDate = reminderDate
     }
     override static func primaryKey() -> String? {
@@ -54,14 +52,14 @@ extension Habit {
     func appendToStreak() {
         guard let realm = realm else { return }
         try! realm.write {
-            streakArray.append(Date().onlyDate)
+            streakList.append(Date().onlyDate)
         }
     }
     
     func popFromStreak() {
         guard let realm = realm else { return }
         try! realm.write {
-            streakArray.removeLast()
+            streakList.removeLast()
         }
     }
 }
