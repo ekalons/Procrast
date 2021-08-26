@@ -6,6 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
+
+let realm = try! Realm()
+private var habit: Habit?
+var habits: Results<Habit>!
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -43,6 +48,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         print("Scene did enter foreground")
+        
+        habits = realm.objects(Habit.self)
+        
+        for habit in habits {
+            if habit.streakList.last != Date().onlyDate {
+                try! realm.write {
+                    habit.isCompleted = false
+                }
+            }
+        }
+        
+        
         // Use this method to undo the changes made on entering the background.
     }
 

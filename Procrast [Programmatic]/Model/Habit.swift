@@ -52,14 +52,18 @@ extension Habit {
     func appendToStreak() {
         guard let realm = realm else { return }
         try! realm.write {
-            streakList.append(Date().onlyDate)
+            if streakList.last != Date().onlyDate {
+                streakList.append(Date().onlyDate)
+            }
         }
     }
     
     func popFromStreak() {
         guard let realm = realm else { return }
         try! realm.write {
-            streakList.removeLast()
+            if streakList.last == Date().onlyDate {
+                streakList.removeLast()
+            }
         }
     }
 }
