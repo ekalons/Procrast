@@ -20,6 +20,7 @@ class Habit: Object {
     @Persisted var creationDate: Date = Date()
     @Persisted var reminderDate: Date? = nil
     @Persisted var streakCounter: Int = 0
+    @Persisted var streakArray: List<Date?>
 
     
     
@@ -48,5 +49,19 @@ extension Habit {
         isCompleted = !isCompleted
         
       }
+    }
+    
+    func appendToStreak() {
+        guard let realm = realm else { return }
+        try! realm.write {
+            streakArray.append(Date().onlyDate)
+        }
+    }
+    
+    func popFromStreak() {
+        guard let realm = realm else { return }
+        try! realm.write {
+            streakArray.removeLast()
+        }
     }
 }

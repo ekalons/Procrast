@@ -120,9 +120,11 @@ class HabitCell: UITableViewCell {
         radioSelectionStatus = !radioSelectionStatus
         if radioSelectionStatus == true {
             radioButton.radioSelected(userColorInHex: habit!.color)
+            self.habit?.appendToStreak()
 
         } else {
             radioButton.radioDeselected(userColorInHex: habit!.color)
+            self.habit?.popFromStreak()
 
         }
 
