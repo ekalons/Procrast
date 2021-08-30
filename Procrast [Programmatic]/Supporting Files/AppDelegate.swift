@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
         // Uncomment line below to find realm filepath
-         print(Realm.Configuration.defaultConfiguration.fileURL)
+//         print(Realm.Configuration.defaultConfiguration.fileURL)
         
         do {
             _ = try Realm()

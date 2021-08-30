@@ -30,6 +30,7 @@ class MainViewController: UIViewController {
         
         loadData()
         configureUI()
+//        refreshAtMidnight()
     }
     
     override open var shouldAutorotate: Bool {
@@ -37,9 +38,23 @@ class MainViewController: UIViewController {
         }
     
     func loadData() {
-//        habits = realm.objects(Habit.self).sorted(byKeyPath: "title", ascending: true).filter("isCompleted == false")
         habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
     }
+    
+//    // Resets isCompleted to false for every habit at midnight
+//    func refreshAtMidnight() {
+//        let calendar = Calendar.current
+//                let now = Date()
+//                let date = calendar.date(
+//                      bySettingHour: 00,
+//                      minute: 01,
+//                      second: 0,
+//                      of: now)!
+//                let timer = Timer(fireAt: date, interval: 0, target: self, selector: #selector(resetCompleteness), userInfo: nil, repeats: false)
+//
+//                  RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
+//        tableView.reloadData()
+//    }
     
     func toggleItem(_ habit: Habit) {
         habit.toggleCompleted()
@@ -114,6 +129,15 @@ class MainViewController: UIViewController {
     @objc func presentSettingsVC() {
         self.present(SettingsViewController(), animated: true)
     }
+    
+//    // Resets isCompleted on every habit to false
+//    @objc func resetCompleteness() {
+//        for habit in habits {
+//            try! realm.write {
+//                habit.isCompleted = false
+//            }
+//        }
+//    }
 
 }
 
@@ -152,6 +176,11 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 //                yourFirstHabit = true
 //            }
 
+        }
+        
+        reloadTableViewOnLoad = { [unowned self] in
+            tableView.reloadData()
+            print("MainVC tableview reloaded")
         }
         
         return cell

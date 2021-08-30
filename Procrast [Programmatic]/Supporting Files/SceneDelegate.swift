@@ -11,6 +11,7 @@ import RealmSwift
 let realm = try! Realm()
 private var habit: Habit?
 var habits: Results<Habit>!
+var reloadTableViewOnLoad : (() -> ())?
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -58,6 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
         }
+        reloadTableViewOnLoad?()
         
         
         // Use this method to undo the changes made on entering the background.
