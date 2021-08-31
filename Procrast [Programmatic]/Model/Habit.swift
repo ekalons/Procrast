@@ -41,16 +41,16 @@ class Habit: Object {
 extension Habit {
     
     func toggleCompleted() {
+        guard let realm = realm else { return }
         
-      guard let realm = realm else { return }
-      try! realm.write {
-        isCompleted = !isCompleted
-        
-      }
+        try! realm.write {
+            isCompleted = !isCompleted
+        }
     }
     
     func appendToStreak() {
         guard let realm = realm else { return }
+        
         try! realm.write {
             if streakList.last != Date().onlyDate {
                 streakList.append(Date().onlyDate)
@@ -60,6 +60,7 @@ extension Habit {
     
     func popFromStreak() {
         guard let realm = realm else { return }
+        
         try! realm.write {
             if streakList.last == Date().onlyDate {
                 streakList.removeLast()

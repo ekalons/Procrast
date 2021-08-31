@@ -9,7 +9,6 @@ import UIKit
 import RealmSwift
 
 let realm = try! Realm()
-private var habit: Habit?
 var habits: Results<Habit>!
 var reloadTableViewOnLoad : (() -> ())?
 

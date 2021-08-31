@@ -8,20 +8,6 @@
 import Foundation
 
 extension Date {
-    
-    func utcToLocal(dateStr: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
-        if let date = dateFormatter.date(from: dateStr) {
-                dateFormatter.timeZone = TimeZone.current
-                dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-                return dateFormatter.string(from: date)
-            }
-        return nil
-    }
 
     var onlyDate: Date? {
         get {
