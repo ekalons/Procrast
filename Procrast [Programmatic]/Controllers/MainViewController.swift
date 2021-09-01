@@ -26,11 +26,14 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // The observer below triggers on DayChanged --> Resets habits at midnight
+        NotificationCenter.default.addObserver(self, selector: #selector(dayChanged), name: .NSCalendarDayChanged, object: nil)
+        
         view.backgroundColor = .systemGray6
         
         loadData()
         configureUI()
-//        refreshAtMidnight()
     }
     
     override open var shouldAutorotate: Bool {
@@ -40,21 +43,6 @@ class MainViewController: UIViewController {
     func loadData() {
         habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
     }
-    
-//    // Resets isCompleted to false for every habit at midnight
-//    func refreshAtMidnight() {
-//        let calendar = Calendar.current
-//                let now = Date()
-//                let date = calendar.date(
-//                      bySettingHour: 00,
-//                      minute: 01,
-//                      second: 0,
-//                      of: now)!
-//                let timer = Timer(fireAt: date, interval: 0, target: self, selector: #selector(resetCompleteness), userInfo: nil, repeats: false)
-//
-//                  RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
-//        tableView.reloadData()
-//    }
     
     func toggleItem(_ habit: Habit) {
         habit.toggleCompleted()
@@ -130,14 +118,24 @@ class MainViewController: UIViewController {
         self.present(SettingsViewController(), animated: true)
     }
     
-//    // Resets isCompleted on every habit to false
-//    @objc func resetCompleteness() {
-//        for habit in habits {
-//            try! realm.write {
-//                habit.isCompleted = false
-//            }
-//        }
-//    }
+    @objc func dayChanged() {
+        DispatchQueue.main.async {
+            print("Current thread in \(#function) is \(Thread.current)")
+            self.habits = self.realm.objects(Habit.self)
+            
+            for habit in self.habits {
+                if habit.streakList.last != Date().onlyDate {
+                    try! self.realm.write {
+                        habit.isCompleted = false
+                    }
+                }
+            }
+            self.tableView.reloadData()
+        }
+
+    
+    }
+    
 
 }
 
@@ -156,11 +154,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         
-        
         cell.radioButtonAction = { [unowned self] in
             tableView.reloadData()
 //            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-//
 //
 ////            let habit = self.habits[indexPath.row].title
 //            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
@@ -176,11 +172,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 //                yourFirstHabit = true
 //            }
 
-        }
-        
-        reloadTableViewOnLoad = { [unowned self] in
-            tableView.reloadData()
-            print("MainVC tableview reloaded")
         }
         
         return cell
@@ -204,22 +195,3 @@ extension MainViewController: CreateHabitDelegate {
         print("Table view now reloaded")
     }
 }
-
-//
-//extension MainViewController {
-//
-//    func fetchData() -> [Habit] {
-//
-//        let habitArray: [Habit] = [habit1, habit2, habit3, habit4, habit5, habit6]
-//
-//        let sortedHabits = habitArray.sorted {
-//
-//            if $0.completeness == $1.completeness {
-//                return $0.title < $1.title
-//            }
-//            return $0.completeness == false && $1.completeness == true
-//        }
-//
-//        return sortedHabits
-//    }
-//}
