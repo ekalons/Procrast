@@ -54,7 +54,9 @@ extension Habit {
         try! realm.write {
             if streakList.last != Date().onlyDate {
                 streakList.append(Date().onlyDate)
+                streakCounter = streakList.count
             }
+            
         }
     }
     
@@ -64,7 +66,9 @@ extension Habit {
         try! realm.write {
             if streakList.last == Date().onlyDate {
                 streakList.removeLast()
+                streakCounter = streakList.count
             }
+            
         }
     }
 }
