@@ -40,3 +40,7 @@ struct Icons {
     
     static let heartbIcon       =   UIImage(systemName: "heart", withConfiguration: symbolConfig)!
 }
+
+struct Colors {
+    static let defaultBackgroundColor = UIColor.systemGray6
+}

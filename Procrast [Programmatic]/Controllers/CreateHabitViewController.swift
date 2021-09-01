@@ -72,7 +72,7 @@ class CreateHabitViewController: UIViewController {
     }
     
     func configureUI() {
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = Colors.defaultBackgroundColor
         
         // Navigation buttons
         configureHabitNameCardView()

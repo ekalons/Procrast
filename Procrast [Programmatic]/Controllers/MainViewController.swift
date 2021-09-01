@@ -30,7 +30,7 @@ class MainViewController: UIViewController {
         // The observer below triggers on DayChanged --> Resets habits at midnight
         NotificationCenter.default.addObserver(self, selector: #selector(dayChanged), name: .NSCalendarDayChanged, object: nil)
         
-        view.backgroundColor = .systemGray6
+        view.backgroundColor = Colors.defaultBackgroundColor
         
         loadData()
         configureUI()
@@ -155,7 +155,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         cell.radioButtonAction = { [unowned self] in
-            tableView.reloadData()
+            self.tableView.reloadData()
 //            cell.selectionStyle = UITableViewCell.SelectionStyle.none
 //
 ////            let habit = self.habits[indexPath.row].title
