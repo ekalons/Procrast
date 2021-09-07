@@ -10,10 +10,12 @@ import RealmSwift
 
 class MainViewController: UIViewController {
     
+    var habitToPass: Habit?
+    
     let realm = try! Realm()
     
-    let addHabitButton = PCIconButton()
-    let settingsButton = PCIconButton()
+    lazy var addHabitButton = PCIconButton()
+    lazy var settingsButton = PCIconButton()
     
     var tableView = UITableView()
     var habits: Results<Habit>!
@@ -115,7 +117,17 @@ class MainViewController: UIViewController {
     }
 
     @objc func presentSettingsVC() {
-        self.present(SettingsViewController(), animated: true)
+        
+        let settingsVC = SettingsViewController()
+        self.present(settingsVC, animated: true)
+    }
+    
+    @objc func presentHabitDetailsVC() {
+        let habitDetailsVC = HabitDetailsViewController()
+        
+        habitDetailsVC.habit = habitToPass
+        habitDetailsVC.modalPresentationStyle = .overCurrentContext
+        self.present(habitDetailsVC, animated: false)
     }
     
     @objc func dayChanged() {
@@ -183,6 +195,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Habit \(String(describing: habits[indexPath.row].title)) cell was tapped")
+        
+        habitToPass = habits[indexPath.row]
+        perform(#selector(presentHabitDetailsVC), with: nil)
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
