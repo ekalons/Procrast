@@ -27,7 +27,7 @@ class HabitDetailsViewController: UIViewController {
 
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [habitTitleLabel, streakCard, spacer])
+        let stackView = UIStackView(arrangedSubviews: [streakCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -123,13 +123,16 @@ class HabitDetailsViewController: UIViewController {
         // Add subviews
         view.addSubview(dimmedView)
         view.addSubview(containerView)
+        view.addSubview(habitTitleLabel)
         streakCard.addSubview(streakLabel)
         streakCard.addSubview(streakSubLabel)
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
         
         // Set static constraints
         NSLayoutConstraint.activate([
@@ -142,16 +145,20 @@ class HabitDetailsViewController: UIViewController {
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // content stackView
-            contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-//            contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
             contentStackView.heightAnchor.constraint(equalToConstant: 200),
-            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+            
+            // habitTitleLabel
+            habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            habitTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 25),
+            habitTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25),
+            
             // streakCard view
             streakCard.heightAnchor.constraint(equalToConstant: 120),
-//            streakCard.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 15),
-            streakCard.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            streakCard.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+//            streakCard.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+//            streakCard.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
             // streakLabel
             streakLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
@@ -160,8 +167,10 @@ class HabitDetailsViewController: UIViewController {
 
             // streakSubLabel
             streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
-//            streakSubLabel.heightAnchor.constraint(equalToConstant: 20),
             streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
+            
+            
+            
         ])
         
         // Set dynamic constraints
