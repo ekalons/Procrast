@@ -1,28 +1,33 @@
+//The MIT License (MIT)
 //
-//  HabitDetailsPresentationController.swift
-//  Procrast [Programmatic]
+//Copyright (c) 2021 Ekaitz Alonso Larrea
 //
+//Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 //
+//The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//
+//THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import UIKit
 import RealmSwift
 
 class HabitDetailsViewController: UIViewController {
     
-//    var delegate: HabitDetailsDelegate?
-    
     var habit: Habit?
     
     let realm = try! Realm()
     
-    lazy var titleLabel     = UILabel()
-    lazy var streakLabel    = UILabel()
-    lazy var containerView  = UIView()
-    lazy var dimmedView     = UIView()
+    lazy var habitTitleLabel    = UILabel()
+    lazy var streakLabel        = UILabel()
+    lazy var streakSubLabel     = UILabel()
+    lazy var containerView      = UIView()
+    lazy var dimmedView         = UIView()
+    
+    lazy var streakCard = UIView()
 
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, streakLabel, spacer])
+        let stackView = UIStackView(arrangedSubviews: [habitTitleLabel, streakCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -31,7 +36,7 @@ class HabitDetailsViewController: UIViewController {
     let maxDimmedAlpha: CGFloat = 0.6
     
     // Constants
-    let defaultHeight: CGFloat = 250
+    let defaultHeight: CGFloat = 210
     let dismissibleHeight: CGFloat = 200
     //
     let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
@@ -66,24 +71,43 @@ class HabitDetailsViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .clear
         
-        configureTitleLabel()
+        configureHabitTitleLabel()
         configureStreakLabel()
+        configureStreakSubLabel()
         configureContainerView()
         configureDimmedView()
+        configureStreakCard()
     }
     
-    func configureTitleLabel() {
-        titleLabel.text = habit?.title
-        titleLabel.font = .boldSystemFont(ofSize: 20)
-        titleLabel.textColor = .systemBlue
+    func configureHabitTitleLabel() {
+        habitTitleLabel.text = habit?.title
+        habitTitleLabel.font = .boldSystemFont(ofSize: 20)
+        // Default to .systemBlue if something fails
+        habitTitleLabel.textColor = UIColor(hexaString: habit?.color ?? "0a84ff")
     }
     
+    func configureStreakCard() {
+        streakCard.backgroundColor = .systemGray5
+        streakCard.layer.cornerRadius = 17
+    }
     func configureStreakLabel() {
-        streakLabel.text = "Streak: \(String(describing: habit!.streakCounter))"
-        streakLabel.font = .boldSystemFont(ofSize: 26)
-        streakLabel.textColor = .white
-
-
+        streakLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        if habit!.streakCounter == 1 {
+            streakLabel.text = "\(String(describing: habit!.streakCounter)) Day"
+        } else {
+            streakLabel.text = "\(String(describing: habit!.streakCounter)) Days"
+        }
+        
+        streakLabel.font = .boldSystemFont(ofSize: 42)
+        // Default to .systemBlue if something fails
+        streakLabel.textColor = UIColor(hexaString: habit?.color ?? "0a84ff")
+    }
+    func configureStreakSubLabel() {
+        streakSubLabel.translatesAutoresizingMaskIntoConstraints = false
+        streakSubLabel.text = "Current streak"
+        streakSubLabel.font = streakSubLabel.font.withSize(15)
+        streakSubLabel.textColor = .systemGray2
     }
     func configureContainerView() {
         containerView.backgroundColor = Colors.defaultBackgroundColor
@@ -99,6 +123,8 @@ class HabitDetailsViewController: UIViewController {
         // Add subviews
         view.addSubview(dimmedView)
         view.addSubview(containerView)
+        streakCard.addSubview(streakLabel)
+        streakCard.addSubview(streakSubLabel)
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -116,10 +142,26 @@ class HabitDetailsViewController: UIViewController {
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // content stackView
-            contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 30),
-            contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            contentStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+//            contentStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
+            contentStackView.heightAnchor.constraint(equalToConstant: 200),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            // streakCard view
+            streakCard.heightAnchor.constraint(equalToConstant: 120),
+//            streakCard.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 15),
+            streakCard.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            streakCard.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            
+            // streakLabel
+            streakLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
+            streakLabel.centerYAnchor.constraint(equalTo: streakCard.centerYAnchor),
+            streakLabel.heightAnchor.constraint(equalTo: streakCard.heightAnchor),
+
+            // streakSubLabel
+            streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
+//            streakSubLabel.heightAnchor.constraint(equalToConstant: 20),
+            streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
         ])
         
         // Set dynamic constraints
@@ -237,10 +279,4 @@ class HabitDetailsViewController: UIViewController {
     }
 }
 
-//extension HabitDetailsViewController: HabitDetailsDelegate {
-//    func didSelectHabit(habitToPass: Habit) {
-//        titleLabel.text = habitToPass.title
-//        print("Title label changed to -> \(habitToPass.title)")
-//    }
-//}
 
