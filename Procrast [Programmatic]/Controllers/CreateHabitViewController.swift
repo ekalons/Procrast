@@ -22,35 +22,41 @@ class CreateHabitViewController: UIViewController {
     let realm = try! Realm()
     var habits: Results<Habit>!
     
+    // Navigation buttons
     let addHabitButton  = PCIconButton()
     let leavePageButton = PCIconButton()
     
     let habitNameCard        = UIView()
-    let habitColorPickerCard = UIView()
+    
+    
+    // Avoid weekends switch
     let avoidWeekendCard     = UIView()
     let avoidWeekendLabel    = UILabel()
+    let avoidWeekendsSwitch = UISwitch()
     
+    // Reminders switch
     let remindersCard             = UIView()
     let remindersLabel            = UILabel()
     let remindersSwitch           = UISwitch()
+    
     var updatableLayoutConstraint = NSLayoutConstraint()
     var timePicker                = UIDatePicker()
     
     let habitNameLabel      = UITextField()
-    let pickColorLabel      = UILabel()
-    let avoidWeekendsSwitch = UISwitch()
     
+    // Color picker horizontal stackview
+    let colorsStackView = UIStackView()
+    let habitColorPickerCard  = UIView()
+    let pickColorLabel        = UILabel()
     var pickedColor: UIColor? = nil
     
-    let stackView = UIStackView()
-
-    let redButton = PCRoundColorButton(),
-        orangeButton = PCRoundColorButton(),
-        yellowButton = PCRoundColorButton(),
-        brightGreenButton = PCRoundColorButton(),
-        paleGreenButton = PCRoundColorButton(),
-        lightBlueButton = PCRoundColorButton(),
-        darkBlueButton = PCRoundColorButton()
+    let redButton           = PCRoundColorButton(),
+        orangeButton        = PCRoundColorButton(),
+        yellowButton        = PCRoundColorButton(),
+        brightGreenButton   = PCRoundColorButton(),
+        paleGreenButton     = PCRoundColorButton(),
+        lightBlueButton     = PCRoundColorButton(),
+        darkBlueButton      = PCRoundColorButton()
     
     
     override func viewDidLoad() {
@@ -187,7 +193,7 @@ class CreateHabitViewController: UIViewController {
         avoidWeekendsSwitch.onTintColor = .systemBlue
 
         NSLayoutConstraint.activate([
-            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
             avoidWeekendsSwitch.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
         ])
     }
@@ -222,7 +228,7 @@ class CreateHabitViewController: UIViewController {
         remindersSwitch.addTarget(self, action: #selector(onRemindersSwitchTap), for: .valueChanged)
         
         NSLayoutConstraint.activate([
-            remindersSwitch.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
+            remindersSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
             remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30)
         ])
         
@@ -286,14 +292,14 @@ class CreateHabitViewController: UIViewController {
     }
     
     func configureStackView() {
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        colorsStackView.translatesAutoresizingMaskIntoConstraints = false
         
         let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
         
-        habitColorPickerCard.addSubview(stackView)
+        habitColorPickerCard.addSubview(colorsStackView)
         
-        stackView.axis              = .horizontal
-        stackView.distribution      = .equalSpacing
+        colorsStackView.axis              = .horizontal
+        colorsStackView.distribution      = .equalSpacing
         
         func randomColorOnLoad() {
             let random = colorButtonsArray.randomElement()
@@ -317,14 +323,14 @@ class CreateHabitViewController: UIViewController {
                 
             }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
-            stackView.addArrangedSubview(button)
+            colorsStackView.addArrangedSubview(button)
         }
         
         NSLayoutConstraint.activate([
-            stackView.heightAnchor.constraint(equalToConstant: 38),
-            stackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
-            stackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
-            stackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13)
+            colorsStackView.heightAnchor.constraint(equalToConstant: 38),
+            colorsStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
+            colorsStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
+            colorsStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13)
         ])
         randomColorOnLoad()
 
