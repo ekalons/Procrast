@@ -40,18 +40,17 @@ class CreateHabitViewController: UIViewController {
     let pickColorLabel      = UILabel()
     let avoidWeekendsSwitch = UISwitch()
     
-    let colorPicker = PCRoundColorButton()
     var pickedColor: UIColor? = nil
     
     let stackView = UIStackView()
 
-    let color1Button = PCRoundColorButton(),
-        color2Button = PCRoundColorButton(),
-        color3Button = PCRoundColorButton(),
-        color4Button = PCRoundColorButton(),
-        color5Button = PCRoundColorButton(),
-        color6Button = PCRoundColorButton(),
-        color7Button = PCRoundColorButton()
+    let redButton = PCRoundColorButton(),
+        orangeButton = PCRoundColorButton(),
+        yellowButton = PCRoundColorButton(),
+        brightGreenButton = PCRoundColorButton(),
+        paleGreenButton = PCRoundColorButton(),
+        lightBlueButton = PCRoundColorButton(),
+        darkBlueButton = PCRoundColorButton()
     
     
     override func viewDidLoad() {
@@ -289,14 +288,14 @@ class CreateHabitViewController: UIViewController {
     func configureStackView() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        let colorButtonsArray = [color1Button, color2Button, color3Button, color4Button, color5Button, color6Button, color7Button]
+        let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
         
         habitColorPickerCard.addSubview(stackView)
         
         stackView.axis              = .horizontal
         stackView.distribution      = .equalSpacing
         
-        func randomColorAtLoad() {
+        func randomColorOnLoad() {
             let random = colorButtonsArray.randomElement()
             random?.isSelected = true
             random?.colorSelected()
@@ -327,30 +326,30 @@ class CreateHabitViewController: UIViewController {
             stackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
             stackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13)
         ])
-        randomColorAtLoad()
+        randomColorOnLoad()
 
     }
 
     
     func configureColorButtons() {
         
-        view.addSubview(color1Button)
-        view.addSubview(color2Button)
-        view.addSubview(color3Button)
-        view.addSubview(color4Button)
-        view.addSubview(color5Button)
-        view.addSubview(color6Button)
-        view.addSubview(color7Button)
+        view.addSubview(redButton)
+        view.addSubview(orangeButton)
+        view.addSubview(yellowButton)
+        view.addSubview(brightGreenButton)
+        view.addSubview(paleGreenButton)
+        view.addSubview(lightBlueButton)
+        view.addSubview(darkBlueButton)
         
         
         //Setting all colors
-        color1Button.colorButtonContentView.backgroundColor = UIColor.systemRed
-        color2Button.colorButtonContentView.backgroundColor = UIColor.systemOrange
-        color3Button.colorButtonContentView.backgroundColor = UIColor.systemYellow
-        color4Button.colorButtonContentView.backgroundColor = UIColor.green
-        color5Button.colorButtonContentView.backgroundColor = UIColor.systemGreen
-        color6Button.colorButtonContentView.backgroundColor = UIColor.systemBlue
-        color7Button.colorButtonContentView.backgroundColor = UIColor.blue
+        redButton.colorButtonContentView.backgroundColor = UIColor.systemRed
+        orangeButton.colorButtonContentView.backgroundColor = UIColor.systemOrange
+        yellowButton.colorButtonContentView.backgroundColor = UIColor.systemYellow
+        paleGreenButton.colorButtonContentView.backgroundColor = UIColor(red: 0.30, green: 0.67, blue: 0.31, alpha: 1.00)
+        brightGreenButton.colorButtonContentView.backgroundColor = UIColor.systemGreen
+        lightBlueButton.colorButtonContentView.backgroundColor = UIColor(red: 0.42, green: 0.72, blue: 1.00, alpha: 1.00)
+        darkBlueButton.colorButtonContentView.backgroundColor = UIColor.systemBlue
         
     }
     
@@ -485,21 +484,21 @@ extension CreateHabitViewController {
     
     private func deselectAll() {
         
-        color1Button.isSelected = false
-        color2Button.isSelected = false
-        color3Button.isSelected = false
-        color4Button.isSelected = false
-        color5Button.isSelected = false
-        color6Button.isSelected = false
-        color7Button.isSelected = false
+        redButton.isSelected = false
+        orangeButton.isSelected = false
+        yellowButton.isSelected = false
+        brightGreenButton.isSelected = false
+        paleGreenButton.isSelected = false
+        lightBlueButton.isSelected = false
+        darkBlueButton.isSelected = false
         
-        color1Button.colorDeselected()
-        color2Button.colorDeselected()
-        color3Button.colorDeselected()
-        color4Button.colorDeselected()
-        color5Button.colorDeselected()
-        color6Button.colorDeselected()
-        color7Button.colorDeselected()
+        redButton.colorDeselected()
+        orangeButton.colorDeselected()
+        yellowButton.colorDeselected()
+        brightGreenButton.colorDeselected()
+        paleGreenButton.colorDeselected()
+        lightBlueButton.colorDeselected()
+        darkBlueButton.colorDeselected()
         
     }
 }

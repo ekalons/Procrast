@@ -13,6 +13,8 @@ import RealmSwift
 
 class HabitDetailsViewController: UIViewController {
     
+    var pickedColor: UIColor?
+    
     var habit: Habit?
     
     let realm = try! Realm()
@@ -24,14 +26,25 @@ class HabitDetailsViewController: UIViewController {
     lazy var dimmedView         = UIView()
     lazy var pageLifter         = UIView()
     
+    
+    // Color picker
     lazy var habitColorPickerCard = UIView()
+    let pickColorLabel = UILabel()
+    let colorStackView = UIStackView()
+    let redButton = PCRoundColorButton(),
+        orangeButton = PCRoundColorButton(),
+        yellowButton = PCRoundColorButton(),
+        paleGreenButton = PCRoundColorButton(),
+        brightGreenButton = PCRoundColorButton(),
+        lightBlueButton = PCRoundColorButton(),
+        darkBlueButton = PCRoundColorButton()
     
     lazy var streakCard = UIView()
 
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
         let pageSeparator =  UIView()
-        pageSeparator.heightAnchor.constraint(equalToConstant: 7).isActive = true
+        pageSeparator.heightAnchor.constraint(equalToConstant: 4).isActive = true
         let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
@@ -82,11 +95,17 @@ class HabitDetailsViewController: UIViewController {
         configurePageLifter()
         configureHabitTitleLabel()
         
+        // Streaks
         configureStreakCard()
         configureStreakLabel()
         configureStreakSubLabel()
         
+        // Color picker
+        configureColorButtons()
         configureHabitColorPickerCardView()
+        configurePickColorLabel()
+        configureColorStackView()
+        
     }
     
     func configurePageLifter() {
@@ -140,6 +159,85 @@ class HabitDetailsViewController: UIViewController {
         habitColorPickerCard.backgroundColor = .systemGray5
         
     }
+    func configurePickColorLabel() {
+        pickColorLabel.text = "Pick a color"
+        pickColorLabel.textColor = UIColor.white
+        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .regular)
+    }
+    func configureColorStackView() {
+        let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
+        
+        colorStackView.axis              = .horizontal
+        colorStackView.distribution      = .equalSpacing
+        
+        func pickedColorOnLoad() {
+            var habitColorButton = PCRoundColorButton()
+            
+            // Decides which color is picked from habit.color
+            if habit!.color == "#ff453a" {
+                habitColorButton = redButton
+            } else if habit!.color == "#ff9f0a" {
+                habitColorButton = orangeButton
+            } else if habit!.color == "#ffd60a" {
+                habitColorButton = yellowButton
+            } else if habit!.color == "#4caa4f" {
+                habitColorButton = paleGreenButton
+            } else if habit!.color == "#30d158" {
+                habitColorButton = brightGreenButton
+            } else if habit!.color == "#6bb7ff" {
+                habitColorButton = lightBlueButton
+            } else if habit!.color == "#0a84ff" {
+                habitColorButton = darkBlueButton
+            }
+            
+            habitColorButton.isSelected = true
+            habitColorButton.colorSelected()
+            
+            pickedColor = habitColorButton.colorButtonContentView.backgroundColor
+            
+            
+        }
+        
+        for button in colorButtonsArray {
+            button.colorPickerAction = {
+                self.deselectAll()
+                button.isSelected = true
+                button.colorSelected()
+                
+                self.habitTitleLabel.textColor = button.colorButtonContentView.backgroundColor
+                self.streakLabel.textColor = button.colorButtonContentView.backgroundColor
+                
+                self.pickedColor = button.colorButtonContentView.backgroundColor
+                
+                
+            }
+            button.widthAnchor.constraint(equalToConstant: 37).isActive = true
+            colorStackView.addArrangedSubview(button)
+        }
+        pickedColorOnLoad()
+        
+    }
+    func configureColorButtons() {
+        
+        view.addSubview(redButton)
+        view.addSubview(orangeButton)
+        view.addSubview(yellowButton)
+        view.addSubview(paleGreenButton)
+        view.addSubview(brightGreenButton)
+        view.addSubview(lightBlueButton)
+        view.addSubview(darkBlueButton)
+        
+        
+        //Setting all colors
+        redButton.colorButtonContentView.backgroundColor = UIColor.systemRed
+        orangeButton.colorButtonContentView.backgroundColor = UIColor.systemOrange
+        yellowButton.colorButtonContentView.backgroundColor = UIColor.systemYellow
+        paleGreenButton.colorButtonContentView.backgroundColor = UIColor(red: 0.30, green: 0.67, blue: 0.31, alpha: 1.00)
+        brightGreenButton.colorButtonContentView.backgroundColor = UIColor.systemGreen
+        lightBlueButton.colorButtonContentView.backgroundColor = UIColor(red: 0.42, green: 0.72, blue: 1.00, alpha: 1.00)
+        darkBlueButton.colorButtonContentView.backgroundColor = UIColor.systemBlue
+        
+    }
     
     func setupConstraints() {
         // Add subviews
@@ -147,14 +245,20 @@ class HabitDetailsViewController: UIViewController {
         view.addSubview(containerView)
         view.addSubview(pageLifter)
         view.addSubview(habitTitleLabel)
+        
         streakCard.addSubview(streakLabel)
         streakCard.addSubview(streakSubLabel)
+        
+        habitColorPickerCard.addSubview(pickColorLabel)
+        habitColorPickerCard.addSubview(colorStackView)
         
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
         pageLifter.translatesAutoresizingMaskIntoConstraints = false
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
+        pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
+        colorStackView.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -183,7 +287,7 @@ class HabitDetailsViewController: UIViewController {
             pageLifter.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             // habitTitleLabel
-            habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 23),
             habitTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 25),
             habitTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25),
             
@@ -199,9 +303,21 @@ class HabitDetailsViewController: UIViewController {
             streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
             streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
             
-            //habitColorPicker
+            // habitColorPicker
             habitColorPickerCard.heightAnchor.constraint(equalToConstant: 120),
+            
+            // pickColorLabel
+            pickColorLabel.heightAnchor.constraint(equalToConstant: 30),
+            pickColorLabel.topAnchor.constraint(equalTo: habitColorPickerCard.topAnchor, constant: 15),
+            pickColorLabel.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 20),
+            pickColorLabel.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -20),
 
+            // colorStackView
+            colorStackView.heightAnchor.constraint(equalToConstant: 38),
+            colorStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
+            colorStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
+            colorStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13),
+            
             
             
             
@@ -322,4 +438,25 @@ class HabitDetailsViewController: UIViewController {
     }
 }
 
+extension HabitDetailsViewController {
+    private func deselectAll() {
+        
+        redButton.isSelected = false
+        orangeButton.isSelected = false
+        yellowButton.isSelected = false
+        paleGreenButton.isSelected = false
+        brightGreenButton.isSelected = false
+        lightBlueButton.isSelected = false
+        darkBlueButton.isSelected = false
+        
+        redButton.colorDeselected()
+        orangeButton.colorDeselected()
+        yellowButton.colorDeselected()
+        paleGreenButton.colorDeselected()
+        brightGreenButton.colorDeselected()
+        lightBlueButton.colorDeselected()
+        darkBlueButton.colorDeselected()
+        
+    }
+}
 
