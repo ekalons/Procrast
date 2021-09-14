@@ -22,12 +22,17 @@ class HabitDetailsViewController: UIViewController {
     lazy var streakSubLabel     = UILabel()
     lazy var containerView      = UIView()
     lazy var dimmedView         = UIView()
+    lazy var pageLifter         = UIView()
+    
+    lazy var habitColorPickerCard = UIView()
     
     lazy var streakCard = UIView()
 
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [streakCard, spacer])
+        let pageSeparator =  UIView()
+        pageSeparator.heightAnchor.constraint(equalToConstant: 7).isActive = true
+        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -71,12 +76,23 @@ class HabitDetailsViewController: UIViewController {
     func configureUI() {
         view.backgroundColor = .clear
         
-        configureHabitTitleLabel()
-        configureStreakLabel()
-        configureStreakSubLabel()
         configureContainerView()
         configureDimmedView()
+        
+        configurePageLifter()
+        configureHabitTitleLabel()
+        
         configureStreakCard()
+        configureStreakLabel()
+        configureStreakSubLabel()
+        
+        configureHabitColorPickerCardView()
+    }
+    
+    func configurePageLifter() {
+        pageLifter.layer.cornerRadius = 3
+        pageLifter.backgroundColor = .systemGray3
+        
     }
     
     func configureHabitTitleLabel() {
@@ -119,16 +135,26 @@ class HabitDetailsViewController: UIViewController {
         dimmedView.alpha = maxDimmedAlpha
     }
     
+    func configureHabitColorPickerCardView() {
+        habitColorPickerCard.layer.cornerRadius = 15
+        habitColorPickerCard.backgroundColor = .systemGray5
+        
+    }
+    
     func setupConstraints() {
         // Add subviews
         view.addSubview(dimmedView)
         view.addSubview(containerView)
+        view.addSubview(pageLifter)
         view.addSubview(habitTitleLabel)
         streakCard.addSubview(streakLabel)
         streakCard.addSubview(streakSubLabel)
+        
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        pageLifter.translatesAutoresizingMaskIntoConstraints = false
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
         
         containerView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -146,9 +172,15 @@ class HabitDetailsViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // content stackView
             contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 200),
+            contentStackView.heightAnchor.constraint(equalToConstant: 400),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+            
+            // pageLifter
+            pageLifter.heightAnchor.constraint(equalToConstant: 5),
+            pageLifter.widthAnchor.constraint(equalToConstant: 35),
+            pageLifter.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            pageLifter.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             // habitTitleLabel
             habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
@@ -157,8 +189,6 @@ class HabitDetailsViewController: UIViewController {
             
             // streakCard view
             streakCard.heightAnchor.constraint(equalToConstant: 120),
-//            streakCard.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
-//            streakCard.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
             // streakLabel
             streakLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
@@ -168,6 +198,10 @@ class HabitDetailsViewController: UIViewController {
             // streakSubLabel
             streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
             streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
+            
+            //habitColorPicker
+            habitColorPickerCard.heightAnchor.constraint(equalToConstant: 120),
+
             
             
             
