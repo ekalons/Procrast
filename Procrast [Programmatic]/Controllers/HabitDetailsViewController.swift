@@ -30,7 +30,7 @@ class HabitDetailsViewController: UIViewController {
     // Color picker
     lazy var habitColorPickerCard = UIView()
     let pickColorLabel = UILabel()
-    let colorStackView = UIStackView()
+    let colorsStackView = UIStackView()
     let redButton = PCRoundColorButton(),
         orangeButton = PCRoundColorButton(),
         yellowButton = PCRoundColorButton(),
@@ -39,13 +39,25 @@ class HabitDetailsViewController: UIViewController {
         lightBlueButton = PCRoundColorButton(),
         darkBlueButton = PCRoundColorButton()
     
+    // Avoid weekends switch
+    let avoidWeekendCard    = UIView()
+    let avoidWeekendLabel   = UILabel()
+    let avoidWeekendsSwitch = UISwitch()
+    
+    // Reminders switch
+    let remindersCard   = UIView()
+    let remindersLabel  = UILabel()
+    let remindersSwitch = UISwitch()
+    var timePicker      = UIDatePicker()
+    var updatableLayoutConstraint = NSLayoutConstraint()
+    
     lazy var streakCard = UIView()
 
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
         let pageSeparator =  UIView()
         pageSeparator.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, spacer])
+        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, avoidWeekendCard, remindersCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -106,6 +118,16 @@ class HabitDetailsViewController: UIViewController {
         configurePickColorLabel()
         configureColorStackView()
         
+        // Avoid weekend switch
+        configureAvoidWeekendsCard()
+        configureAvoidWeekendsLabel()
+        configureAvoidWeekendSwitch()
+        
+        // Reminders switch, label & date picker
+        configureRemindersCard()
+        configureRemindersLabel()
+        configureRemindersSwitch()
+        configureRemindersTimePicker()
     }
     
     func configurePageLifter() {
@@ -167,8 +189,8 @@ class HabitDetailsViewController: UIViewController {
     func configureColorStackView() {
         let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
         
-        colorStackView.axis              = .horizontal
-        colorStackView.distribution      = .equalSpacing
+        colorsStackView.axis         = .horizontal
+        colorsStackView.distribution = .equalSpacing
         
         func pickedColorOnLoad() {
             var habitColorButton = PCRoundColorButton()
@@ -212,7 +234,7 @@ class HabitDetailsViewController: UIViewController {
                 
             }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
-            colorStackView.addArrangedSubview(button)
+            colorsStackView.addArrangedSubview(button)
         }
         pickedColorOnLoad()
         
@@ -239,6 +261,72 @@ class HabitDetailsViewController: UIViewController {
         
     }
     
+    func configureAvoidWeekendsCard() {
+        avoidWeekendCard.layer.cornerRadius = 15
+        avoidWeekendCard.backgroundColor = .systemGray5
+    }
+
+    func configureAvoidWeekendsLabel() {
+        avoidWeekendLabel.text = "Avoid weekends"
+        avoidWeekendLabel.textColor = pickColorLabel.textColor
+        avoidWeekendLabel.font = UIFont.systemFont(ofSize: 19)
+    }
+    
+    func configureAvoidWeekendSwitch() {
+        avoidWeekendsSwitch.isOn = ((habit?.avoidWeekends) != nil)
+        avoidWeekendsSwitch.onTintColor = .systemBlue
+    }
+    
+    // MARK: Reminders switch/time picker
+    func configureRemindersCard() {
+        remindersCard.layer.cornerRadius = 15
+        remindersCard.backgroundColor = .systemGray5
+        
+        updatableLayoutConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
+        updatableLayoutConstraint.isActive = true
+    }
+    
+    func configureRemindersSwitch() {
+        remindersSwitch.onTintColor = .systemBlue
+        remindersSwitch.addTarget(self, action: #selector(onRemindersSwitchTap), for: .valueChanged)
+    }
+    
+    @objc func onRemindersSwitchTap() {
+        
+        if remindersSwitch.isOn {
+            UIView.animate(withDuration: 0.15) {
+                self.updatableLayoutConstraint.constant = 270
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+                self.timePicker.isHidden = false
+            }
+            
+        } else {
+            UIView.animate(withDuration: 0.15) {
+                self.timePicker.endEditing(true)
+                self.timePicker.isHidden = true
+                self.updatableLayoutConstraint.constant = 60
+                self.view.setNeedsLayout()
+                self.view.layoutIfNeeded()
+            }
+        }
+    }
+    
+    func configureRemindersLabel() {
+        remindersLabel.text = "Reminders"
+        remindersLabel.textColor = pickColorLabel.textColor
+        remindersLabel.font = avoidWeekendLabel.font
+    }
+    
+    func configureRemindersTimePicker() {
+        timePicker.datePickerMode = .time
+        timePicker.preferredDatePickerStyle = .wheels
+        
+        // Will hide the time picker until the reminder switch is on
+        timePicker.endEditing(true)
+        timePicker.isHidden = true
+    }
+    
     func setupConstraints() {
         // Add subviews
         view.addSubview(dimmedView)
@@ -250,15 +338,38 @@ class HabitDetailsViewController: UIViewController {
         streakCard.addSubview(streakSubLabel)
         
         habitColorPickerCard.addSubview(pickColorLabel)
-        habitColorPickerCard.addSubview(colorStackView)
+        habitColorPickerCard.addSubview(colorsStackView)
         
         dimmedView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Load before vertical stackview
         pageLifter.translatesAutoresizingMaskIntoConstraints = false
         habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Color picker
         habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
         pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
-        colorStackView.translatesAutoresizingMaskIntoConstraints = false
+        colorsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Avoid weekends switch
+        avoidWeekendCard.addSubview(avoidWeekendLabel)
+        avoidWeekendCard.addSubview(avoidWeekendsSwitch)
+        
+        avoidWeekendCard.translatesAutoresizingMaskIntoConstraints = false
+        avoidWeekendLabel.translatesAutoresizingMaskIntoConstraints = false
+        avoidWeekendsSwitch.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Reminders switch / time picker
+        remindersCard.addSubview(remindersLabel)
+        remindersCard.addSubview(remindersSwitch)
+        remindersCard.addSubview(timePicker)
+        
+        remindersCard.translatesAutoresizingMaskIntoConstraints = false
+        remindersLabel.translatesAutoresizingMaskIntoConstraints = false
+        remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        
         
         containerView.addSubview(contentStackView)
         contentStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -276,7 +387,7 @@ class HabitDetailsViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // content stackView
             contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 400),
+            contentStackView.heightAnchor.constraint(equalToConstant: 700),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
@@ -313,12 +424,37 @@ class HabitDetailsViewController: UIViewController {
             pickColorLabel.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -20),
 
             // colorStackView
-            colorStackView.heightAnchor.constraint(equalToConstant: 38),
-            colorStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
-            colorStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
-            colorStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13),
+            colorsStackView.heightAnchor.constraint(equalToConstant: 38),
+            colorsStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
+            colorsStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
+            colorsStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13),
             
+            // Avoid weekend card
+            avoidWeekendCard.heightAnchor.constraint(equalToConstant: 60),
             
+            // Avoid weekends label
+            avoidWeekendLabel.heightAnchor.constraint(equalToConstant: 30),
+            avoidWeekendLabel.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor, constant: 20),
+            avoidWeekendLabel.trailingAnchor.constraint(equalTo: avoidWeekendsSwitch.leadingAnchor, constant: -20),
+            avoidWeekendLabel.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+            
+            // Avoid weekends switch
+            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
+            avoidWeekendsSwitch.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+            
+            // Reminders label
+            remindersLabel.heightAnchor.constraint(equalToConstant: 30),
+            remindersLabel.leadingAnchor.constraint(equalTo: remindersCard.leadingAnchor, constant: 20),
+            remindersLabel.trailingAnchor.constraint(equalTo: remindersSwitch.leadingAnchor, constant: -20),
+            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
+            
+            // Reminders switch
+            remindersSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
+            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
+            
+            // Reminders time picker
+            timePicker.centerXAnchor.constraint(equalTo: remindersCard.centerXAnchor),
+            timePicker.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 15),
             
             
         ])

@@ -26,21 +26,20 @@ class CreateHabitViewController: UIViewController {
     let addHabitButton  = PCIconButton()
     let leavePageButton = PCIconButton()
     
-    let habitNameCard        = UIView()
+    let habitNameCard = UIView()
     
     
     // Avoid weekends switch
     let avoidWeekendCard     = UIView()
     let avoidWeekendLabel    = UILabel()
-    let avoidWeekendsSwitch = UISwitch()
+    let avoidWeekendsSwitch  = UISwitch()
     
     // Reminders switch
-    let remindersCard             = UIView()
-    let remindersLabel            = UILabel()
-    let remindersSwitch           = UISwitch()
-    
+    let remindersCard   = UIView()
+    let remindersLabel  = UILabel()
+    let remindersSwitch = UISwitch()
+    var timePicker      = UIDatePicker()
     var updatableLayoutConstraint = NSLayoutConstraint()
-    var timePicker                = UIDatePicker()
     
     let habitNameLabel      = UITextField()
     
