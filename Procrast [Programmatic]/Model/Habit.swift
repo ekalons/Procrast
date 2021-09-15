@@ -17,13 +17,13 @@ class Habit: Object {
     @Persisted var isCompleted: Bool = false
     @Persisted var avoidWeekends: Bool = false
     @Persisted var creationDate: Date = Date()
-    @Persisted var reminderDate: Date? = nil
+    @Persisted var reminderDate: String? = nil
     @Persisted var streakCounter: Int = 0
     @Persisted var streakList: List<Date?>
 
     
     
-    convenience init(title: String, color: String, avoidWeekends: Bool, reminderDate: Date?) {
+    convenience init(title: String, color: String, avoidWeekends: Bool, reminderDate: String?) {
         self.init()
         self.title = title
         self.color = color
