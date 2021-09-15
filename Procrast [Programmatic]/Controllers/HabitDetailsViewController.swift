@@ -48,7 +48,7 @@ class HabitDetailsViewController: UIViewController {
         let spacer = UIView()
         let pageSeparator =  UIView()
         pageSeparator.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, remindersCard, avoidWeekendCard, spacer])
+        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, remindersCard, avoidWeekendCard, archiveDeleteStackView, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -82,6 +82,20 @@ class HabitDetailsViewController: UIViewController {
     let avoidWeekendLabel   = UILabel()
     let avoidWeekendsSwitch = UISwitch()
     
+    // Archive/Delete buttons on bottom of screen
+    let archiveButton = UIButton()
+    let deleteButton  = UIButton()
+    
+    lazy var archiveDeleteStackView: UIStackView = {
+        let spacer = UIView()
+        let stackView = UIStackView(arrangedSubviews: [archiveButton, deleteButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 12.0
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -135,7 +149,180 @@ class HabitDetailsViewController: UIViewController {
         configureRemindersSwitch()
         configureRemindersTimePicker()
         configurePickATimeLabel()
+        
+        // Archive & Delete buttons
+        configureArchiveButton()
+        configureDeleteButton()
     }
+    
+    func setupConstraints() {
+        // Add subviews
+        view.addSubview(dimmedView)
+        view.addSubview(containerView)
+        view.addSubview(pageLifter)
+        view.addSubview(habitTitleLabel)
+        containerView.addSubview(contentStackView)
+        
+
+        
+        streakCard.addSubview(streakLabel)
+        streakCard.addSubview(streakSubLabel)
+        
+        habitColorPickerCard.addSubview(pickColorLabel)
+        habitColorPickerCard.addSubview(colorsStackView)
+        
+        dimmedView.translatesAutoresizingMaskIntoConstraints = false
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Load before vertical stackview
+        pageLifter.translatesAutoresizingMaskIntoConstraints = false
+        habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Color picker
+        habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
+        pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
+        colorsStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Avoid weekends switch
+        avoidWeekendCard.addSubview(avoidWeekendLabel)
+        avoidWeekendCard.addSubview(avoidWeekendsSwitch)
+        
+        avoidWeekendCard.translatesAutoresizingMaskIntoConstraints = false
+        avoidWeekendLabel.translatesAutoresizingMaskIntoConstraints = false
+        avoidWeekendsSwitch.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Reminders switch / time picker
+        remindersCard.addSubview(remindersLabel)
+        remindersCard.addSubview(remindersSwitch)
+        remindersCard.addSubview(timePicker)
+        remindersCard.addSubview(pickATimeLabel)
+        remindersCard.addSubview(dividerLine)
+        
+        remindersCard.translatesAutoresizingMaskIntoConstraints = false
+        remindersLabel.translatesAutoresizingMaskIntoConstraints = false
+        remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
+        timePicker.translatesAutoresizingMaskIntoConstraints = false
+        pickATimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        dividerLine.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Archive/Delete buttons
+        archiveDeleteStackView.translatesAutoresizingMaskIntoConstraints = false
+        archiveButton.translatesAutoresizingMaskIntoConstraints = false
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        // Set static constraints
+        NSLayoutConstraint.activate([
+            
+            // set dimmedView edges to superview
+            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
+            dimmedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            // set container static constraint (trailing & leading)
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            // Content stackView
+            contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
+            contentStackView.heightAnchor.constraint(equalToConstant: 650),
+            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
+            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+            
+            // Page lifter
+            pageLifter.heightAnchor.constraint(equalToConstant: 5),
+            pageLifter.widthAnchor.constraint(equalToConstant: 35),
+            pageLifter.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
+            pageLifter.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            // Habit title label
+            habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 23),
+            habitTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 25),
+            habitTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25),
+            
+            // Streak card view
+            streakCard.heightAnchor.constraint(equalToConstant: 120),
+            
+            // Strak main label
+            streakLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
+            streakLabel.centerYAnchor.constraint(equalTo: streakCard.centerYAnchor),
+            streakLabel.heightAnchor.constraint(equalTo: streakCard.heightAnchor),
+
+            // Streak sub label
+            streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
+            streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
+            
+            // Habit color picker card view
+            habitColorPickerCard.heightAnchor.constraint(equalToConstant: 120),
+            
+            // Pick a color label
+            pickColorLabel.heightAnchor.constraint(equalToConstant: 30),
+            pickColorLabel.topAnchor.constraint(equalTo: habitColorPickerCard.topAnchor, constant: 15),
+            pickColorLabel.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 20),
+            pickColorLabel.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -20),
+
+            // Colors stack view
+            colorsStackView.heightAnchor.constraint(equalToConstant: 38),
+            colorsStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
+            colorsStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
+            colorsStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13),
+            
+            // Avoid weekend card
+            avoidWeekendCard.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Avoid weekends label
+            avoidWeekendLabel.heightAnchor.constraint(equalToConstant: 30),
+            avoidWeekendLabel.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor, constant: 20),
+            avoidWeekendLabel.trailingAnchor.constraint(equalTo: avoidWeekendsSwitch.leadingAnchor, constant: -20),
+            avoidWeekendLabel.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+            
+            // Avoid weekends switch
+            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
+            avoidWeekendsSwitch.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
+            
+            // Reminders label
+            remindersLabel.heightAnchor.constraint(equalToConstant: 30),
+            remindersLabel.leadingAnchor.constraint(equalTo: remindersCard.leadingAnchor, constant: 20),
+            remindersLabel.trailingAnchor.constraint(equalTo: remindersSwitch.leadingAnchor, constant: -20),
+            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
+            
+            // Reminders switch
+            remindersSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
+            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
+            
+            // Reminders time picker
+            timePicker.centerXAnchor.constraint(equalTo: remindersCard.centerXAnchor),
+            timePicker.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 15),
+            timePicker.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor, constant: 10),
+            
+            // Pick a time label
+            pickATimeLabel.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
+            pickATimeLabel.centerYAnchor.constraint(equalTo: timePicker.centerYAnchor),
+            
+            // Divider line
+            dividerLine.heightAnchor.constraint(equalToConstant: 2),
+            dividerLine.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 10),
+            dividerLine.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
+            dividerLine.trailingAnchor.constraint(equalTo: remindersSwitch.trailingAnchor),
+            
+            
+            // Archive / Delete stack view
+            archiveDeleteStackView.heightAnchor.constraint(equalTo: avoidWeekendCard.heightAnchor),
+            
+        ])
+        
+        // Set dynamic constraints
+        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
+        
+        // By setting the height to default height, the container will be hide below the bottom anchor view
+        // Later, will bring it up by set it to 0
+        // set the constant to default height to bring it down again
+        containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: defaultHeight)
+        // Activate constraints
+        containerViewHeightConstraint?.isActive = true
+        containerViewBottomConstraint?.isActive = true
+    }
+    
     
     func configurePageLifter() {
         pageLifter.layer.cornerRadius = 3
@@ -343,163 +530,20 @@ class HabitDetailsViewController: UIViewController {
         pickATimeLabel.textColor = .white
     }
     
-    
-    func setupConstraints() {
-        // Add subviews
-        view.addSubview(dimmedView)
-        view.addSubview(containerView)
-        view.addSubview(pageLifter)
-        view.addSubview(habitTitleLabel)
-        
-        streakCard.addSubview(streakLabel)
-        streakCard.addSubview(streakSubLabel)
-        
-        habitColorPickerCard.addSubview(pickColorLabel)
-        habitColorPickerCard.addSubview(colorsStackView)
-        
-        dimmedView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Load before vertical stackview
-        pageLifter.translatesAutoresizingMaskIntoConstraints = false
-        habitTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Color picker
-        habitColorPickerCard.translatesAutoresizingMaskIntoConstraints = false
-        pickColorLabel.translatesAutoresizingMaskIntoConstraints = false
-        colorsStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Avoid weekends switch
-        avoidWeekendCard.addSubview(avoidWeekendLabel)
-        avoidWeekendCard.addSubview(avoidWeekendsSwitch)
-        
-        avoidWeekendCard.translatesAutoresizingMaskIntoConstraints = false
-        avoidWeekendLabel.translatesAutoresizingMaskIntoConstraints = false
-        avoidWeekendsSwitch.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Reminders switch / time picker
-        remindersCard.addSubview(remindersLabel)
-        remindersCard.addSubview(remindersSwitch)
-        remindersCard.addSubview(timePicker)
-        remindersCard.addSubview(pickATimeLabel)
-        remindersCard.addSubview(dividerLine)
-        
-        remindersCard.translatesAutoresizingMaskIntoConstraints = false
-        remindersLabel.translatesAutoresizingMaskIntoConstraints = false
-        remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
-        timePicker.translatesAutoresizingMaskIntoConstraints = false
-        pickATimeLabel.translatesAutoresizingMaskIntoConstraints = false
-        dividerLine.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        containerView.addSubview(contentStackView)
-        contentStackView.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        // Set static constraints
-        NSLayoutConstraint.activate([
-            // set dimmedView edges to superview
-            dimmedView.topAnchor.constraint(equalTo: view.topAnchor),
-            dimmedView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            dimmedView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            dimmedView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            // set container static constraint (trailing & leading)
-            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            // content stackView
-            contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 640),
-            contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
-            contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
-            
-            // pageLifter
-            pageLifter.heightAnchor.constraint(equalToConstant: 5),
-            pageLifter.widthAnchor.constraint(equalToConstant: 35),
-            pageLifter.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 8),
-            pageLifter.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            // habitTitleLabel
-            habitTitleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 23),
-            habitTitleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 25),
-            habitTitleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -25),
-            
-            // streakCard view
-            streakCard.heightAnchor.constraint(equalToConstant: 120),
-            
-            // streakLabel
-            streakLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
-            streakLabel.centerYAnchor.constraint(equalTo: streakCard.centerYAnchor),
-            streakLabel.heightAnchor.constraint(equalTo: streakCard.heightAnchor),
-
-            // streakSubLabel
-            streakSubLabel.centerXAnchor.constraint(equalTo: streakCard.centerXAnchor),
-            streakSubLabel.bottomAnchor.constraint(equalTo: streakCard.bottomAnchor, constant: -8),
-            
-            // habitColorPicker
-            habitColorPickerCard.heightAnchor.constraint(equalToConstant: 120),
-            
-            // pickColorLabel
-            pickColorLabel.heightAnchor.constraint(equalToConstant: 30),
-            pickColorLabel.topAnchor.constraint(equalTo: habitColorPickerCard.topAnchor, constant: 15),
-            pickColorLabel.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 20),
-            pickColorLabel.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -20),
-
-            // colorStackView
-            colorsStackView.heightAnchor.constraint(equalToConstant: 38),
-            colorsStackView.topAnchor.constraint(equalTo: pickColorLabel.bottomAnchor, constant: 13),
-            colorsStackView.leadingAnchor.constraint(equalTo: habitColorPickerCard.leadingAnchor, constant: 13),
-            colorsStackView.trailingAnchor.constraint(equalTo: habitColorPickerCard.trailingAnchor, constant: -13),
-            
-            // Avoid weekend card
-            avoidWeekendCard.heightAnchor.constraint(equalToConstant: 60),
-            
-            // Avoid weekends label
-            avoidWeekendLabel.heightAnchor.constraint(equalToConstant: 30),
-            avoidWeekendLabel.leadingAnchor.constraint(equalTo: avoidWeekendCard.leadingAnchor, constant: 20),
-            avoidWeekendLabel.trailingAnchor.constraint(equalTo: avoidWeekendsSwitch.leadingAnchor, constant: -20),
-            avoidWeekendLabel.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
-            
-            // Avoid weekends switch
-            avoidWeekendsSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
-            avoidWeekendsSwitch.centerYAnchor.constraint(equalTo: avoidWeekendCard.centerYAnchor),
-            
-            // Reminders label
-            remindersLabel.heightAnchor.constraint(equalToConstant: 30),
-            remindersLabel.leadingAnchor.constraint(equalTo: remindersCard.leadingAnchor, constant: 20),
-            remindersLabel.trailingAnchor.constraint(equalTo: remindersSwitch.leadingAnchor, constant: -20),
-            remindersLabel.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
-            
-            // Reminders switch
-            remindersSwitch.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor),
-            remindersSwitch.centerYAnchor.constraint(equalTo: remindersCard.topAnchor, constant: 30),
-            
-            // Reminders time picker
-            timePicker.centerXAnchor.constraint(equalTo: remindersCard.centerXAnchor),
-            timePicker.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 15),
-            timePicker.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor, constant: 10),
-            
-            // pickATimeLabel
-            pickATimeLabel.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
-            pickATimeLabel.centerYAnchor.constraint(equalTo: timePicker.centerYAnchor),
-            
-            // dividerLine
-            dividerLine.heightAnchor.constraint(equalToConstant: 2),
-            dividerLine.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 10),
-            dividerLine.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
-            dividerLine.trailingAnchor.constraint(equalTo: remindersSwitch.trailingAnchor),
-        ])
-        
-        // Set dynamic constraints
-        containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
-        
-        // By setting the height to default height, the container will be hide below the bottom anchor view
-        // Later, will bring it up by set it to 0
-        // set the constant to default height to bring it down again
-        containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: defaultHeight)
-        // Activate constraints
-        containerViewHeightConstraint?.isActive = true
-        containerViewBottomConstraint?.isActive = true
+    func configureArchiveButton() {
+        archiveButton.backgroundColor = .systemBlue
+        archiveButton.layer.cornerRadius = 15
+        archiveButton.setTitle("Archive", for: .normal)
+        archiveButton.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
     }
+    
+    func configureDeleteButton() {
+        deleteButton.backgroundColor = .systemRed
+        deleteButton.layer.cornerRadius = 15
+        deleteButton.setTitle("Delete", for: .normal)
+        deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+    }
+    
     
     func setupPanGesture() {
         // add pan gesture recognizer to the view controller's view (the whole screen)
