@@ -48,7 +48,7 @@ class HabitDetailsViewController: UIViewController {
         let spacer = UIView()
         let pageSeparator =  UIView()
         pageSeparator.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, remindersCard, avoidWeekendCard, archiveDeleteStackView, spacer])
+        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, remindersCard, avoidWeekendCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -207,6 +207,7 @@ class HabitDetailsViewController: UIViewController {
         dividerLine.translatesAutoresizingMaskIntoConstraints = false
         
         // Archive/Delete buttons
+        containerView.addSubview(archiveDeleteStackView)
         archiveDeleteStackView.translatesAutoresizingMaskIntoConstraints = false
         archiveButton.translatesAutoresizingMaskIntoConstraints = false
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -225,7 +226,7 @@ class HabitDetailsViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // Content stackView
             contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 650),
+            contentStackView.heightAnchor.constraint(equalToConstant: 600),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
@@ -308,6 +309,9 @@ class HabitDetailsViewController: UIViewController {
             
             // Archive / Delete stack view
             archiveDeleteStackView.heightAnchor.constraint(equalTo: avoidWeekendCard.heightAnchor),
+            archiveDeleteStackView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor),
+            archiveDeleteStackView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor),
+            archiveDeleteStackView.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 25),
             
         ])
         
