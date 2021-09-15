@@ -47,7 +47,9 @@ class HabitDetailsViewController: UIViewController {
     // Reminders switch
     let remindersCard   = UIView()
     let remindersLabel  = UILabel()
+    let pickATimeLabel  = UILabel()
     let remindersSwitch = UISwitch()
+    let dividerLine     = UIView()
     var timePicker      = UIDatePicker()
     var updatableLayoutConstraint = NSLayoutConstraint()
     
@@ -57,7 +59,7 @@ class HabitDetailsViewController: UIViewController {
         let spacer = UIView()
         let pageSeparator =  UIView()
         pageSeparator.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, avoidWeekendCard, remindersCard, spacer])
+        let stackView = UIStackView(arrangedSubviews: [streakCard, pageSeparator, habitColorPickerCard, remindersCard, avoidWeekendCard, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -128,6 +130,7 @@ class HabitDetailsViewController: UIViewController {
         configureRemindersLabel()
         configureRemindersSwitch()
         configureRemindersTimePicker()
+        configurePickATimeLabel()
     }
     
     func configurePageLifter() {
@@ -184,7 +187,7 @@ class HabitDetailsViewController: UIViewController {
     func configurePickColorLabel() {
         pickColorLabel.text = "Pick a color"
         pickColorLabel.textColor = UIColor.white
-        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .regular)
+        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
     }
     func configureColorStackView() {
         let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
@@ -269,7 +272,7 @@ class HabitDetailsViewController: UIViewController {
     func configureAvoidWeekendsLabel() {
         avoidWeekendLabel.text = "Avoid weekends"
         avoidWeekendLabel.textColor = pickColorLabel.textColor
-        avoidWeekendLabel.font = UIFont.systemFont(ofSize: 19)
+        avoidWeekendLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
     }
     
     func configureAvoidWeekendSwitch() {
@@ -295,19 +298,23 @@ class HabitDetailsViewController: UIViewController {
         
         if remindersSwitch.isOn {
             UIView.animate(withDuration: 0.15) {
-                self.updatableLayoutConstraint.constant = 270
+                self.updatableLayoutConstraint.constant = 120
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
                 self.timePicker.isHidden = false
+                self.pickATimeLabel.isHidden = false
+                self.dividerLine.backgroundColor = .systemGray3
             }
             
         } else {
             UIView.animate(withDuration: 0.15) {
-                self.timePicker.endEditing(true)
-                self.timePicker.isHidden = true
                 self.updatableLayoutConstraint.constant = 60
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
+                self.timePicker.endEditing(true)
+                self.timePicker.isHidden = true
+                self.pickATimeLabel.isHidden = true
+                self.dividerLine.backgroundColor = .clear
             }
         }
     }
@@ -315,17 +322,23 @@ class HabitDetailsViewController: UIViewController {
     func configureRemindersLabel() {
         remindersLabel.text = "Reminders"
         remindersLabel.textColor = pickColorLabel.textColor
-        remindersLabel.font = avoidWeekendLabel.font
+        remindersLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
     }
     
     func configureRemindersTimePicker() {
         timePicker.datePickerMode = .time
-        timePicker.preferredDatePickerStyle = .wheels
+        timePicker.preferredDatePickerStyle = .inline
         
         // Will hide the time picker until the reminder switch is on
         timePicker.endEditing(true)
         timePicker.isHidden = true
     }
+    
+    func configurePickATimeLabel() {
+        pickATimeLabel.text = "Pick a time"
+        pickATimeLabel.textColor = .white
+    }
+    
     
     func setupConstraints() {
         // Add subviews
@@ -364,11 +377,15 @@ class HabitDetailsViewController: UIViewController {
         remindersCard.addSubview(remindersLabel)
         remindersCard.addSubview(remindersSwitch)
         remindersCard.addSubview(timePicker)
+        remindersCard.addSubview(pickATimeLabel)
+        remindersCard.addSubview(dividerLine)
         
         remindersCard.translatesAutoresizingMaskIntoConstraints = false
         remindersLabel.translatesAutoresizingMaskIntoConstraints = false
         remindersSwitch.translatesAutoresizingMaskIntoConstraints = false
         timePicker.translatesAutoresizingMaskIntoConstraints = false
+        pickATimeLabel.translatesAutoresizingMaskIntoConstraints = false
+        dividerLine.translatesAutoresizingMaskIntoConstraints = false
         
         
         containerView.addSubview(contentStackView)
@@ -455,8 +472,17 @@ class HabitDetailsViewController: UIViewController {
             // Reminders time picker
             timePicker.centerXAnchor.constraint(equalTo: remindersCard.centerXAnchor),
             timePicker.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 15),
+            timePicker.trailingAnchor.constraint(equalTo: colorsStackView.trailingAnchor, constant: 10),
             
+            // pickATimeLabel
+            pickATimeLabel.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
+            pickATimeLabel.centerYAnchor.constraint(equalTo: timePicker.centerYAnchor),
             
+            // dividerLine
+            dividerLine.heightAnchor.constraint(equalToConstant: 2),
+            dividerLine.topAnchor.constraint(equalTo: remindersSwitch.bottomAnchor, constant: 10),
+            dividerLine.leadingAnchor.constraint(equalTo: remindersLabel.leadingAnchor),
+            dividerLine.trailingAnchor.constraint(equalTo: remindersSwitch.trailingAnchor),
         ])
         
         // Set dynamic constraints
