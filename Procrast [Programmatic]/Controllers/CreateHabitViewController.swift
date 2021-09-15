@@ -123,7 +123,7 @@ class CreateHabitViewController: UIViewController {
         
         habitNameLabel.delegate = self
         
-        habitNameLabel.attributedPlaceholder = NSAttributedString(string: "Add a habit name here!", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        habitNameLabel.attributedPlaceholder = NSAttributedString(string: "Add a habit name here!", attributes: [NSAttributedString.Key.foregroundColor: UIColor.systemGray2])
         habitNameLabel.textColor = UIColor.white
         habitNameLabel.becomeFirstResponder()
         
@@ -489,21 +489,12 @@ extension CreateHabitViewController {
     
     private func deselectAll() {
         
-        redButton.isSelected = false
-        orangeButton.isSelected = false
-        yellowButton.isSelected = false
-        brightGreenButton.isSelected = false
-        paleGreenButton.isSelected = false
-        lightBlueButton.isSelected = false
-        darkBlueButton.isSelected = false
+        let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
         
-        redButton.colorDeselected()
-        orangeButton.colorDeselected()
-        yellowButton.colorDeselected()
-        brightGreenButton.colorDeselected()
-        paleGreenButton.colorDeselected()
-        lightBlueButton.colorDeselected()
-        darkBlueButton.colorDeselected()
-        
+        for button in colorButtonsArray {
+            button.isSelected = false
+            button.colorDeselected()
+        }
     }
+    
 }

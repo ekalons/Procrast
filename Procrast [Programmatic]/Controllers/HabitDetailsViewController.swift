@@ -577,22 +577,12 @@ class HabitDetailsViewController: UIViewController {
 extension HabitDetailsViewController {
     private func deselectAll() {
         
-        redButton.isSelected = false
-        orangeButton.isSelected = false
-        yellowButton.isSelected = false
-        paleGreenButton.isSelected = false
-        brightGreenButton.isSelected = false
-        lightBlueButton.isSelected = false
-        darkBlueButton.isSelected = false
+        let colorButtonsArray = [redButton, orangeButton, yellowButton, brightGreenButton, paleGreenButton, lightBlueButton, darkBlueButton]
         
-        redButton.colorDeselected()
-        orangeButton.colorDeselected()
-        yellowButton.colorDeselected()
-        paleGreenButton.colorDeselected()
-        brightGreenButton.colorDeselected()
-        lightBlueButton.colorDeselected()
-        darkBlueButton.colorDeselected()
-        
+        for button in colorButtonsArray {
+            button.isSelected = false
+            button.colorDeselected()
+        }
     }
 }
 
