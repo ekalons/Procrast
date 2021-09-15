@@ -13,48 +13,37 @@ import RealmSwift
 
 class HabitDetailsViewController: UIViewController {
     
-    var pickedColor: UIColor?
-    
-    var habit: Habit?
-    
+    // Realm DB
     let realm = try! Realm()
+    var habit: Habit?
+
     
-    lazy var habitTitleLabel    = UILabel()
-    lazy var streakLabel        = UILabel()
-    lazy var streakSubLabel     = UILabel()
+    // Mainview
     lazy var containerView      = UIView()
     lazy var dimmedView         = UIView()
     lazy var pageLifter         = UIView()
-    
-    
-    // Color picker
-    lazy var habitColorPickerCard = UIView()
-    let pickColorLabel = UILabel()
-    let colorsStackView = UIStackView()
-    let redButton = PCRoundColorButton(),
-        orangeButton = PCRoundColorButton(),
-        yellowButton = PCRoundColorButton(),
-        paleGreenButton = PCRoundColorButton(),
-        brightGreenButton = PCRoundColorButton(),
-        lightBlueButton = PCRoundColorButton(),
-        darkBlueButton = PCRoundColorButton()
-    
-    // Avoid weekends switch
-    let avoidWeekendCard    = UIView()
-    let avoidWeekendLabel   = UILabel()
-    let avoidWeekendsSwitch = UISwitch()
-    
-    // Reminders switch
-    let remindersCard   = UIView()
-    let remindersLabel  = UILabel()
-    let pickATimeLabel  = UILabel()
-    let remindersSwitch = UISwitch()
-    let dividerLine     = UIView()
-    var timePicker      = UIDatePicker()
-    var updatableLayoutConstraint = NSLayoutConstraint()
-    
-    lazy var streakCard = UIView()
 
+    // Constants
+    let defaultHeight: CGFloat = 210
+    let dismissibleHeight: CGFloat = 200
+    
+    let maxDimmedAlpha: CGFloat = 0.6
+    
+    let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
+    // keep current new height, initial is default height
+    var currentContainerHeight: CGFloat = 300
+    
+    // Dynamic container constraint
+    var containerViewHeightConstraint: NSLayoutConstraint?
+    var containerViewBottomConstraint: NSLayoutConstraint?
+    
+    lazy var habitTitleLabel    = UILabel()
+    
+    // Streak counter
+    lazy var streakCard         = UIView()
+    lazy var streakLabel        = UILabel()
+    lazy var streakSubLabel     = UILabel()
+    
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
         let pageSeparator =  UIView()
@@ -65,19 +54,34 @@ class HabitDetailsViewController: UIViewController {
         return stackView
     }()
     
-    let maxDimmedAlpha: CGFloat = 0.6
+    // Color picker horizontal stack view
+    lazy var habitColorPickerCard   = UIView()
+    let pickColorLabel              = UILabel()
+    let colorsStackView             = UIStackView()
+    var pickedColor                 : UIColor?
     
-    // Constants
-    let defaultHeight: CGFloat = 210
-    let dismissibleHeight: CGFloat = 200
-    //
-    let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
-    // keep current new height, initial is default height
-    var currentContainerHeight: CGFloat = 300
+    let redButton           = PCRoundColorButton(),
+        orangeButton        = PCRoundColorButton(),
+        yellowButton        = PCRoundColorButton(),
+        paleGreenButton     = PCRoundColorButton(),
+        brightGreenButton   = PCRoundColorButton(),
+        lightBlueButton     = PCRoundColorButton(),
+        darkBlueButton      = PCRoundColorButton()
     
-    // Dynamic container constraint
-    var containerViewHeightConstraint: NSLayoutConstraint?
-    var containerViewBottomConstraint: NSLayoutConstraint?
+    // Reminders switch & time picker
+    let remindersCard   = UIView()
+    let remindersLabel  = UILabel()
+    let pickATimeLabel  = UILabel()
+    let remindersSwitch = UISwitch()
+    let dividerLine     = UIView()
+    var timePicker      = UIDatePicker()
+    var updatableLayoutConstraint = NSLayoutConstraint()
+    
+    // Avoid weekends switch
+    let avoidWeekendCard    = UIView()
+    let avoidWeekendLabel   = UILabel()
+    let avoidWeekendsSwitch = UISwitch()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
