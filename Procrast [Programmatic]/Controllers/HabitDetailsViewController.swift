@@ -273,7 +273,7 @@ class HabitDetailsViewController: UIViewController {
     }
     
     func configureAvoidWeekendSwitch() {
-        avoidWeekendsSwitch.isOn = ((habit?.avoidWeekends) != nil)
+        avoidWeekendsSwitch.isOn = ((habit?.avoidWeekends) != false)
         avoidWeekendsSwitch.onTintColor = .systemBlue
     }
     
@@ -387,7 +387,7 @@ class HabitDetailsViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // content stackView
             contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 700),
+            contentStackView.heightAnchor.constraint(equalToConstant: 640),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
