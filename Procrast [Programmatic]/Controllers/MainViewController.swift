@@ -124,6 +124,7 @@ class MainViewController: UIViewController {
     
     @objc func presentHabitDetailsVC() {
         let habitDetailsVC = HabitDetailsViewController()
+        habitDetailsVC.delegate = self
         
         habitDetailsVC.habit = habitToPass
         habitDetailsVC.modalPresentationStyle = .overCurrentContext
@@ -208,6 +209,14 @@ extension MainViewController: CreateHabitDelegate {
     func modalVCWillDismiss(_ modalVC: CreateHabitViewController) {
         loadData()
         tableView.reloadData()
-        print("Table view now reloaded")
+        print("Table view now reloaded after return from CreateHabitVC")
+    }
+}
+
+extension MainViewController: HabitDetailsDelegate {
+    func modalVCWillDismiss(_ modalVC: HabitDetailsViewController) {
+        loadData()
+        tableView.reloadData()
+        print("Table view now reloaded after return from mini modal")
     }
 }

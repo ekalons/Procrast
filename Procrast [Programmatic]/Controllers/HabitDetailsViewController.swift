@@ -11,12 +11,17 @@
 import UIKit
 import RealmSwift
 
+protocol HabitDetailsDelegate: AnyObject {
+    func modalVCWillDismiss(_ modalVC: HabitDetailsViewController)
+}
+
 class HabitDetailsViewController: UIViewController {
     
     // Realm DB
     let realm = try! Realm()
     var habit: Habit?
 
+    weak var delegate: HabitDetailsDelegate?
     
     // Mainview
     lazy var containerView      = UIView()
@@ -76,6 +81,7 @@ class HabitDetailsViewController: UIViewController {
     let dividerLine     = UIView()
     var timePicker      = UIDatePicker()
     var updatableLayoutConstraint = NSLayoutConstraint()
+    var reminderDateToSave: String?
     
     // Avoid weekends switch
     let avoidWeekendCard    = UIView()
@@ -429,6 +435,8 @@ class HabitDetailsViewController: UIViewController {
                 
                 self.pickedColor = button.colorButtonContentView.backgroundColor
                 
+                print(self.pickedColor?.toHexString() as Any)
+                
                 
             }
             button.widthAnchor.constraint(equalToConstant: 37).isActive = true
@@ -529,6 +537,8 @@ class HabitDetailsViewController: UIViewController {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .inline
         
+        timePicker.addTarget(self, action: #selector(onTimePickerChanged), for: UIControl.Event.valueChanged)
+        
         // Will hide the time picker until the reminder switch is on
         timePicker.endEditing(true)
         
@@ -549,6 +559,13 @@ class HabitDetailsViewController: UIViewController {
             timePicker.isHidden = true
             timePicker.date = dateFormatter.date(from: "08:00")!
         }
+    }
+    
+    @objc func onTimePickerChanged() {
+        let formatter = DateFormatter()
+        formatter.timeStyle = DateFormatter.Style.short
+        reminderDateToSave = formatter.string(from: timePicker.date)
+        print("Reminder date that is going to be saved is:", reminderDateToSave ?? "Nothing will be saved for now")
     }
     
     func configurePickATimeLabel() {
@@ -658,6 +675,7 @@ class HabitDetailsViewController: UIViewController {
     
     func animateDismissView() {
         // hide blur view
+        print("animateDismissView called")
         dimmedView.alpha = maxDimmedAlpha
         UIView.animate(withDuration: 0.4) {
             self.dimmedView.alpha = 0
@@ -670,6 +688,41 @@ class HabitDetailsViewController: UIViewController {
             self.containerViewBottomConstraint?.constant = self.defaultHeight
             // call this to trigger refresh constraint
             self.view.layoutIfNeeded()
+        }
+        
+        // Updates new object properties on Realm after dismiss
+        updateOnRealm()
+        delegate?.modalVCWillDismiss(self)
+    }
+    
+    func updateOnRealm() {
+        try! realm.write {
+            
+            func checkIfNewRemindersDate() {
+                onTimePickerChanged()
+                if remindersSwitch.isOn && habit?.reminderDate != reminderDateToSave {
+                    onTimePickerChanged()
+                    habit?.reminderDate = reminderDateToSave
+                } else if remindersSwitch.isOn != true {
+                    habit?.reminderDate = nil
+                }
+            }
+            
+            func checkIfNewColor() {
+                if pickedColor?.toHexString() != habit?.color {
+                    habit?.color = (pickedColor?.toHexString())!
+                }
+            }
+            
+            func checkIfAvoidWeekendChanged() {
+                if avoidWeekendsSwitch.isOn != habit?.avoidWeekends {
+                    habit?.avoidWeekends = avoidWeekendsSwitch.isOn
+                }
+            }
+            
+            checkIfNewRemindersDate()
+            checkIfNewColor()
+            checkIfAvoidWeekendChanged()
         }
     }
 }
