@@ -60,6 +60,7 @@ class CreateHabitViewController: UIViewController {
     let remindersSwitch = UISwitch()
     var timePicker      = UIDatePicker()
     var updatableLayoutConstraint = NSLayoutConstraint()
+    var reminderDateToSave: String?
     
     // Avoid weekends switch
     let avoidWeekendsCard   = UIView()
@@ -332,9 +333,17 @@ class CreateHabitViewController: UIViewController {
         timePicker.datePickerMode = .time
         timePicker.preferredDatePickerStyle = .inline
         
+        timePicker.addTarget(self, action: #selector(onTimePickerChanged), for: UIControl.Event.valueChanged)
         // Will hide the time picker until the reminder switch is on
         timePicker.endEditing(true)
         timePicker.isHidden = true
+    }
+    
+    @objc func onTimePickerChanged() {
+        let formatter = DateFormatter()
+        formatter.timeStyle = DateFormatter.Style.short
+        reminderDateToSave = formatter.string(from: timePicker.date)
+        print("Reminder date that is going to be saved is:", reminderDateToSave ?? "Nothing will be saved for now")
     }
     
     func configurePickATimeLabel() {
@@ -425,10 +434,10 @@ class CreateHabitViewController: UIViewController {
         
         if ((habitNameLabel.text?.isEmpty) != true) {
             
-            var reminderDate: Date? = nil
+            var reminderDate: String?
             
             if remindersSwitch.isOn {
-                reminderDate = timePicker.date
+                reminderDate = reminderDateToSave
             } else {
                 reminderDate = nil
             }
