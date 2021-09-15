@@ -485,6 +485,11 @@ class HabitDetailsViewController: UIViewController {
     }
     
     func configureRemindersSwitch() {
+        if habit?.reminderDate != nil {
+            remindersSwitch.isOn = true
+            
+            onRemindersSwitchTap()
+        }
         remindersSwitch.onTintColor = .systemBlue
         remindersSwitch.addTarget(self, action: #selector(onRemindersSwitchTap), for: .valueChanged)
     }
@@ -526,7 +531,24 @@ class HabitDetailsViewController: UIViewController {
         
         // Will hide the time picker until the reminder switch is on
         timePicker.endEditing(true)
-        timePicker.isHidden = true
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        
+        // Define starting state of time picker (hidden/!hidden)
+        if remindersSwitch.isOn == true {
+            timePicker.isHidden = false
+            
+            if let date = dateFormatter.date(from: habit?.reminderDate ?? "08:00") {
+                print("Habit reminder date is: ", date)
+                timePicker.date = date
+            }
+
+            
+        } else {
+            timePicker.isHidden = true
+            timePicker.date = dateFormatter.date(from: "08:00")!
+        }
     }
     
     func configurePickATimeLabel() {
