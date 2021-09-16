@@ -34,7 +34,7 @@ class HabitDetailsViewController: UIViewController {
     
     let maxDimmedAlpha: CGFloat = 0.6
     
-    let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
+    var maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
     // keep current new height, initial is default height
     var currentContainerHeight: CGFloat = 300
     
@@ -232,7 +232,7 @@ class HabitDetailsViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             // Content stackView
             contentStackView.topAnchor.constraint(equalTo: habitTitleLabel.bottomAnchor, constant: 15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 600),
+            contentStackView.heightAnchor.constraint(equalToConstant: 500),
             contentStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
             
@@ -632,6 +632,10 @@ class HabitDetailsViewController: UIViewController {
         // New height is based on value of dragging plus current container height
         let newHeight = currentContainerHeight - translation.y
         
+        if UIDevice.current.hasNotch == false {
+            maximumContainerHeight = UIScreen.main.bounds.height - 36
+        }
+        
         // Handle based on gesture state
         switch gesture.state {
         case .changed:
@@ -768,3 +772,14 @@ extension HabitDetailsViewController {
     }
 }
 
+extension UIDevice {
+    /// Returns `true` if the device has a notch
+    var hasNotch: Bool {
+        guard #available(iOS 11.0, *), let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else { return false }
+        if UIDevice.current.orientation.isPortrait {
+            return window.safeAreaInsets.top >= 44
+        } else {
+            return window.safeAreaInsets.left > 0 || window.safeAreaInsets.right > 0
+        }
+    }
+}
