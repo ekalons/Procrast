@@ -585,6 +585,28 @@ class HabitDetailsViewController: UIViewController {
         deleteButton.layer.cornerRadius = 15
         deleteButton.setTitle("Delete", for: .normal)
         deleteButton.titleLabel?.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        
+        deleteButton.addTarget(self, action: #selector(deleteHabit), for: .touchUpInside)
+        
+        
+    }
+    
+    @objc func deleteHabit() {
+        
+        let alert = UIAlertController(title: "If you say yes, this habit will be deleted", message: "Do you still want to delete it?", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { UIAlertAction in
+            
+            self.animateContainerHeight(210)
+            self.animateDismissView()
+            self.deleteFromRealm(habitToDelete: self.habit!)
+            self.delegate?.modalVCWillDismiss(self)
+            
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     
@@ -695,6 +717,7 @@ class HabitDetailsViewController: UIViewController {
         delegate?.modalVCWillDismiss(self)
     }
     
+    // MARK: Realm functions
     func updateOnRealm() {
         try! realm.write {
             
@@ -723,6 +746,12 @@ class HabitDetailsViewController: UIViewController {
             checkIfNewRemindersDate()
             checkIfNewColor()
             checkIfAvoidWeekendChanged()
+        }
+    }
+    
+    func deleteFromRealm(habitToDelete: Habit) {
+        try! realm.write {
+            realm.delete(habitToDelete)
         }
     }
 }
