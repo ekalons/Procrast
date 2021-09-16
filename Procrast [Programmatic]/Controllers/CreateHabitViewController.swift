@@ -306,6 +306,11 @@ class CreateHabitViewController: UIViewController {
                 self.view.setNeedsLayout()
                 self.view.layoutIfNeeded()
                 
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "HH:mm"
+                self.timePicker.date = dateFormatter.date(from: "08:00")!
+                self.onTimePickerChanged()
+                
                 self.timePicker.isHidden = false
                 self.pickATimeLabel.isHidden = false
                 self.dividerLine.backgroundColor = .systemGray3
