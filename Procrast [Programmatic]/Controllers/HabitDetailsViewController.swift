@@ -94,9 +94,9 @@ class HabitDetailsViewController: UIViewController {
     
     lazy var archiveDeleteStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [archiveButton, deleteButton])
+        let stackView = UIStackView(arrangedSubviews: [deleteButton])   // Add archiveButton when menu is ready
         stackView.axis = .horizontal
-        stackView.spacing = 12.0
+//        stackView.spacing = 12.0      // Not neccessary until Archived Habits menu is ready
         stackView.distribution = .fillEqually
         return stackView
     }()

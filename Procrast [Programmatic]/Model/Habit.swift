@@ -20,6 +20,7 @@ class Habit: Object {
     @Persisted var reminderDate: String? = nil
     @Persisted var streakCounter: Int = 0
     @Persisted var streakList: List<Date?>
+    @Persisted var archived: Bool = false   // For future updates
 
     
     
