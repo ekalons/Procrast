@@ -90,7 +90,7 @@ class MainViewController: UIViewController {
             addHabitButton.heightAnchor.constraint(equalToConstant: 35),
             addHabitButton.widthAnchor.constraint(equalToConstant: 36),
             addHabitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -26),
-            addHabitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30)
+            addHabitButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30),
         ])
     }
     
@@ -134,16 +134,35 @@ class MainViewController: UIViewController {
     }
     
     @objc func dayChanged() {
+        
         DispatchQueue.main.async {
             print("Current thread in \(#function) is \(Thread.current)")
             self.habits = self.realm.objects(Habit.self)
             
             for habit in self.habits {
-                if habit.streakList.last != Date().onlyDate {
-                    try! self.realm.write {
-                        habit.isCompleted = false
+                
+                // Resets Bool value in Realm & then buttons when the table view reloads
+                func resetIsCompleted() {
+                    if habit.streakList.last != Date().onlyDate {
+                        try! self.realm.write {
+                            habit.isCompleted = false
+                        }
                     }
                 }
+                
+                // Doesn't restart habits if weekend
+                if habit.avoidWeekends == true {
+                    
+                    // If weekday then...
+                    if Calendar.current.isDateInWeekend(Date()) != true {
+                        print("It is the weekend")
+                        resetIsCompleted()
+                    }
+                // Restarts habits on weekends
+                } else if habit.avoidWeekends != true {
+                    resetIsCompleted()
+                }
+                
             }
             self.tableView.reloadData()
         }
