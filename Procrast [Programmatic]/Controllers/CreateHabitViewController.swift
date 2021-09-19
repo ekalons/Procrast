@@ -17,6 +17,8 @@ protocol CreateHabitDelegate: AnyObject {
 
 class CreateHabitViewController: UIViewController {
     
+    let notifications = NotificationPublisher()
+    
     var randomColor: UIColor? = nil
     var randomColorInHex: String = ""
     
@@ -442,16 +444,22 @@ class CreateHabitViewController: UIViewController {
         
         if ((habitNameLabel.text?.isEmpty) != true) {
             
-            var reminderDate: String?
-            
             if remindersSwitch.isOn {
-                reminderDate = reminderDateToSave
+                // Will create & request the notification
+                notifications.configuringNotifications(habitTitle: self.habitNameLabel.text!, time: reminderDateToSave ?? "08:00")
             } else {
-                reminderDate = nil
+                reminderDateToSave = nil
             }
             
             try! self.realm.write {
-                self.realm.add(Habit(title: self.habitNameLabel.text!, color: self.pickedColor?.toHexString() ?? randomColorInHex, avoidWeekends: avoidWeekendsSwitch.isOn, reminderDate: reminderDate))
+                var habitToAdd = Habit()
+                habitToAdd = Habit(title: self.habitNameLabel.text!, color: self.pickedColor?.toHexString() ?? randomColorInHex, avoidWeekends: avoidWeekendsSwitch.isOn, reminderDate: reminderDateToSave)
+                
+                if remindersSwitch.isOn {
+                    habitToAdd.notificationUUID = notifications.uuidToSave
+                }
+                
+                self.realm.add(habitToAdd)
             }
             
 

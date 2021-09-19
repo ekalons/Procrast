@@ -7,22 +7,28 @@
 //The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 import UIKit
 import RealmSwift
+//import UserNotifications
 
 class MainViewController: UIViewController {
     
-    var habitToPass: Habit?
-    
+    // Realm DB
     let realm = try! Realm()
+    var habitToPass: Habit?
+    var habits: Results<Habit>!
     
+    let notifications = NotificationPublisher()
+    
+    // Interface
     lazy var addHabitButton = PCIconButton()
     lazy var settingsButton = PCIconButton()
     
     var tableView = UITableView()
-    var habits: Results<Habit>!
     
-    lazy var yourFirstHabit: Bool = false
+    
+//    lazy var yourFirstHabit: Bool = false     // Future feature
     
     struct Cells {
         static let habitCell = "HabitCell"
@@ -38,6 +44,9 @@ class MainViewController: UIViewController {
         
         loadData()
         configureUI()
+        
+        notifications.requestNotificationsPermission()
+
     }
     
     override open var shouldAutorotate: Bool {
@@ -164,6 +173,7 @@ class MainViewController: UIViewController {
                 }
                 
             }
+            self.loadData()
             self.tableView.reloadData()
         }
 
@@ -190,22 +200,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         
         cell.radioButtonAction = { [unowned self] in
             self.tableView.reloadData()
-//            cell.selectionStyle = UITableViewCell.SelectionStyle.none
-//
-////            let habit = self.habits[indexPath.row].title
-//            let alert = UIAlertController(title: "Congratulations!", message: "You completed your first habit", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "Keep it up!", style: .default, handler: nil)
-//            alert.addAction(okAction)
-//
-//
-//
-////            tableView.reloadData()
-//
-//            if yourFirstHabit == false {
-//                self.present(alert, animated: true, completion: nil)
-//                yourFirstHabit = true
-//            }
-
         }
         
         return cell

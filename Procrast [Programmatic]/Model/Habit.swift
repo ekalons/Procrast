@@ -21,6 +21,7 @@ class Habit: Object {
     @Persisted var avoidWeekends: Bool = false
     @Persisted var creationDate: Date = Date()
     @Persisted var reminderDate: String? = nil
+    @Persisted var notificationUUID: String? = nil
     @Persisted var streakCounter: Int = 0
     @Persisted var streakList: List<Date?>
     @Persisted var archived: Bool = false   // For future updates
