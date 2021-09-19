@@ -17,6 +17,8 @@ protocol HabitDetailsDelegate: AnyObject {
 
 class HabitDetailsViewController: UIViewController {
     
+    let notifications = NotificationPublisher()
+    
     // Realm DB
     let realm = try! Realm()
     var habit: Habit?
@@ -726,8 +728,15 @@ class HabitDetailsViewController: UIViewController {
                 if remindersSwitch.isOn && habit?.reminderDate != reminderDateToSave {
                     onTimePickerChanged()
                     habit?.reminderDate = reminderDateToSave
+                    
+                    notifications.stopNotifications(uuid: (habit?.notificationUUID) ?? nil)
+                    notifications.configuringNotifications(habitTitle: habit!.title, time: reminderDateToSave ?? "08:00")
+                    habit?.notificationUUID = notifications.uuidToSave
+                    
                 } else if remindersSwitch.isOn != true {
                     habit?.reminderDate = nil
+                    notifications.stopNotifications(uuid: (habit?.notificationUUID) ?? nil)
+                    habit?.notificationUUID = nil
                 }
             }
             
@@ -769,7 +778,7 @@ extension HabitDetailsViewController {
 }
 
 extension UIDevice {
-    /// Returns `true` if the device has a notch
+//    Returns "true" if the device has a notch
     var hasNotch: Bool {
         guard #available(iOS 11.0, *), let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else { return false }
         if UIDevice.current.orientation.isPortrait {

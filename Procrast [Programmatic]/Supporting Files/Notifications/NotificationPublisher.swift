@@ -45,6 +45,14 @@ class NotificationPublisher {
         
          
     }
+    
+    func stopNotifications(uuid: String?) {
+        if uuid != nil {
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [uuid!])
+        }
+        
+        
+    }
 }
 
 
