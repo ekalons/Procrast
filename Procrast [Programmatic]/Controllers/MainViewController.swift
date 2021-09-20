@@ -54,7 +54,8 @@ class MainViewController: UIViewController {
         }
     
     func loadData() {
-        habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
+        habits = realm.objects(Habit.self).sorted(byKeyPath: "creationDate", ascending: true)
+//        habits = realm.objects(Habit.self).sorted(by: [SortDescriptor(keyPath: "isCompleted", ascending: true), SortDescriptor(keyPath: "creationDate", ascending: true)])
     }
     
     func toggleItem(_ habit: Habit) {
