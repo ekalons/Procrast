@@ -18,7 +18,7 @@ class SettingsViewController: UIViewController {
     // UI content
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [aboutCardView, spacer])
+        let stackView = UIStackView(arrangedSubviews: [aboutCardView, contactCardView, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -41,11 +41,8 @@ class SettingsViewController: UIViewController {
     let bodyLabel = UILabel()
     
     // Contact
-    let contactCardView = UIButton()
+    let contactCardView = UIButton(type: .system)
     let contactLabel    = UILabel()
-    
-    
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,10 +51,7 @@ class SettingsViewController: UIViewController {
         
         configureUI()
         setupConstraints()
-
-        
     }
-    
     
     func configureUI() {
         //Navigation
@@ -71,6 +65,11 @@ class SettingsViewController: UIViewController {
         configureProfileImageContainer()
         configureNameLabel()
         configureBodyLabel()
+        
+        // Contact
+        configureContactCardView()
+        configureContactLabel()
+        
         
     }
     
@@ -106,6 +105,12 @@ class SettingsViewController: UIViewController {
         aboutCardView.addSubview(bodyLabel)
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        // Contact card view
+        contactCardView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contactCardView.addSubview(contactLabel)
+        contactLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSLayoutConstraint.activate([
             
@@ -123,7 +128,10 @@ class SettingsViewController: UIViewController {
             contentStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            contentStackView.bottomAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 30),
+            contentStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25),
+            
+            // About card view
+            aboutCardView.bottomAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 25),
             
             // Profile stack view
             profileStackView.topAnchor.constraint(equalTo: aboutCardView.topAnchor, constant: 22),
@@ -144,6 +152,14 @@ class SettingsViewController: UIViewController {
             bodyLabel.topAnchor.constraint(equalTo: profileImageContainer.bottomAnchor, constant: 15),
             bodyLabel.leadingAnchor.constraint(equalTo: profileImageContainer.leadingAnchor),
             bodyLabel.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: -15),
+            
+            // Contact & card view
+            contactCardView.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Contact label
+            contactLabel.centerYAnchor.constraint(equalTo: contactCardView.centerYAnchor),
+            contactLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor, constant: -3),
+            contactLabel.trailingAnchor.constraint(equalTo: contactCardView.trailingAnchor, constant: -15),
             
         
         ])
@@ -185,10 +201,42 @@ class SettingsViewController: UIViewController {
         bodyLabel.setLineSpacing(lineSpacing: 5)
     }
     
+    func configureContactCardView() {
+        contactCardView.layer.cornerRadius = 15
+        contactCardView.backgroundColor = Colors.cardColor
+        
+        contactCardView.addTarget(self, action: #selector(onContactTap), for: .touchUpInside)
+    }
+    
+    func configureContactLabel() {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(systemName: "envelope")?.withTintColor(UIColor.white)
+
+        let imageString = NSMutableAttributedString(attachment: attachment)
+        let textString = NSAttributedString(string: "  Contact me")
+        imageString.append(textString)
+
+        contactLabel.attributedText = imageString
+        contactLabel.sizeToFit()
+        contactLabel.textColor = .white
+        contactLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    }
+    
+    @objc func onContactTap() {
+        
+        let mailtoString = "mailto:\(PrivateCons.myEmail)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let mailtoUrl = URL(string: mailtoString!)!
+        
+        if UIApplication.shared.canOpenURL(mailtoUrl) {
+            UIApplication.shared.open(mailtoUrl, options: [:])
+        }
+    }
+    
     @objc func backToMainVC() {
-        //Add completion parameter to dismiss() to pass data back to MainVC
         dismiss(animated: true)
     }
+    
+    
 }
 
 
