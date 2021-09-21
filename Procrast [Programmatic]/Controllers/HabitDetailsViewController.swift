@@ -19,6 +19,9 @@ class HabitDetailsViewController: UIViewController {
     
     let notifications = NotificationPublisher()
     
+    //Haptic feedback
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
+    
     // Realm DB
     let realm = try! Realm()
     var habit: Habit?
@@ -590,6 +593,8 @@ class HabitDetailsViewController: UIViewController {
     }
     
     @objc func deleteHabit() {
+        
+        generator.impactOccurred()
         
         let alert = UIAlertController(title: "If you say yes, this habit will be deleted", message: "Do you still want to delete it?", preferredStyle: .actionSheet)
         
