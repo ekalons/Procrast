@@ -13,6 +13,7 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     // Navigation
+    let navBar = UINavigationBar()
     let leavePageButton = PCIconButton()
     
     // UI content
@@ -67,6 +68,7 @@ class SettingsViewController: UIViewController {
         configureProfileImageContainer()
         configureNameLabel()
         configureBodyLabel()
+        configureNavBar()
         
     }
     
@@ -119,7 +121,7 @@ class SettingsViewController: UIViewController {
             contentStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
             contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
             contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            contentStackView.heightAnchor.constraint(equalToConstant: 310),
+            contentStackView.bottomAnchor.constraint(equalTo: bodyLabel.bottomAnchor, constant: 30),
             
             // Profile stack view
             profileStackView.topAnchor.constraint(equalTo: aboutCardView.topAnchor, constant: 22),
@@ -145,7 +147,9 @@ class SettingsViewController: UIViewController {
         ])
     }
     
-    
+    func configureNavBar() {
+        
+    }
     
     func configureLeavePageButton() {
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
@@ -177,7 +181,7 @@ class SettingsViewController: UIViewController {
     }
     
     func configureBodyLabel() {
-        bodyLabel.text = "I'm the sole software developer behind Procrast. I hope all fellow procrastinators out there find the app helpful. I wanted to mention that I'm open to feedback and suggestions so please don't hesitate to contact me with ideas!"
+        bodyLabel.text = "I'm the sole software developer behind Procrast. I hope all fellow procrastinators out there find the app helpful. I wanted to mention that I'm open to feedback and suggestions so please don't hesitate to reach out with ideas!"
         bodyLabel.font = .systemFont(ofSize: 17)
         bodyLabel.numberOfLines = 0
         bodyLabel.setLineSpacing(lineSpacing: 5)
