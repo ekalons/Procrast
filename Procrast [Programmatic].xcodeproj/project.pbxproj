@@ -10,6 +10,7 @@
 		4229ACA326C2F341007E4642 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */; };
 		4229ACA726C30817007E4642 /* UIColor+HexToUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */; };
 		4233424226FA2B3100E6899A /* UIDevice+HasNotch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */; };
+		4233424426FA34E200E6899A /* PrivateConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233424326FA34E200E6899A /* PrivateConstants.swift */; };
 		425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EF9FF2603FF1100A7232D /* AppDelegate.swift */; };
 		425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA012603FF1100A7232D /* SceneDelegate.swift */; };
 		425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */; };
@@ -38,6 +39,7 @@
 		4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
 		4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexToUIColor.swift"; sourceTree = "<group>"; };
 		4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+HasNotch.swift"; sourceTree = "<group>"; };
+		4233424326FA34E200E6899A /* PrivateConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateConstants.swift; sourceTree = "<group>"; };
 		425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Procrast [Programmatic].app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425EF9FF2603FF1100A7232D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		425EFA012603FF1100A7232D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				425EF9FF2603FF1100A7232D /* AppDelegate.swift */,
 				425EFA012603FF1100A7232D /* SceneDelegate.swift */,
 				425EFA33260514C400A7232D /* Constants.swift */,
+				4233424326FA34E200E6899A /* PrivateConstants.swift */,
 				425EFA0B2603FF1200A7232D /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
@@ -332,6 +335,7 @@
 				425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */,
 				425EFA2A260405B300A7232D /* PCIconButton.swift in Sources */,
 				425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */,
+				4233424426FA34E200E6899A /* PrivateConstants.swift in Sources */,
 				425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */,
 				425EFA432605230500A7232D /* HabitCell.swift in Sources */,
 				425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */,

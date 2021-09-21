@@ -13,7 +13,6 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     // Navigation
-    let navBar = UINavigationBar()
     let leavePageButton = PCIconButton()
     
     // UI content
@@ -40,6 +39,10 @@ class SettingsViewController: UIViewController {
     let profileImageView = UIImageView(image: UIImage(named: "profile.PNG"))
     let nameLabel = UILabel()
     let bodyLabel = UILabel()
+    
+    // Contact
+    let contactCardView = UIButton()
+    let contactLabel    = UILabel()
     
     
     
@@ -68,7 +71,6 @@ class SettingsViewController: UIViewController {
         configureProfileImageContainer()
         configureNameLabel()
         configureBodyLabel()
-        configureNavBar()
         
     }
     
@@ -146,11 +148,7 @@ class SettingsViewController: UIViewController {
         
         ])
     }
-    
-    func configureNavBar() {
         
-    }
-    
     func configureLeavePageButton() {
         leavePageButton.setImage(Icons.chevronIcon, for: .normal)
         leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
@@ -164,7 +162,7 @@ class SettingsViewController: UIViewController {
     
     func configureAboutCardView() {
         aboutCardView.backgroundColor = .systemGray5
-        aboutCardView.layer.cornerRadius = 17
+        aboutCardView.layer.cornerRadius = 15
         
     }
     

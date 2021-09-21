@@ -280,7 +280,7 @@ class CreateHabitViewController: UIViewController {
     func configureAvoidWeekendsLabel() {
         avoidWeekendsLabel.text = "Avoid weekends"
         avoidWeekendsLabel.textColor = pickColorLabel.textColor
-        avoidWeekendsLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        avoidWeekendsLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
     func configureAvoidWeekendsSwitch() {
@@ -336,7 +336,7 @@ class CreateHabitViewController: UIViewController {
     func configureRemindersLabel() {
         remindersLabel.text = "Reminders"
         remindersLabel.textColor = pickColorLabel.textColor
-        remindersLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        remindersLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
     func configureRemindersTimePicker() {
@@ -365,7 +365,7 @@ class CreateHabitViewController: UIViewController {
     func configurePickColorLabel() {
         pickColorLabel.text = "Pick a color"
         pickColorLabel.textColor = UIColor.white
-        pickColorLabel.font = UIFont.systemFont(ofSize: 19, weight: .semibold)
+        pickColorLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
     }
     
     func configureColorStackView() {
