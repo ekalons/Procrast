@@ -12,7 +12,36 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    // Navigation
     let leavePageButton = PCIconButton()
+    
+    // UI content
+    lazy var contentStackView: UIStackView = {
+        let spacer = UIView()
+        let stackView = UIStackView(arrangedSubviews: [aboutCardView, spacer])
+        stackView.axis = .vertical
+        stackView.spacing = 12.0
+        return stackView
+    }()
+    
+    let aboutLabel = UILabel()
+    let aboutCardView = UIView()
+    
+    // Personal photo/name
+    lazy var profileStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [profileImageContainer, nameLabel])
+        stackView.axis = .horizontal
+        stackView.spacing = 20.0
+        return stackView
+    }()
+    
+    let profileImageContainer = UIView()
+    let profileImageView = UIImageView(image: UIImage(named: "profile.PNG"))
+    let nameLabel = UILabel()
+    let bodyLabel = UILabel()
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,28 +49,138 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = Colors.defaultBackgroundColor
         
         configureUI()
+        setupConstraints()
 
         
     }
     
     
     func configureUI() {
+        //Navigation
         configureLeavePageButton()
+        
+        // Card view & title
+        configureAboutLabel()
+        configureAboutCardView()
+        
+        // Profile info & body
+        configureProfileImageContainer()
+        configureNameLabel()
+        configureBodyLabel()
         
     }
     
-    func configureLeavePageButton() {
-        leavePageButton.translatesAutoresizingMaskIntoConstraints = false
+    func setupConstraints() {
+        
+        // Leave page button
         view.addSubview(leavePageButton)
-        leavePageButton.setImage(Icons.chevronIcon, for: .normal)
-        leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+        leavePageButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        // About label
+        view.addSubview(aboutLabel)
+        aboutLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Content stack view
+        view.addSubview(contentStackView)
+        contentStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // About card view
+        aboutCardView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Profile image view & container
+        aboutCardView.addSubview(profileStackView)
+        profileStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        profileImageContainer.translatesAutoresizingMaskIntoConstraints = false
+        profileImageContainer.addSubview(profileImageView)
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Name label
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Body label
+        aboutCardView.addSubview(bodyLabel)
+        bodyLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         
         NSLayoutConstraint.activate([
+            
+            // Leave page button
             leavePageButton.heightAnchor.constraint(equalToConstant: 30),
             leavePageButton.widthAnchor.constraint(equalToConstant: 31),
             leavePageButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 19),
-            leavePageButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15)
+            leavePageButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
+            
+            aboutLabel.topAnchor.constraint(equalTo: leavePageButton.bottomAnchor, constant: 10),
+            aboutLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            aboutLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            
+            // Content stack view
+            contentStackView.topAnchor.constraint(equalTo: aboutLabel.bottomAnchor, constant: 8),
+            contentStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
+            contentStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
+            contentStackView.heightAnchor.constraint(equalToConstant: 310),
+            
+            // Profile stack view
+            profileStackView.topAnchor.constraint(equalTo: aboutCardView.topAnchor, constant: 22),
+            profileStackView.leadingAnchor.constraint(equalTo: contentStackView.leadingAnchor, constant: 22),
+            profileStackView.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: -15),
+            profileStackView.heightAnchor.constraint(equalToConstant: 95),
+            
+            // Profile image view container
+            profileImageContainer.widthAnchor.constraint(equalToConstant: 95),
+            
+            // Profile image view
+            profileImageView.topAnchor.constraint(equalTo: profileImageContainer.topAnchor, constant: -6),
+            profileImageView.leadingAnchor.constraint(equalTo: profileImageContainer.leadingAnchor, constant: -14),
+            profileImageView.heightAnchor.constraint(equalTo: profileImageContainer.heightAnchor, constant: 20),
+            profileImageView.widthAnchor.constraint(equalTo: profileImageContainer.widthAnchor, constant: 20),
+            
+            // Body label
+            bodyLabel.topAnchor.constraint(equalTo: profileImageContainer.bottomAnchor, constant: 15),
+            bodyLabel.leadingAnchor.constraint(equalTo: profileImageContainer.leadingAnchor),
+            bodyLabel.trailingAnchor.constraint(equalTo: contentStackView.trailingAnchor, constant: -15),
+            
+        
         ])
+    }
+    
+    
+    
+    func configureLeavePageButton() {
+        leavePageButton.setImage(Icons.chevronIcon, for: .normal)
+        leavePageButton.addTarget(self, action: #selector(backToMainVC), for: .touchUpInside)
+    }
+    
+    func configureAboutLabel() {
+        aboutLabel.text = "About"
+        aboutLabel.font = .boldSystemFont(ofSize: 25)
+        aboutLabel.textColor = .white
+    }
+    
+    func configureAboutCardView() {
+        aboutCardView.backgroundColor = .systemGray5
+        aboutCardView.layer.cornerRadius = 17
+        
+    }
+    
+    func configureProfileImageContainer() {
+        profileImageContainer.layer.cornerRadius = 46
+        profileImageContainer.backgroundColor = .systemTeal
+        
+    }
+    
+    func configureNameLabel() {
+        nameLabel.text = "Hey, I'm Ekaitz"
+        nameLabel.font = .boldSystemFont(ofSize: 22)
+        nameLabel.textColor = .systemBlue
+    }
+    
+    func configureBodyLabel() {
+        bodyLabel.text = "I'm the sole software developer behind Procrast. I hope all fellow procrastinators out there find the app helpful. I wanted to mention that I'm open to feedback and suggestions so please don't hesitate to contact me with ideas!"
+        bodyLabel.font = .systemFont(ofSize: 17)
+        bodyLabel.numberOfLines = 0
+        bodyLabel.setLineSpacing(lineSpacing: 5)
     }
     
     @objc func backToMainVC() {
