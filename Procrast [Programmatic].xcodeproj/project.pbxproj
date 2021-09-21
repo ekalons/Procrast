@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4229ACA326C2F341007E4642 /* UIColorToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA226C2F341007E4642 /* UIColorToHex.swift */; };
-		4229ACA726C30817007E4642 /* HexToUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA626C30817007E4642 /* HexToUIColor.swift */; };
+		4229ACA326C2F341007E4642 /* UIColor+ToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */; };
+		4229ACA726C30817007E4642 /* UIColor+HexToUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */; };
 		4233424226FA2B3100E6899A /* UIDevice+HasNotch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */; };
 		425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EF9FF2603FF1100A7232D /* AppDelegate.swift */; };
 		425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA012603FF1100A7232D /* SceneDelegate.swift */; };
@@ -20,7 +20,7 @@
 		425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA2D2604300800A7232D /* CreateHabitViewController.swift */; };
 		425EFA312604318900A7232D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA302604318900A7232D /* SettingsViewController.swift */; };
 		425EFA34260514C400A7232D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA33260514C400A7232D /* Constants.swift */; };
-		425EFA3F260521C600A7232D /* UIViewPins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA3E260521C600A7232D /* UIViewPins.swift */; };
+		425EFA3F260521C600A7232D /* UIView+PinToEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA3E260521C600A7232D /* UIView+PinToEdges.swift */; };
 		425EFA432605230500A7232D /* HabitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA422605230500A7232D /* HabitCell.swift */; };
 		425EFA472605267B00A7232D /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA462605267B00A7232D /* Habit.swift */; };
 		425EFA4B2607E40A00A7232D /* PCRoundColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */; };
@@ -28,15 +28,15 @@
 		426D851926F9216000193430 /* profile.PNG in Resources */ = {isa = PBXBuildFile; fileRef = 426D851826F9216000193430 /* profile.PNG */; };
 		426D851B26F955B500193430 /* UILabel+LineSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426D851A26F955B500193430 /* UILabel+LineSpacing.swift */; };
 		42A7C10026F7675E00434675 /* NotificationPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A7C0FF26F7675E00434675 /* NotificationPublisher.swift */; };
-		42E240B826D7162E008381F8 /* OnlyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E240B726D7162E008381F8 /* OnlyDate.swift */; };
+		42E240B826D7162E008381F8 /* Date+OnlyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42E240B726D7162E008381F8 /* Date+OnlyDate.swift */; };
 		42F3D34B26E24523009F36CD /* HabitDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42F3D34A26E24523009F36CD /* HabitDetailsViewController.swift */; };
 		6DB7A77B665565F6A8581212 /* Pods_Procrast__Programmatic_.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AAD288A06084017BD34E3F2 /* Pods_Procrast__Programmatic_.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3BD9E2510141CCFEBD74ED8B /* Pods-Procrast [Programmatic].debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].debug.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].debug.xcconfig"; sourceTree = "<group>"; };
-		4229ACA226C2F341007E4642 /* UIColorToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorToHex.swift; sourceTree = "<group>"; };
-		4229ACA626C30817007E4642 /* HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToUIColor.swift; sourceTree = "<group>"; };
+		4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
+		4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexToUIColor.swift"; sourceTree = "<group>"; };
 		4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+HasNotch.swift"; sourceTree = "<group>"; };
 		425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Procrast [Programmatic].app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425EF9FF2603FF1100A7232D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +50,7 @@
 		425EFA2D2604300800A7232D /* CreateHabitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHabitViewController.swift; sourceTree = "<group>"; };
 		425EFA302604318900A7232D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		425EFA33260514C400A7232D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		425EFA3E260521C600A7232D /* UIViewPins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewPins.swift; sourceTree = "<group>"; };
+		425EFA3E260521C600A7232D /* UIView+PinToEdges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PinToEdges.swift"; sourceTree = "<group>"; };
 		425EFA422605230500A7232D /* HabitCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCell.swift; sourceTree = "<group>"; };
 		425EFA462605267B00A7232D /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
 		425EFA4A2607E40A00A7232D /* PCRoundColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCRoundColorButton.swift; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		426D851826F9216000193430 /* profile.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = profile.PNG; path = ../../../../../../../Downloads/profile.PNG; sourceTree = "<group>"; };
 		426D851A26F955B500193430 /* UILabel+LineSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+LineSpacing.swift"; sourceTree = "<group>"; };
 		42A7C0FF26F7675E00434675 /* NotificationPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPublisher.swift; sourceTree = "<group>"; };
-		42E240B726D7162E008381F8 /* OnlyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlyDate.swift; sourceTree = "<group>"; };
+		42E240B726D7162E008381F8 /* Date+OnlyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+OnlyDate.swift"; sourceTree = "<group>"; };
 		42F3D34A26E24523009F36CD /* HabitDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailsViewController.swift; sourceTree = "<group>"; };
 		4AAD288A06084017BD34E3F2 /* Pods_Procrast__Programmatic_.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Procrast__Programmatic_.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		897C9061B81BB9AD042FE9BC /* Pods-Procrast [Programmatic].release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].release.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].release.xcconfig"; sourceTree = "<group>"; };
@@ -171,10 +171,10 @@
 		425EFA3926051FFA00A7232D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				425EFA3E260521C600A7232D /* UIViewPins.swift */,
-				4229ACA226C2F341007E4642 /* UIColorToHex.swift */,
-				4229ACA626C30817007E4642 /* HexToUIColor.swift */,
-				42E240B726D7162E008381F8 /* OnlyDate.swift */,
+				425EFA3E260521C600A7232D /* UIView+PinToEdges.swift */,
+				4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */,
+				4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */,
+				42E240B726D7162E008381F8 /* Date+OnlyDate.swift */,
 				426D851A26F955B500193430 /* UILabel+LineSpacing.swift */,
 				4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */,
 			);
@@ -337,16 +337,16 @@
 				425EFA2E2604300800A7232D /* CreateHabitViewController.swift in Sources */,
 				426BEF2C26AB2B9400D273F7 /* PCHabitCellRadioButton.swift in Sources */,
 				426D851B26F955B500193430 /* UILabel+LineSpacing.swift in Sources */,
-				4229ACA326C2F341007E4642 /* UIColorToHex.swift in Sources */,
+				4229ACA326C2F341007E4642 /* UIColor+ToHex.swift in Sources */,
 				42F3D34B26E24523009F36CD /* HabitDetailsViewController.swift in Sources */,
-				42E240B826D7162E008381F8 /* OnlyDate.swift in Sources */,
+				42E240B826D7162E008381F8 /* Date+OnlyDate.swift in Sources */,
 				425EFA472605267B00A7232D /* Habit.swift in Sources */,
 				425EFA21260400D300A7232D /* MainViewController.swift in Sources */,
-				425EFA3F260521C600A7232D /* UIViewPins.swift in Sources */,
+				425EFA3F260521C600A7232D /* UIView+PinToEdges.swift in Sources */,
 				425EFA312604318900A7232D /* SettingsViewController.swift in Sources */,
 				42A7C10026F7675E00434675 /* NotificationPublisher.swift in Sources */,
 				425EFA34260514C400A7232D /* Constants.swift in Sources */,
-				4229ACA726C30817007E4642 /* HexToUIColor.swift in Sources */,
+				4229ACA726C30817007E4642 /* UIColor+HexToUIColor.swift in Sources */,
 				4233424226FA2B3100E6899A /* UIDevice+HasNotch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
