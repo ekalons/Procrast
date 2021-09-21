@@ -43,7 +43,6 @@
 		42024B6D26FA53C80046BCEA /* @1x */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "@1x"; path = "../../../../../../../../Downloads/Procrast icons/@1x"; sourceTree = "<group>"; };
 		42024B7326FA53F40046BCEA /* @3x */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "@3x"; path = "../../../../../../../../Downloads/Procrast icons/@3x"; sourceTree = "<group>"; };
 		42024B7526FA54010046BCEA /* appstore */ = {isa = PBXFileReference; lastKnownFileType = folder; name = appstore; path = "../../../../../../../../Downloads/Procrast icons/appstore"; sourceTree = "<group>"; };
-		42024B7826FA54290046BCEA /* Icon-App-iTunes.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-iTunes.png"; sourceTree = "<group>"; };
 		42024B7926FA54320046BCEA /* @2x */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "@2x"; path = "../../../../../../../../Downloads/Procrast icons/@2x"; sourceTree = "<group>"; };
 		4229ACA226C2F341007E4642 /* UIColor+ToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ToHex.swift"; sourceTree = "<group>"; };
 		4229ACA626C30817007E4642 /* UIColor+HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexToUIColor.swift"; sourceTree = "<group>"; };
@@ -93,14 +92,6 @@
 				4AAD288A06084017BD34E3F2 /* Pods_Procrast__Programmatic_.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		42024B7726FA54290046BCEA /* appstore */ = {
-			isa = PBXGroup;
-			children = (
-				42024B7826FA54290046BCEA /* Icon-App-iTunes.png */,
-			);
-			path = appstore;
 			sourceTree = "<group>";
 		};
 		4233424526FA529800E6899A /* App icons */ = {
@@ -224,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				4233424526FA529800E6899A /* App icons */,
-				42024B7726FA54290046BCEA /* appstore */,
 				426D851826F9216000193430 /* profile.PNG */,
 			);
 			path = Images;
