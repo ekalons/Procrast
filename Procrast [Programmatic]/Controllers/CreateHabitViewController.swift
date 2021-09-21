@@ -269,12 +269,12 @@ class CreateHabitViewController: UIViewController {
     
     func configureHabitColorPickerCardView() {
         habitColorPickerCard.layer.cornerRadius = 15
-        habitColorPickerCard.backgroundColor = .systemGray5
+        habitColorPickerCard.backgroundColor = Colors.cardColor
     }
     
     func configureAvoidWeekendsCard() {
         avoidWeekendsCard.layer.cornerRadius = 15
-        avoidWeekendsCard.backgroundColor = .systemGray5
+        avoidWeekendsCard.backgroundColor = Colors.cardColor
     }
     
     func configureAvoidWeekendsLabel() {
@@ -289,7 +289,7 @@ class CreateHabitViewController: UIViewController {
     
     func configureRemindersCard() {
         remindersCard.layer.cornerRadius = 15
-        remindersCard.backgroundColor = .systemGray5
+        remindersCard.backgroundColor = Colors.cardColor
         
         updatableLayoutConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
         updatableLayoutConstraint.isActive = true

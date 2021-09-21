@@ -73,7 +73,7 @@ class MainViewController: UIViewController {
 // MARK: Table configurations
     func configureTableView() {
         view.addSubview(tableView)
-        tableView.backgroundColor = .systemGray6
+        tableView.backgroundColor = Colors.defaultBackgroundColor
         tableView.separatorColor = .clear
     
         setTableViewDelegates()

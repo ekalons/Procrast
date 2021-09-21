@@ -334,7 +334,7 @@ class HabitDetailsViewController: UIViewController {
     
     func configurePageLifter() {
         pageLifter.layer.cornerRadius = 3
-        pageLifter.backgroundColor = .systemGray3
+        pageLifter.backgroundColor = UIColor(red: 0.27, green: 0.27, blue: 0.28, alpha: 1.00)
         
     }
     
@@ -346,7 +346,7 @@ class HabitDetailsViewController: UIViewController {
     }
     
     func configureStreakCard() {
-        streakCard.backgroundColor = .systemGray5
+        streakCard.backgroundColor = Colors.cardColor
         streakCard.layer.cornerRadius = 17
     }
     func configureStreakLabel() {
@@ -380,7 +380,7 @@ class HabitDetailsViewController: UIViewController {
     
     func configureHabitColorPickerCardView() {
         habitColorPickerCard.layer.cornerRadius = 15
-        habitColorPickerCard.backgroundColor = .systemGray5
+        habitColorPickerCard.backgroundColor = Colors.cardColor
         
     }
     func configurePickColorLabel() {
@@ -467,7 +467,7 @@ class HabitDetailsViewController: UIViewController {
     
     func configureAvoidWeekendsCard() {
         avoidWeekendCard.layer.cornerRadius = 15
-        avoidWeekendCard.backgroundColor = .systemGray5
+        avoidWeekendCard.backgroundColor = Colors.cardColor
     }
 
     func configureAvoidWeekendsLabel() {
@@ -484,7 +484,7 @@ class HabitDetailsViewController: UIViewController {
     // MARK: Reminders switch/time picker
     func configureRemindersCard() {
         remindersCard.layer.cornerRadius = 15
-        remindersCard.backgroundColor = .systemGray5
+        remindersCard.backgroundColor = Colors.cardColor
         
         updatableLayoutConstraint = remindersCard.heightAnchor.constraint(equalToConstant: 60)
         updatableLayoutConstraint.isActive = true
@@ -509,7 +509,7 @@ class HabitDetailsViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 self.timePicker.isHidden = false
                 self.pickATimeLabel.isHidden = false
-                self.dividerLine.backgroundColor = .systemGray3
+                self.dividerLine.backgroundColor = UIColor(red: 0.27, green: 0.27, blue: 0.28, alpha: 1.00)
             }
             
         } else {
@@ -630,7 +630,7 @@ class HabitDetailsViewController: UIViewController {
         // New height is based on value of dragging plus current container height
         let newHeight = currentContainerHeight - translation.y
         
-        if UIDevice.current.hasNotch == false {
+        if UIDevice.current.hasNotch != true {
             maximumContainerHeight = UIScreen.main.bounds.height - 36
         }
         
@@ -777,14 +777,3 @@ extension HabitDetailsViewController {
     }
 }
 
-extension UIDevice {
-//    Returns "true" if the device has a notch
-    var hasNotch: Bool {
-        guard #available(iOS 11.0, *), let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first else { return false }
-        if UIDevice.current.orientation.isPortrait {
-            return window.safeAreaInsets.top >= 44
-        } else {
-            return window.safeAreaInsets.left > 0 || window.safeAreaInsets.right > 0
-        }
-    }
-}

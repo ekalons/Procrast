@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4229ACA326C2F341007E4642 /* UIColorToHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA226C2F341007E4642 /* UIColorToHex.swift */; };
 		4229ACA726C30817007E4642 /* HexToUIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4229ACA626C30817007E4642 /* HexToUIColor.swift */; };
+		4233424226FA2B3100E6899A /* UIDevice+HasNotch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */; };
 		425EFA002603FF1100A7232D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EF9FF2603FF1100A7232D /* AppDelegate.swift */; };
 		425EFA022603FF1100A7232D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA012603FF1100A7232D /* SceneDelegate.swift */; };
 		425EFA0A2603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 425EFA082603FF1100A7232D /* Procrast__Programmatic_.xcdatamodeld */; };
@@ -36,6 +37,7 @@
 		3BD9E2510141CCFEBD74ED8B /* Pods-Procrast [Programmatic].debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Procrast [Programmatic].debug.xcconfig"; path = "Target Support Files/Pods-Procrast [Programmatic]/Pods-Procrast [Programmatic].debug.xcconfig"; sourceTree = "<group>"; };
 		4229ACA226C2F341007E4642 /* UIColorToHex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorToHex.swift; sourceTree = "<group>"; };
 		4229ACA626C30817007E4642 /* HexToUIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToUIColor.swift; sourceTree = "<group>"; };
+		4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+HasNotch.swift"; sourceTree = "<group>"; };
 		425EF9FC2603FF1100A7232D /* Procrast [Programmatic].app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Procrast [Programmatic].app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		425EF9FF2603FF1100A7232D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		425EFA012603FF1100A7232D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 				4229ACA626C30817007E4642 /* HexToUIColor.swift */,
 				42E240B726D7162E008381F8 /* OnlyDate.swift */,
 				426D851A26F955B500193430 /* UILabel+LineSpacing.swift */,
+				4233424126FA2B3100E6899A /* UIDevice+HasNotch.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -344,6 +347,7 @@
 				42A7C10026F7675E00434675 /* NotificationPublisher.swift in Sources */,
 				425EFA34260514C400A7232D /* Constants.swift in Sources */,
 				4229ACA726C30817007E4642 /* HexToUIColor.swift in Sources */,
+				4233424226FA2B3100E6899A /* UIDevice+HasNotch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
