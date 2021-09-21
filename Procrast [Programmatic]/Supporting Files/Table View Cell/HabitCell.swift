@@ -21,6 +21,9 @@ class HabitCell: UITableViewCell {
     let habitCardView        = UIView()
     var radioButton          = PCHabitCellRadioButton()
     var radioButtonAction    : (() -> ())?
+    
+    // Haptic feedback
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
 
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -135,6 +138,8 @@ class HabitCell: UITableViewCell {
 
     
     @objc func onRadioViewTap(_ sender: PCHabitCellRadioButton) {
+        
+        generator.impactOccurred()
         
         self.radioSelectionStatus = habit!.isCompleted
         

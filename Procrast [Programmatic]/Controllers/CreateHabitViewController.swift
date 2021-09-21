@@ -19,6 +19,9 @@ class CreateHabitViewController: UIViewController {
     
     let notifications = NotificationPublisher()
     
+    // Haptic feedback
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
+    
     var randomColor: UIColor? = nil
     var randomColorInHex: String = ""
     
@@ -441,6 +444,8 @@ class CreateHabitViewController: UIViewController {
     
     // Save to Realm and dismiss modal
     @objc func saveHabitAndDismiss() {
+        
+        generator.impactOccurred()
         
         if ((habitNameLabel.text?.isEmpty) != true) {
             

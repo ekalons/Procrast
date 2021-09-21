@@ -27,6 +27,9 @@ class MainViewController: UIViewController {
     
     var tableView = UITableView()
     
+    // Haptic feedback
+    private let generator = UIImpactFeedbackGenerator(style: .medium)
+    
     
 //    lazy var yourFirstHabit: Bool = false     // Future feature
     
@@ -123,12 +126,16 @@ class MainViewController: UIViewController {
     // MARK: Present objc functions
     @objc func presentHabitCreatingVC() {
         
+        generator.impactOccurred()
+        
         let createHabitVC = CreateHabitViewController()
         createHabitVC.delegate = self
         self.present(createHabitVC, animated: true)
     }
 
     @objc func presentSettingsVC() {
+        
+        generator.impactOccurred()
         
         let settingsVC = SettingsViewController()
         self.present(settingsVC, animated: true)
