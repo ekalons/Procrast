@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Procrast [Programmatic].xcodeproj">
+      location = "group:/Users/ekaitz/Documents/Coding/Swift projects [Personal]/Procrast [Programmatic]/Procrast_Programmatic.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
