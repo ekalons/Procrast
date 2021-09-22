@@ -10,6 +10,7 @@
 
 import UIKit
 import SafariServices
+import StoreKit
 
 class SettingsViewController: UIViewController {
     
@@ -19,7 +20,7 @@ class SettingsViewController: UIViewController {
     // UI content
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [aboutCardView, contactCardView, privacyCardView, spacer])
+        let stackView = UIStackView(arrangedSubviews: [aboutCardView, contactCardView, privacyCardView, rateAppCardView, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -48,6 +49,10 @@ class SettingsViewController: UIViewController {
     // Privacy
     let privacyCardView = UIButton(type: .system)
     let privacyLabel    = UILabel()
+    
+    // Rate in app store
+    let rateAppCardView = UIButton(type: .system)
+    let rateAppLabel    = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +84,10 @@ class SettingsViewController: UIViewController {
         configurePrivacyCardView()
         configurePrivacyLabel()
         
+        // Rate app
+        configureRateAppCardView()
+        configureRateAppLabel()
+        
         
     }
     
@@ -104,6 +113,7 @@ class SettingsViewController: UIViewController {
         profileStackView.translatesAutoresizingMaskIntoConstraints = false
         
         profileImageContainer.translatesAutoresizingMaskIntoConstraints = false
+        
         profileImageContainer.addSubview(profileImageView)
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -122,9 +132,15 @@ class SettingsViewController: UIViewController {
         
         // Privacy card view
         privacyCardView.translatesAutoresizingMaskIntoConstraints = false
-        privacyCardView.addSubview(privacyLabel)
         
+        privacyCardView.addSubview(privacyLabel)
         privacyLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Rate app card view
+        rateAppCardView.translatesAutoresizingMaskIntoConstraints = false
+        
+        rateAppCardView.addSubview(rateAppLabel)
+        rateAppLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
         
@@ -182,8 +198,16 @@ class SettingsViewController: UIViewController {
             
             // Privacy label
             privacyLabel.centerYAnchor.constraint(equalTo: privacyCardView.centerYAnchor),
-            privacyLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor,constant: -2),
+            privacyLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor,constant: -1),
             privacyLabel.trailingAnchor.constraint(equalTo: privacyCardView.trailingAnchor, constant: -15),
+            
+            // Rate app card view
+            rateAppCardView.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Rate app label
+            rateAppLabel.centerYAnchor.constraint(equalTo: rateAppCardView.centerYAnchor),
+            rateAppLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor, constant: -2),
+            rateAppLabel.trailingAnchor.constraint(equalTo: rateAppCardView.trailingAnchor, constant: -15),
             
         
         ])
@@ -284,6 +308,32 @@ class SettingsViewController: UIViewController {
         present(safariVC, animated: true, completion: nil)
     }
     
+    func configureRateAppCardView() {
+        rateAppCardView.layer.cornerRadius = 15
+        rateAppCardView.backgroundColor = Colors.cardColor
+        
+        rateAppCardView.addTarget(self, action: #selector(onRateAppTap), for: .touchUpInside)
+    }
+    
+    func configureRateAppLabel() {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(systemName: "star")?.withTintColor(UIColor.white)
+
+        let imageString = NSMutableAttributedString(attachment: attachment)
+        let textString = NSAttributedString(string: "  Rate on App Store")
+        imageString.append(textString)
+
+        rateAppLabel.attributedText = imageString
+        rateAppLabel.sizeToFit()
+        rateAppLabel.textColor = .white
+        rateAppLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    }
+    
+    @objc func onRateAppTap() {
+        if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+            SKStoreReviewController.requestReview(in: scene)
+        }
+    }
     
     @objc func backToMainVC() {
         dismiss(animated: true)
