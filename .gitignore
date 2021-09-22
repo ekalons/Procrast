@@ -56,7 +56,7 @@ DerivedData/
 *.hmap
 Supporting Files/SceneDelegate.swift
 Supporting Files/PrivateConstants.swift
-Supporting Files/images/App icons
+
 
 ## App packaging
 *.ipa
