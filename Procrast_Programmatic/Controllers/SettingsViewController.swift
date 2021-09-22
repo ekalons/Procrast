@@ -9,6 +9,7 @@
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 import UIKit
+import SafariServices
 
 class SettingsViewController: UIViewController {
     
@@ -18,7 +19,7 @@ class SettingsViewController: UIViewController {
     // UI content
     lazy var contentStackView: UIStackView = {
         let spacer = UIView()
-        let stackView = UIStackView(arrangedSubviews: [aboutCardView, contactCardView, spacer])
+        let stackView = UIStackView(arrangedSubviews: [aboutCardView, contactCardView, privacyCardView, spacer])
         stackView.axis = .vertical
         stackView.spacing = 12.0
         return stackView
@@ -43,6 +44,10 @@ class SettingsViewController: UIViewController {
     // Contact
     let contactCardView = UIButton(type: .system)
     let contactLabel    = UILabel()
+    
+    // Privacy
+    let privacyCardView = UIButton(type: .system)
+    let privacyLabel    = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +74,10 @@ class SettingsViewController: UIViewController {
         // Contact
         configureContactCardView()
         configureContactLabel()
+        
+        // Privacy
+        configurePrivacyCardView()
+        configurePrivacyLabel()
         
         
     }
@@ -110,6 +119,13 @@ class SettingsViewController: UIViewController {
         
         contactCardView.addSubview(contactLabel)
         contactLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Privacy card view
+        privacyCardView.translatesAutoresizingMaskIntoConstraints = false
+        privacyCardView.addSubview(privacyLabel)
+        
+        privacyLabel.translatesAutoresizingMaskIntoConstraints = false
+        
         
         
         NSLayoutConstraint.activate([
@@ -160,6 +176,14 @@ class SettingsViewController: UIViewController {
             contactLabel.centerYAnchor.constraint(equalTo: contactCardView.centerYAnchor),
             contactLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor, constant: -3),
             contactLabel.trailingAnchor.constraint(equalTo: contactCardView.trailingAnchor, constant: -15),
+            
+            // Privacy card & label
+            privacyCardView.heightAnchor.constraint(equalToConstant: 60),
+            
+            // Privacy label
+            privacyLabel.centerYAnchor.constraint(equalTo: privacyCardView.centerYAnchor),
+            privacyLabel.leadingAnchor.constraint(equalTo: bodyLabel.leadingAnchor,constant: -2),
+            privacyLabel.trailingAnchor.constraint(equalTo: privacyCardView.trailingAnchor, constant: -15),
             
         
         ])
@@ -231,6 +255,35 @@ class SettingsViewController: UIViewController {
             UIApplication.shared.open(mailtoUrl, options: [:])
         }
     }
+    
+    func configurePrivacyCardView() {
+        privacyCardView.layer.cornerRadius = 15
+        privacyCardView.backgroundColor = Colors.cardColor
+        
+        privacyCardView.addTarget(self, action: #selector(onPrivacyTap), for: .touchUpInside)
+    }
+    
+    func configurePrivacyLabel() {
+        let attachment = NSTextAttachment()
+        attachment.image = UIImage(systemName: "hand.raised")?.withTintColor(UIColor.white)
+
+        let imageString = NSMutableAttributedString(attachment: attachment)
+        let textString = NSAttributedString(string: "  Privacy")
+        imageString.append(textString)
+
+        privacyLabel.attributedText = imageString
+        privacyLabel.sizeToFit()
+        privacyLabel.textColor = .white
+        privacyLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+    }
+    
+    @objc func onPrivacyTap() {
+        guard let url = URL(string: "https://www.termsfeed.com/live/14d614e0-2a89-41d8-a44b-5472700d5e73") else { return }
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true, completion: nil)
+    }
+    
     
     @objc func backToMainVC() {
         dismiss(animated: true)
