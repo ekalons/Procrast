@@ -747,7 +747,7 @@ class HabitDetailsViewController: UIViewController {
             
             func checkIfNewColor() {
                 if pickedColor?.toHexString() != habit?.color {
-                    habit?.color = (pickedColor?.toHexString())!
+                    habit?.color = streakLabel.textColor.toHexString()
                 }
             }
             
