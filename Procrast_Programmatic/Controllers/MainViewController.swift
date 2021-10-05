@@ -48,6 +48,9 @@ class MainViewController: UIViewController {
         loadData()
         configureUI()
         
+        // For when .NSCalendarDayChanged doesn't trigger [ie: When the app is closed]
+        dayChanged()
+        
         notifications.requestNotificationsPermission()
 
     }
@@ -151,33 +154,34 @@ class MainViewController: UIViewController {
     }
     
     @objc func dayChanged() {
+        print("Day change observer triggered")
         
         DispatchQueue.main.async {
             print("Current thread in \(#function) is \(Thread.current)")
             self.habits = self.realm.objects(Habit.self)
             
-            for habit in self.habits {
-                
-                // Resets Bool value in Realm & then buttons when the table view reloads
-                func resetIsCompleted() {
-                    if habit.streakList.last != Date().onlyDate {
-                        try! self.realm.write {
-                            habit.isCompleted = false
-                        }
+            // Resets Bool value in Realm & then buttons when the table view reloads
+            func resetHabitCompleteness(habit: Habit) {
+                if habit.streakList.last != Date().onlyDate {
+                    try! self.realm.write {
+                        habit.isCompleted = false
                     }
                 }
-                
+            }
+            
+            for habit in self.habits {
+                                
                 // Doesn't restart habits if weekend
                 if habit.avoidWeekends == true {
                     
                     // If weekday then...
                     if Calendar.current.isDateInWeekend(Date()) != true {
                         print("It is the weekend")
-                        resetIsCompleted()
+                        resetHabitCompleteness(habit: habit)
                     }
                 // Restarts habits on weekends
                 } else if habit.avoidWeekends != true {
-                    resetIsCompleted()
+                    resetHabitCompleteness(habit: habit)
                 }
                 
             }
